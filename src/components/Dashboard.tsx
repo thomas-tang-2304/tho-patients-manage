@@ -4,14 +4,13 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable prettier/prettier */
 
-
-import React from 'react'
+import Login from '../components/Login'
+// import React from 'react'
 import SideMenu from '@/components/SideMenu'
+import React, { useState } from 'react';
 
 export default function Dashboard() {
     const totalClass: string = `text-2xl bg- w-2/3 border-2 pt-2 px-3 text-orange-500 pb-4 pt-5`
-
-
 
     return (<div className={`h-[100vh]`}>
         <div>Side menu</div>
