@@ -8,6 +8,11 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --pagination-background: #064055;
+  --pagination-navigate-border-color: #808e9b;
+  --pagination-active-border-color: #ffb451;
+  --pagination-active-color: #fdd49e;
+  --pagination-color: #fff;
 }
 
 a {
@@ -29,6 +34,87 @@ a {
   }
 }
 
+.container {
+  padding: 0 2rem;
+}
 .h-inherit {
   height: inherit;
+}
+.input-icons span {
+  position: absolute;
+}
+
+.input-icons {
+  margin-bottom: 10px;
+}
+
+.icon {
+  padding: 10px;
+  color: green;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+h2 {
+  color: green;
+}
+
+.pagination > li {
+  align-items: center;
+  color: var(--pagination-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.pagination > li {
+  color: var(--pagination-color);
+}
+
+.pagination > li.selected {
+  border: solid 2px var(--pagination-active-border-color);
+  border-radius: 40px;
+  color: var(--pagination-active-color);
+}
+
+.next,
+.previous {
+  font-size: 18px;
+  height: 60px;
+  position: absolute;
+  width: 150px;
+}
+
+.next {
+  border-left: solid 1px var(--pagination-navigate-border-color);
+  right: 0;
+}
+
+.pagination {
+  align-items: center;
+  background-color: var(--pagination-background);
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: center;
+  list-style-type: none;
+  position: relative;
+}
+
+.pagination-page {
+  font-weight: 700;
+}
+
+.previous {
+  border-right: solid 1px var(--pagination-navigate-border-color);
+  left: 0;
 }
