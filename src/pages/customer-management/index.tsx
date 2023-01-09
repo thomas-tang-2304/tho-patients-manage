@@ -1,8 +1,6 @@
 /* eslint-disable prettier/prettier */
-import React from 'react'
+import React from 'react';
 
 export default function CustomerManagement() {
-  return (
-    <div>CustomerManagement</div>
-  )
+  return <div>CustomerManagement</div>;
 }
