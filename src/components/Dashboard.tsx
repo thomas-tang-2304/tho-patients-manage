@@ -6,9 +6,14 @@
 /* eslint-disable prettier/prettier */
 
 
+import Login from '../components/Login'
+import SideMenu from '@/components/SideMenu'
+
+
 import React, { useEffect, useState } from 'react'
 import SideMenu from '@/components/SideMenu'
 import axios from 'axios';
+
 
 export default function Dashboard() {
     const totalClass: string = `text-2xl bg- w-2/3 border-2 pt-2 px-3 text-orange-500 pb-4 pt-5`
