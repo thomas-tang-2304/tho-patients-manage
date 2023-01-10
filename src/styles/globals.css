@@ -74,10 +74,11 @@ h2 {
   height: 40px;
   justify-content: center;
   width: 40px;
+  color: var(--pagination-color);
 }
 
-.pagination > li {
-  color: var(--pagination-color);
+.pagination > li > a {
+  padding: 13px;
 }
 
 .pagination > li.selected {

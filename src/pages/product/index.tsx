@@ -1,21 +1,23 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
-import React from 'react';
-import Order from '@/components/Order/Order';
-import Head from 'next/head';
+/* eslint-disable @next/next/no-document-import-in-page */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable @next/next/no-title-in-document-head */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prettier/prettier */
+import Product from '@/components/Product/Product';
 import SideMenu from '@/components/SideMenu';
+import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
+import React from 'react';
 
-export default function Index() {
+export default function products() {
   const { asPath }: NextRouter = useRouter();
-
-
   return (
     <div className={`container  mx-auto`}>
-
       <Head>
-        <title>Order Management</title>
+        <title>Product Management</title>
         <meta
           name="description"
           content="TypeScript starter for Next.js that includes all you need to build amazing apps"
@@ -26,7 +28,7 @@ export default function Index() {
         <div>Side menu</div>
         <div className={`flex gap-6 w-[100%`}>
           <SideMenu currentPath={asPath} />
-          <Order />
+          <Product />
         </div>
       </div>
     </div>

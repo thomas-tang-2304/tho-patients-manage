@@ -49,11 +49,11 @@ export default function Dashboard() {
   return (
     <div className={`h-[100vh]`}>
       <div>Side menu</div>
-      <div className={`flex h-inherit gap-6`}>
+      <div className={`flex gap-6 w-[100%`}>
         <SideMenu />
         <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
           <div className={`ml-2 text-3xl w-fit pb-5 mb-5`}>
-            <p className={`font-bold`}>Sale statistic</p>
+            <h1 className={`font-bold`}>Sale statistic</h1>
           </div>
           <div className="grid grid-flow-col grid-rows-2 gap-4 py-3 ml-2">
             <span className={totalClass}>

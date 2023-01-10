@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
@@ -7,11 +8,10 @@
 import Order from '@/components/Order/Order';
 import React, { memo, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { useRouter } from 'next/router';
 
 // Example items, to simulate fetching from another resources.
 
-function PaginatedItems({ itemsPerPage, items, page, router }: any) {
+const PaginatedItems = function ({ itemsPerPage, items, page, router }: any) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
 
@@ -53,10 +53,9 @@ function PaginatedItems({ itemsPerPage, items, page, router }: any) {
         pageRangeDisplayed={5}
         pageCount={pageCount}
         previousLabel="<"
-        // renderOnZeroPageCount={null}
       />
     </>
   );
-}
+};
 
 export default PaginatedItems;
