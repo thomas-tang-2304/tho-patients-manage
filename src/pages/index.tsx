@@ -7,7 +7,7 @@ import Dashboard from '../components/Dashboard';
 
 export default function Home() {
   return (
-    <div className={`container`}>
+    <div className={`container mx-auto`}>
       <Head>
         <title>Dashboard</title>
         <meta

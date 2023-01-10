@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/jsx-key */
 /* eslint-disable prettier/prettier */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -14,6 +17,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { RawOrder } from '@/components/Order/OrderInterface';
+import { RawProduct } from '@/components/Product/ProductInterface';
 
 export default function BasicTable({
   rows,
@@ -72,18 +76,24 @@ export default function BasicTable({
               ))
             )
           ) : (
-            rows.map((row: RawOrder) => (
+            rows.map((row: any, key: number) => (
               <TableRow
-                key={row.code}
+                key={key}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.code}
-                </TableCell>
-                <TableCell align="right">{row.full_name}</TableCell>
-                <TableCell align="right">{row.total}</TableCell>
-                <TableCell align="right">{row.create_date}</TableCell>
-                <TableCell align="right">{row.status}</TableCell>
+                {row.map((r: any, i: number) =>
+                  i == 0 ? (
+                    <TableCell component="th" scope="row" key={i}>
+                      {r.type == 'text' ? (
+                        r.content
+                      ) : (
+                        <img className="w-32" src={r.content} />
+                      )}
+                    </TableCell>
+                  ) : (
+                    <TableCell align="right"> {r}</TableCell>
+                  ),
+                )}
               </TableRow>
             ))
           )}
