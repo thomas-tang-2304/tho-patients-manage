@@ -6,10 +6,12 @@
 /* eslint-disable prettier/prettier */
 
 import SideMenu from '@/components/SideMenu';
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import Router from 'next/router';
 
+const cookies = new Cookies();
 export default function Dashboard() {
   const totalClass: string = `text-2xl bg- w-2/3 border-2 pt-2 px-3 text-orange-500 pb-4 pt-5`;
   const [statistic, setStatistic] = useState({
@@ -42,6 +44,10 @@ export default function Dashboard() {
           });
         });
     };
+
+    if (!cookies.get('account_token')){
+      Router.push('/login');
+    }
 
     getStatistic();
   }, []);
