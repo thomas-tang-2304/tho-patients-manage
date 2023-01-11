@@ -45,7 +45,7 @@ export default function Dashboard() {
         });
     };
 
-    if (!cookies.get('account_token')){
+    if (!cookies.get('account_token')) {
       Router.push('/login');
     }
 

@@ -24,6 +24,7 @@ export default function BasicTable({
   headers,
   itemsPerPage,
   callApiPending,
+  component
 }: any) {
   let array: Array<number> = [];
 
@@ -66,7 +67,7 @@ export default function BasicTable({
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    ...
+                    {component == 'product' ? <img className="w-32" src="../images/holder.jpg" /> : "..."}
                   </TableCell>
                   <TableCell align="right">...</TableCell>
                   <TableCell align="right">...</TableCell>
@@ -84,7 +85,7 @@ export default function BasicTable({
                 {row.map((r: any, i: number) =>
                   i == 0 ? (
                     <TableCell component="th" scope="row" key={i}>
-                      {r.type == 'text' ? (
+                      {component == 'order' ? (
                         r.content
                       ) : (
                         <img className="w-32" src={r.content} />
