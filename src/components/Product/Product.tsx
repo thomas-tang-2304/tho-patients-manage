@@ -69,7 +69,7 @@ export default function Product() {
       price,
       create_date,
       status,
-      <div className="flex gap-3 text-2xl">
+      <div className="flex float-right gap-3 text-2xl">
         <AiFillEdit className="text-green-600" />
         <AiFillDelete className="text-red-600" />
       </div>,
@@ -181,7 +181,7 @@ export default function Product() {
   return (
     <>
       <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
-        <div className={`ml-2 text-3xl w-fit  `}>
+        <div className={`ml-2 text-3xl w-fit`}>
           <h1 className={`font-bold`}>Product Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">

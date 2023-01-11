@@ -8,6 +8,7 @@
 import Order from '@/components/Order/Order';
 import React, { memo, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 
 // Example items, to simulate fetching from another resources.
 
@@ -50,11 +51,11 @@ const PaginatedItems = function ({ itemsPerPage, items, router, currentPath }: a
         initialPage={router.query.page - 1  <= 0 ? 0 : router.query.page - 1}
         className={`pagination`}
         breakLabel="..."
-        nextLabel=">"
+        nextLabel={<FaChevronRight/>}
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
-        previousLabel="<"
+        previousLabel={<FaChevronLeft />}
       />
 
     </>
