@@ -1,15 +1,16 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable prettier/prettier */
+
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import styles from '../styles/Login.module.css';
 import Button from '@mui/material/Button';
 
-import Cookies  from 'universal-cookie';
+import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 const cookies = new Cookies();
-const hashPass = require('md5')
+import hashPass from 'md5';
 
 export default function Login() {
   const [token, setToken]: any = useState();
@@ -21,6 +22,7 @@ export default function Login() {
   const inputUserName = useRef<any>();
   const inputPass = useRef<any>();
   const router = useRouter();
+
 
   const changeUser = (e: any) => {
     setUserName(e.target.value);
@@ -41,26 +43,28 @@ export default function Login() {
     );
     setIsDisabled(
         inputUserName.current.value == '' || inputPass.current.value == '',
+
     );
-        
-};
+  };
 
   const loginClick = async () => {
+
     await axios
       .post(
 
+
         'https://dev-api.digiex.asia/calobye-be-dev/api/auth/login',
         {
-            login_id: userName,
-            password_hash: passWord,
-            user_role: 'SYSTEM_ADMIN',
-            keep_login: true,
+          login_id: userName,
+          password_hash: passWord,
+          user_role: 'SYSTEM_ADMIN',
+          keep_login: true,
         },
         {
-            headers: {
-                accept: '*/*',
-                'Content-Type': 'application/json',
-            },
+          headers: {
+            accept: '*/*',
+            'Content-Type': 'application/json',
+          },
         },
 
         )
@@ -82,6 +86,7 @@ export default function Login() {
         };
     
     return (
+
     <>
       <div className={`${styles.login} text-black`}>
         <div className={`${styles.title}`}>CALOBYE</div>

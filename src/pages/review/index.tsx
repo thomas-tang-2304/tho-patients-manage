@@ -1,19 +1,18 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
+import SideMenu from '@/components/SideMenu';
 import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
-import Review from '@/components/Product/Review';
-import SideMenu from '@/components/SideMenu';
 
-export default function Index() {
+export default function Review() {
   const { asPath }: NextRouter = useRouter();
   return (
     <div className={`container  mx-auto`}>
       <Head>
-        <title>Product Management</title>
+        <title>Review</title>
         <meta
           name="description"
-          content="TypeScript starter for Next.js that includes all you need to build amazing apps"
+          content="Products"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -22,6 +21,7 @@ export default function Index() {
           <SideMenu currentPath={asPath}/>
           <Review />
         </div>
+
       </div>
     </div>
   );
