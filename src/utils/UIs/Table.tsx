@@ -86,7 +86,10 @@ export default function BasicTable({
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <StyledTableCell component="th" scope="row" >
-                    {component == 'product' ? <img className="w-32" src="../images/holder.jpg" /> : <p className={`font-bold`}>...</p>}
+                    {component == 'order' || component == 'review'
+                      ? <p className={`font-bold`}>...</p>
+                      : <img className="w-32" src="../images/holder.jpg" />
+                    }
                   </StyledTableCell>
                   <StyledTableCell align="right">...</StyledTableCell>
                   <StyledTableCell align="right">...</StyledTableCell>
@@ -105,7 +108,7 @@ export default function BasicTable({
                   i == 0 ? (
 
                     <StyledTableCell component="th" scope="row" key={i}>
-                      {component == 'order' ? (
+                      {component == 'order' || component == 'review' ? (
                         <p className={`font-bold`}>{r.content}</p>
                       ) : (
                         <img className="w-32" src={r.content} />

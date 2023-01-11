@@ -3,8 +3,9 @@ import React from 'react';
 import SideMenu from '@/components/SideMenu';
 import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
+import Review from '@/components/Product/Review';
 
-export default function Review() {
+export default function review() {
   const { asPath }: NextRouter = useRouter();
   return (
     <div className={`container  mx-auto`}>
@@ -18,7 +19,7 @@ export default function Review() {
       </Head>
       <div className={`h-[100vh]`}>
         <div className={`flex gap-6 w-[100%`}>
-          <SideMenu currentPath={asPath}/>
+          <SideMenu currentPath={asPath} />
           <Review />
         </div>
 
