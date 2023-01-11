@@ -9,7 +9,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/SideMenu.module.css';
 import { NextRouter, useRouter } from 'next/router';
+import {FiLogOut} from 'react-icons/fi';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 interface SideList {
   content: string,
   href: string,
@@ -74,14 +77,11 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
         className: "py-2 cursor-pointer"
       },
     ].map((li: SideList) => li.href === (currentPath ?? "/") ? { ...li, className: "py-2 text-red-600 cursor-pointer" } : li));
-
-
-
   }, [])
 
   return (
-    <div className={`w-1/4 border-gray-200 border-2 `}>
-      <div className={`p-4 `}>
+    <div className={`w-1/4 border-gray-200 border-2  flex flex-col justify-between`}>
+      <div className={`p-4`}>
         <div className={`${styles.logo} ml-2 w-fit `}>
           <h1 className={`py-5 px-[50px] shadow-md`}>Logo Calobye</h1>
         </div>
@@ -94,6 +94,13 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
           )}
 
         </ul>
+      </div>
+      <div onClick={() => {
+        cookies.remove('account_token')
+        router.push('./login')
+      }} className={`${styles.logout}`}>
+        <p>Logout</p>
+        <FiLogOut className={`${styles.icon} mt-1.5`}/>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import ReactPaginate from 'react-paginate';
 
 // Example items, to simulate fetching from another resources.
 
-const PaginatedItems = function ({ itemsPerPage, items, page, router }: any) {
+const PaginatedItems = function ({ itemsPerPage, items, page, router, currentPath }: any) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
 
@@ -30,7 +30,7 @@ const PaginatedItems = function ({ itemsPerPage, items, page, router }: any) {
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % items;
     router.push({
-      pathname: '/order',
+      pathname: currentPath,
       query: {
         page: event.selected + 1,
         filter_by: router?.query.filter_by,

@@ -84,9 +84,10 @@ export default function BasicTable({
                 {row.map((r: any, i: number) =>
                   i == 0 ? (
                     <TableCell component="th" scope="row" key={i}>
-                      {r.type == 'text' ? (
+                      {r.type == 'text' || r.type == 'rating' ? (
                         r.content
-                      ) : (
+                      ) 
+                      : (
                         <img className="w-32" src={r.content} />
                       )}
                     </TableCell>
