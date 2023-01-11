@@ -195,7 +195,7 @@ export default function Order() {
   return (
     <>
       <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
-        <div className={`ml-2 text-3xl w-fit  `}>
+        <div className={`ml-2 text-3xl w-fit`}>
           <h1 className={`font-bold`}>Order Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">

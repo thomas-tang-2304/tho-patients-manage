@@ -16,66 +16,71 @@ interface SideList {
   className: string;
 }
 
-const linkClassName = 'py-2 cursor-pointer';
+const linkClassName = 'py-2 cursor-pointer px-4';
+const activeLinkClassName = `${linkClassName} font-bold text-2xl text-white bg-[var(--primary-color)] px-4 rounded`
 
 export default function SideMenu({ currentPath }: { currentPath: string }) {
   const router: NextRouter = useRouter();
 
-  const [list, setList]: [SideList[] | undefined, Dispatch<SetStateAction<SideList[] | undefined>>] = useState();
+  const [list, setList]: [SideList[] | undefined, Dispatch<SetStateAction<SideList[] | undefined>>] = useState([
+    {
+      content: 'Dashboard',
+      href: '/',
+      className: linkClassName,
+    },
+    {
+      content: 'Order',
+      href: '/order',
+      className: linkClassName,
+    },
+    {
+      content: 'Product',
+      href: '/product',
+      className: linkClassName,
+    },
+    {
+      content: 'Review',
+      href: '/review',
+      className: linkClassName,
+    },
+    {
+      content: 'Category',
+      href: '/category',
+      className: linkClassName,
+    },
+    {
+      content: 'Content',
+      href: '/content',
+      className: linkClassName,
+    },
+    {
+      content: 'Admin management',
+      href: '/admin-management',
+      className: linkClassName,
+    },
+    {
+      content: 'Customer management',
+      href: '/customer-management',
+      className: linkClassName,
+    },
+    {
+      content: 'Settings',
+      href: '/settings',
+      className: linkClassName,
+    },
+  ].map((li: SideList) =>
+    li.href === (currentPath ?? '/')
+      ? { ...li, className: activeLinkClassName }
+      : li,
+  ));
 
   useEffect(() => {
-    setList(
-      [
-        {
-          content: 'Dashboard',
-          href: '/',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Order',
-          href: '/order',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Product',
-          href: '/product',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Review',
-          href: '/review',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Category',
-          href: '/category',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Content',
-          href: '/content',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Admin management',
-          href: '/admin-management',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Customer management',
-          href: '/customer-management',
-          className: 'py-2 cursor-pointer',
-        },
-        {
-          content: 'Settings',
-          href: '/settings',
-          className: 'py-2 cursor-pointer',
-        },
-      ].map((li: SideList) =>
-        li.href === (currentPath ?? '/')
-          ? { ...li, className: 'py-2 text-red-600 cursor-pointer' }
-          : li,
-      ),
+
+    setList((prev: SetStateAction<SideList[] | undefined>) => prev?.map((li: SideList) =>
+      li.href === (currentPath ?? '/')
+        ? { ...li, className: activeLinkClassName}
+        : li,
+    ),
     );
   }, []);
 

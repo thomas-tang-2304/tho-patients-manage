@@ -5,6 +5,12 @@ module.exports = {
     options: {
       safelist: [],
     },
+    theme: {
+      colors: {
+        'primary-background-color': '#064055',
+        'primary-color': '#ffb451',
+      },
+    },
   },
 
   darkMode: `class`,
