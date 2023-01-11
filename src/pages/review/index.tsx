@@ -17,7 +17,11 @@ export default function Review() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`h-[100vh]`}>
-        <SideMenu currentPath={asPath} />
+        <div className={`flex gap-6 w-[100%`}>
+          <SideMenu currentPath={asPath}/>
+          <Review />
+        </div>
+
       </div>
     </div>
   );

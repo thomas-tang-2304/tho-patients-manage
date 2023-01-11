@@ -103,6 +103,7 @@ export default function BasicTable({
               >
                 {row.map((r: any, i: number) =>
                   i == 0 ? (
+
                     <StyledTableCell component="th" scope="row" key={i}>
                       {component == 'order' ? (
                         <p className={`font-bold`}>{r.content}</p>

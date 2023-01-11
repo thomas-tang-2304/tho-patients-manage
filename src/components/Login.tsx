@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import styles from '../styles/Login.module.css';
 import Button from '@mui/material/Button';
+
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -22,22 +23,36 @@ export default function Login() {
   const inputPass = useRef<any>();
   const router = useRouter();
 
+
+  const changeUser = (e: any) => {
+    setUserName(e.target.value);
+
+    setIsDisabled(
+      inputUserName?.current?.value == '' || inputPass?.current?.value == '',
+    );
+  };
+
+  
   const valueUser = () => {
     setUserName(
-      inputUserName.current.value,
+     inputUserName.current.value
     );
     setPassWord(
-
-      hashPass(inputPass.current.value),
+   
+         hashPass(inputPass.current.value)
     );
     setIsDisabled(
-      inputUserName.current.value == '' || inputPass.current.value == '',
+        inputUserName.current.value == '' || inputPass.current.value == '',
+
     );
   };
 
   const loginClick = async () => {
-    const response: any = await axios
+
+    await axios
       .post(
+
+
         'https://dev-api.digiex.asia/calobye-be-dev/api/auth/login',
         {
           login_id: userName,
@@ -51,25 +66,27 @@ export default function Login() {
             'Content-Type': 'application/json',
           },
         },
-      )
-      .then((res: any) => {
-        const result = res?.data?.status;
-        setToken(result == 200 ? 'Oke' : 'Incorrect password or account');
-        result == 200 ? router.push('/') : null;
 
-        cookies.set('account_token', res.data.data.id, {
-          secure: process.env.NODE_ENV !== 'development',
-          maxAge: res.data.data.expiry_date,
-          sameSite: 'strict',
-          path: '/',
-        });
+        )
+        .then((res: any) => {
+            const result = res?.data?.status;
+            setToken(result == 200 ? 'Oke' : 'Incorrect password or account');
+            result == 200 ? router.push('/') : null;
+      
+            cookies.set('account_token', res.data.data.id, {
+              secure: process.env.NODE_ENV !== 'development',
+              maxAge: res.data.data.expiry_date,
+              sameSite: 'strict',
+              path: '/'
+            });
 
-        setCookie(cookies.get('account_token'));
-      })
-      .catch((error: any) => error);
-  };
+            setCookie(cookies.get('account_token'))
 
-  return (
+          }).catch((error: any) => error);
+        };
+    
+    return (
+
     <>
       <div className={`${styles.login} text-black`}>
         <div className={`${styles.title}`}>CALOBYE</div>

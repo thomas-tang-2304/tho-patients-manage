@@ -12,7 +12,7 @@ import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 
 // Example items, to simulate fetching from another resources.
 
-const PaginatedItems = function ({ itemsPerPage, items, router, currentPath }: any) {
+const PaginatedItems = function ({ itemsPerPage, items, page, router, currentPath }: any) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
 

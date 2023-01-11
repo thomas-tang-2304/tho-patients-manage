@@ -1,3 +1,19 @@
-.logo {
-  background-color: rgb(236, 238, 237);
+.logo {background-color: rgb(236, 238, 237);}
+.logout{
+  width: 334px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 5px;  
+  color: #6C00FF;
+  position: fixed;
+  bottom: 0;
+  cursor: pointer;
+  margin: 10px;
+  border: 1px solid #6C00FF;
 }
+.logout > p {float: left; margin-right: 5px;}
+.icon{color: #6C00FF;}
+.logout:hover{border: 3px solid #6c00ff;}
