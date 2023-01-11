@@ -6,18 +6,19 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/quotes */
 import Order from '@/components/Order/Order';
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
 // Example items, to simulate fetching from another resources.
 
-const PaginatedItems = function ({ itemsPerPage, items, page, router }: any) {
+const PaginatedItems = function ({ itemsPerPage, items, router, currentPath }: any) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
 
   const [itemOffset, setItemOffset]: any = useState(
-    (page * itemsPerPage) % items,
+    (router.query.page * itemsPerPage) % items,
   );
+
 
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
@@ -30,7 +31,7 @@ const PaginatedItems = function ({ itemsPerPage, items, page, router }: any) {
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % items;
     router.push({
-      pathname: '/order',
+      pathname: currentPath,
       query: {
         page: event.selected + 1,
         filter_by: router?.query.filter_by,
@@ -46,6 +47,7 @@ const PaginatedItems = function ({ itemsPerPage, items, page, router }: any) {
   return (
     <>
       <ReactPaginate
+        initialPage={router.query.page - 1  <= 0 ? 0 : router.query.page - 1}
         className={`pagination`}
         breakLabel="..."
         nextLabel=">"
@@ -54,6 +56,7 @@ const PaginatedItems = function ({ itemsPerPage, items, page, router }: any) {
         pageCount={pageCount}
         previousLabel="<"
       />
+
     </>
   );
 };
