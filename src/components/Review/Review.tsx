@@ -43,7 +43,6 @@ export default function Review() {
     'Product',
     'Fullname',
     'Review date',
-    'Status',
     'Action',
   ];
 
@@ -53,7 +52,6 @@ export default function Review() {
     product: string,
     fullname: string,
     reviewdate: ReactNode,
-    status: string,
   ) {
     return [
       {
@@ -65,7 +63,6 @@ export default function Review() {
       product,
       fullname,
       reviewdate,
-      status,
       <ViewIcon />,
     ];
   }
@@ -98,7 +95,6 @@ export default function Review() {
               item.content,
               item.first_name,
               item.created_date,
-              item.status,
             ),
           ),
         );

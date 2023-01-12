@@ -45,9 +45,9 @@ export default function BasicTable({
   callApiPending,
   component,
 }: any) {
-  const [array, setArray] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-  const [items, setNewItems] = useState([]);
-  const [sortLabel, setSortLabel] = useState({ label: '', state: 0 });
+  const [array, setArray]: any = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [items, setNewItems]: any = useState([]);
+  const [sortLabel, setSortLabel]: any = useState({ label: '', state: 0 });
 
   const statusData: any = {
     "ACTIVE": "blue",
@@ -63,9 +63,7 @@ export default function BasicTable({
   }
 
 
-  useLayoutEffect(() => {
-    setNewItems([...rows]);
-  }, [rows]);
+  useLayoutEffect(() => setNewItems(rows), [rows]);
 
   const handleSortLabel = (prev: any, e: Event | any) =>
     prev.label == e.target.textContent
@@ -108,7 +106,7 @@ export default function BasicTable({
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <StyledTableRow>
-            {headers.map((header: string[], i: number) =>
+            {headers.map((header: string, i: number) =>
               i == 0 ? (
                 <>
                   <StyledTableCell
@@ -172,7 +170,7 @@ export default function BasicTable({
                 No Record
               </StyledTableCell>
             ) : (
-              array.map((arr, i) => (
+              array.map((arr: number[], i: number) => (
                 <TableRow
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
