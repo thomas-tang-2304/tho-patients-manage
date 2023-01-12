@@ -101,21 +101,21 @@ export default function BasicTable({
           ) : (
             rows.map((row: any, key: number) => (
               <TableRow
-                key={key}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              key={key}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 {row.map((r: any, i: number) =>
                   i == 0 ? (
-
-                    <StyledTableCell component="th" scope="row" key={i}>
-                      {component == 'order' || component == 'review' ? (
+                    <TableCell component="th" scope="row" key={i}>
+                      { component != 'product' ? 
+                       (
                         <p className={`font-bold`}>{r.content}</p>
-                      ) : (
-                        <img className="w-32" src={r.content} />
-                      )}
-                    </StyledTableCell>
+                        ) 
+                        : (<img className="w-32" src={r.content} />)}
+                    </TableCell>
                   ) : (
-                    <StyledTableCell align="right"> {r}</StyledTableCell>
+                    
+                    <TableCell align="right" className={`text-${statusData[r]}-600`}>{r}</TableCell>
                   ),
                 )}
               </TableRow>

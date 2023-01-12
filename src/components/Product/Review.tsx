@@ -36,11 +36,11 @@ export default function Review() {
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-  const [checkRegex, setCheckRegex] = useState();
+  const [checkRegex, setCheckRegex] = useState("");
 
 
   
-
+  console.log(re.test(checkRegex))
   const offsets = {
     size: 10,
   };
@@ -106,13 +106,13 @@ export default function Review() {
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
           data?.data?.data?.content?.map((item: any) =>
-          createData(
-            item.rating,
-            item.title,
-            item.content,
-            item.first_name,
-            item.created_date,
-            item.status,
+            createData(
+              item.rating,
+              item.title,
+              item.content,
+              item.first_name,
+              item.created_date,
+              item.status,
             ),
           ),
         );
