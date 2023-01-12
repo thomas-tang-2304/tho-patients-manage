@@ -3,7 +3,7 @@ import React from 'react';
 import SideMenu from '@/components/SideMenu';
 import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
-import Review from '@/components/Product/Review';
+import Review from '@/components/Review/Review';
 
 export default function review() {
   const { asPath }: NextRouter = useRouter();
@@ -11,10 +11,7 @@ export default function review() {
     <div className={`container  mx-auto`}>
       <Head>
         <title>Review</title>
-        <meta
-          name="description"
-          content="Products"
-        />
+        <meta name="description" content="Products" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`h-[100vh]`}>
@@ -22,7 +19,6 @@ export default function review() {
           <SideMenu currentPath={asPath} />
           <Review />
         </div>
-
       </div>
     </div>
   );

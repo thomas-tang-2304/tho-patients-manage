@@ -1,0 +1,5 @@
+{
+    "ACTIVE": "green",
+    "INACTIVE": "red",
+    "PENDING": "yellow"
+}

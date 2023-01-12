@@ -10,10 +10,7 @@ export default function AdminManagement() {
     <div className={`container  mx-auto`}>
       <Head>
         <title>Admin Management</title>
-        <meta
-          name="description"
-          content="Products"
-        />
+        <meta name="description" content="Products" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`h-[100vh]`}>
