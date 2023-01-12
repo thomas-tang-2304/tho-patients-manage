@@ -38,7 +38,6 @@ export default function Review() {
   const [productsLength, setProductsLength] = useState(0);
   const [checkRegex, setCheckRegex] = useState("");
 
-  const re = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
 
   
   console.log(re.test(checkRegex))
@@ -153,7 +152,7 @@ export default function Review() {
 
     const value = e.target.value;
     router.push({
-      pathname: '/order',
+      pathname: '/review',
       query: {
         page: 1,
         filter_by: value,
@@ -230,6 +229,7 @@ export default function Review() {
             rows={instance}
             headers={tableHeader}
             callApiPending={callApiPending}
+            component={'review'}
           />
         </div>
 

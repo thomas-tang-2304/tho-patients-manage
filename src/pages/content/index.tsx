@@ -11,16 +11,22 @@ import SideMenu from '@/components/SideMenu';
 import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
+import SideMenu from '@/components/SideMenu';
+import Head from 'next/head';
+import { NextRouter, useRouter } from 'next/router';
+
 
 export default function Index() {
+
   const { asPath }: NextRouter = useRouter();
   return (
     <div className={`container  mx-auto`}>
       <Head>
-        <title>Product Management</title>
+
+        <title>Content</title>
         <meta
           name="description"
-          content="TypeScript starter for Next.js that includes all you need to build amazing apps"
+          content="Products"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

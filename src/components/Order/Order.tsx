@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+
+import React, { MutableRefObject, ReactNode, useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
-import { useRouter } from 'next/router';
+import { useRouter, NextRouter } from 'next/router';
+
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 export default function Order() {
   // curl - X 'GET' \
@@ -18,11 +21,12 @@ export default function Order() {
   // -H 'accept: */*' \
   // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
 
-  const filterByStatus: any = useRef();
-  const router: any = useRouter();
+  const filterByStatus: MutableRefObject<string | undefined | any> = useRef();
+  const router: NextRouter = useRouter();
+  const OrderCodeInput: MutableRefObject<string | undefined | any> = useRef()
 
-  const token = '02d0a36b3dc4436d9cda4d072382c73f';
-
+  const [token, setToken] = useState(cookies.get('account_token'));
+  const [pageNumber, setPageNumber]: any = useState(router.query.page)
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [orderLength, setOrderLength] = useState(0);
@@ -59,7 +63,8 @@ export default function Order() {
     ];
   }
 
-  async function fetchMyAPI(p: number, filter_status: string) {
+  async function fetchMyAPI(p: number | string | string[], filter_status: string | string | string[]) {
+    setInstance([]);
     setCallApiPending(true);
 
     return await axios
@@ -76,8 +81,9 @@ export default function Order() {
         },
       })
       .then((data: any) => {
-        setCallApiPending(false);
+        setPageNumber(p);
         setOrderLength(data?.data?.data?.total_elements);
+
         setInstance(
           data?.data?.data?.content?.map((item: any) =>
             createData(
@@ -91,13 +97,18 @@ export default function Order() {
         );
       })
       .catch((err) => {
-        setCallApiPending(false);
+        setOrderLength(0);
+        setInstance([]);
         console.log(err);
-      });
+      }).finally(() => {
+
+        setCallApiPending(false);
+
+      });;
   }
 
-  useEffect(() => {
-    setInstance([]);
+  const getOrderRows = () => {
+
     if (router.query.page) {
       if (router.query.filter_by) {
         filterByStatus.current.value = router.query.filter_by;
@@ -115,9 +126,14 @@ export default function Order() {
         fetchMyAPI(1, 'ALL');
       }
     }
-  }, [router.query.page, router.query.filter_by, orderLength]);
+  }
 
-  const filterByValue = (e: any = 'PAID') => {
+  useLayoutEffect(() => {
+    setInstance([]);
+    getOrderRows();
+  }, [router.query.page, router.query.filter_by]);
+
+  const filterByValue = (e: any) => {
     setInstance([]);
 
     const value = e.target.value;
@@ -132,21 +148,66 @@ export default function Order() {
     fetchMyAPI(1, value);
   };
 
+  const filterByOrderCode = () => {
+    setCallApiPending(true);
+
+
+    const call = async () => {
+      return await axios.get(`https://dev-api.digiex.asia/calobye-be-dev/api/orders/${OrderCodeInput.current.value}`, {
+        headers: {
+          'accept': '*/*',
+          'Auth-Token': token
+        }
+      })
+        .then((res: any) => {
+          const { data } = res
+          setOrderLength(1);
+          setInstance(
+            [
+              createData(
+                data.data.order_code,
+                `${data.data.customer.first_name} ${data.data.customer.last_name}`,
+                data.data.total_price,
+                data.data.created_date,
+                data.data.status
+              )
+            ]
+          );
+
+        })
+        .catch((err) => {
+          setOrderLength(0);
+          setInstance([]);
+          console.log(err);
+        }).finally(() => {
+          setCallApiPending(false);
+
+        });
+    }
+
+    if (OrderCodeInput.current.value != "") call();
+
+    else {
+      getOrderRows();
+    }
+  }
+
   return (
     <>
       <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
-        <div className={`ml-2 text-3xl w-fit  `}>
+        <div className={`ml-2 text-3xl w-fit`}>
           <h1 className={`font-bold`}>Order Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
-            <span className="icon">
+            <span onClick={filterByOrderCode} className="text-2xl cursor-pointer icon hover:text-teal-600">
               <BsSearch />
             </span>
             <input
               className="input-field"
               type="text"
               placeholder="Search order code"
+              ref={OrderCodeInput}
             />
           </div>
           <div className="">
@@ -203,12 +264,12 @@ export default function Order() {
         </div>
 
         <div className={`paginator-container`}>
-          <PaginatedItems
+          {pageNumber && <PaginatedItems
             itemsPerPage={offsets.size}
             items={orderLength}
-            page={router.query.page}
             router={router}
-          />
+            currentPath={'/order'}
+          />}
         </div>
       </div>
     </>
