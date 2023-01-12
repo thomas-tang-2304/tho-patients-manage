@@ -2,8 +2,13 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable prettier/prettier */
 
-
-import React, { MutableRefObject, ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  MutableRefObject,
+  ReactNode,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { BsSearch } from 'react-icons/bs';
 
 import BasicTable from '@/utils/UIs/Table';
@@ -11,9 +16,10 @@ import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter, NextRouter } from 'next/router';
 
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
+import ViewIcon from '@/utils/UIs/ViewIcon';
 
-const cookies = new Cookies()
+const cookies = new Cookies();
 
 export default function Order() {
   // curl - X 'GET' \
@@ -23,10 +29,10 @@ export default function Order() {
 
   const filterByStatus: MutableRefObject<string | undefined | any> = useRef();
   const router: NextRouter = useRouter();
-  const OrderCodeInput: MutableRefObject<string | undefined | any> = useRef()
+  const OrderCodeInput: MutableRefObject<string | undefined | any> = useRef();
 
   const [token, setToken] = useState(cookies.get('account_token'));
-  const [pageNumber, setPageNumber]: any = useState(router.query.page)
+  const [pageNumber, setPageNumber]: any = useState(router.query.page);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [orderLength, setOrderLength] = useState(0);
@@ -41,6 +47,7 @@ export default function Order() {
     'Total',
     'Create date',
     'Status',
+    'Action',
   ];
 
   function createData(
@@ -60,10 +67,14 @@ export default function Order() {
       total,
       create_date,
       status,
+      <ViewIcon key={1} />,
     ];
   }
 
-  async function fetchMyAPI(p: number | string | string[], filter_status: string | string | string[]) {
+  async function fetchMyAPI(
+    p: number | string | string[],
+    filter_status: string | string | string[],
+  ) {
     setInstance([]);
     setCallApiPending(true);
 
@@ -88,7 +99,7 @@ export default function Order() {
           data?.data?.data?.content?.map((item: any) =>
             createData(
               item.order_code,
-              `${item.first_name} ${item.last_name ?? ''}`,
+              `${item.first_name ?? ''} ${item.last_name ?? ''}`,
               item.total_price,
               item.created_date,
               item.order_status,
@@ -100,15 +111,13 @@ export default function Order() {
         setOrderLength(0);
         setInstance([]);
         console.log(err);
-      }).finally(() => {
-
+      })
+      .finally(() => {
         setCallApiPending(false);
-
-      });;
+      });
   }
 
   const getOrderRows = () => {
-
     if (router.query.page) {
       if (router.query.filter_by) {
         filterByStatus.current.value = router.query.filter_by;
@@ -126,7 +135,7 @@ export default function Order() {
         fetchMyAPI(1, 'ALL');
       }
     }
-  }
+  };
 
   useLayoutEffect(() => {
     setInstance([]);
@@ -151,46 +160,45 @@ export default function Order() {
   const filterByOrderCode = () => {
     setCallApiPending(true);
 
-
     const call = async () => {
-      return await axios.get(`https://dev-api.digiex.asia/calobye-be-dev/api/orders/${OrderCodeInput.current.value}`, {
-        headers: {
-          'accept': '*/*',
-          'Auth-Token': token
-        }
-      })
+      return await axios
+        .get(
+          `https://dev-api.digiex.asia/calobye-be-dev/api/orders/${OrderCodeInput.current.value}`,
+          {
+            headers: {
+              accept: '*/*',
+              'Auth-Token': token,
+            },
+          },
+        )
         .then((res: any) => {
-          const { data } = res
+          const { data } = res;
           setOrderLength(1);
-          setInstance(
-            [
-              createData(
-                data.data.order_code,
-                `${data.data.customer.first_name} ${data.data.customer.last_name}`,
-                data.data.total_price,
-                data.data.created_date,
-                data.data.status
-              )
-            ]
-          );
-
+          setInstance([
+            createData(
+              data.data.order_code,
+              `${data.data.customer.first_name} ${data.data.customer.last_name}`,
+              data.data.total_price,
+              data.data.created_date,
+              data.data.status,
+            ),
+          ]);
         })
         .catch((err) => {
           setOrderLength(0);
           setInstance([]);
           console.log(err);
-        }).finally(() => {
+        })
+        .finally(() => {
           setCallApiPending(false);
-
         });
-    }
+    };
 
-    if (OrderCodeInput.current.value != "") call();
-
+    if (OrderCodeInput.current.value != '') call();
     else {
       getOrderRows();
     }
-  }
+  };
 
   return (
     <>
@@ -200,7 +208,10 @@ export default function Order() {
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
-            <span onClick={filterByOrderCode} className="text-2xl cursor-pointer icon hover:text-teal-600">
+            <span
+              onClick={filterByOrderCode}
+              className="text-2xl cursor-pointer icon hover:text-teal-600"
+            >
               <BsSearch />
             </span>
             <input
@@ -264,12 +275,14 @@ export default function Order() {
         </div>
 
         <div className={`paginator-container`}>
-          {pageNumber && <PaginatedItems
-            itemsPerPage={offsets.size}
-            items={orderLength}
-            router={router}
-            currentPath={'/order'}
-          />}
+          {pageNumber && (
+            <PaginatedItems
+              itemsPerPage={offsets.size}
+              items={orderLength}
+              router={router}
+              currentPath={'/order'}
+            />
+          )}
         </div>
       </div>
     </>

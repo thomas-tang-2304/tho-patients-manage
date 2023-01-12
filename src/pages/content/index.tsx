@@ -10,24 +10,14 @@ import Content from '@/components/Content/Content';
 import SideMenu from '@/components/SideMenu';
 import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
-import React from 'react';
-import SideMenu from '@/components/SideMenu';
-import Head from 'next/head';
-import { NextRouter, useRouter } from 'next/router';
-
 
 export default function Index() {
-
   const { asPath }: NextRouter = useRouter();
   return (
     <div className={`container  mx-auto`}>
       <Head>
-
         <title>Content</title>
-        <meta
-          name="description"
-          content="Products"
-        />
+        <meta name="description" content="Products" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`h-[100vh]`}>

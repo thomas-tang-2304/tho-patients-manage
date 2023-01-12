@@ -8,18 +8,23 @@
 import Order from '@/components/Order/Order';
 import React, { memo, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 // Example items, to simulate fetching from another resources.
 
-const PaginatedItems = function ({ itemsPerPage, items, page, router, currentPath }: any) {
+const PaginatedItems = function ({
+  itemsPerPage,
+  items,
+  page,
+  router,
+  currentPath,
+}: any) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
 
   const [itemOffset, setItemOffset]: any = useState(
     (router.query.page * itemsPerPage) % items,
   );
-
 
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
@@ -48,16 +53,15 @@ const PaginatedItems = function ({ itemsPerPage, items, page, router, currentPat
   return (
     <>
       <ReactPaginate
-        initialPage={router.query.page - 1  <= 0 ? 0 : router.query.page - 1}
+        initialPage={router.query.page - 1 <= 0 ? 0 : router.query.page - 1}
         className={`pagination`}
         breakLabel="..."
-        nextLabel={<FaChevronRight/>}
+        nextLabel={<FaChevronRight />}
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
         previousLabel={<FaChevronLeft />}
       />
-
     </>
   );
 };

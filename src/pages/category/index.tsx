@@ -13,10 +13,7 @@ export default function category() {
     <div className={`container  mx-auto`}>
       <Head>
         <title>Category Management</title>
-        <meta
-          name="description"
-          content="Category"
-        />
+        <meta name="description" content="Category" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`h-[100vh]`}>

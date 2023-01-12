@@ -16,39 +16,92 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import tailwind from 'tailwind.config.js'
+import tailwind from 'tailwind.config.js';
 import { styled } from '@mui/material/styles';
+import { useState, useLayoutEffect, SetStateAction, Dispatch } from 'react';
+import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
+import { VscCircleOutline } from 'react-icons/vsc';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: tailwind.purge.theme.colors['primary-background-color'],
+    color: tailwind.purge.theme.colors['primary-color'],
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 export default function BasicTable({
   rows,
   headers,
-  itemsPerPage,
   callApiPending,
-  component
+  component,
 }: any) {
-  let array: Array<number> = [];
+  const [array, setArray] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [items, setNewItems] = useState([]);
+  const [sortLabel, setSortLabel] = useState({ label: '', state: 0 });
 
-  for (let i = 0; i < itemsPerPage; i++) {
-    array.push(i);
+  const statusData: any = {
+    "ACTIVE": "blue",
+    "INACTIVE": "red",
+    "APPROVED": "green",
+    "NOT APPVOVED": "red",
+    "PENDING": "red",
+    "CONFIMED": "yellow",
+    "PAID": "green",
+    "DELIVERED": "green",
+    "DELIVERING": "violet",
+    "CANELED": "DarkGray"
   }
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: tailwind.purge.theme.colors["primary-background-color"],
-      color: tailwind.purge.theme.colors["primary-color"],
-    },
 
-  }));
+  useLayoutEffect(() => {
+    setNewItems([...rows]);
+  }, [rows]);
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
+  const handleSortLabel = (prev: any, e: Event | any) =>
+    prev.label == e.target.textContent
+      ? { state: prev.state == 1 ? -1 : 1, label: prev.label }
+      : { state: 1, label: e.target.textContent };
+
+  const arrSort = (arr: any[], index: number, state: number) =>
+    state == 1
+      ? [...arr].sort((a: any, b: any) =>
+        index == 0
+          ? a[index]['content'] < b[index]['content']
+            ? -1
+            : 1
+          : a[index] < b[index]
+            ? -1
+            : 1,
+      )
+      : [...arr].sort((a: any, b: any) =>
+        index == 0
+          ? a[index]['content'] > b[index]['content']
+            ? -1
+            : 1
+          : a[index] > b[index]
+            ? -1
+            : 1,
+      );
+
+  const handleLabelClick = (e: Event | any) => {
+    setSortLabel((prev: any) => handleSortLabel(prev, e));
+    setNewItems((prev: any) => {
+      const index = headers.findIndex(
+        (ele: Element) => ele == e.target.textContent,
+      );
+      return arrSort(prev, index, sortLabel.state);
+    });
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -57,39 +110,79 @@ export default function BasicTable({
           <StyledTableRow>
             {headers.map((header: string[], i: number) =>
               i == 0 ? (
-                <StyledTableCell className={`font-bold text-lg `} key={i}>
-                  {header}
-                </StyledTableCell>
-              ) : (
+                <>
+                  <StyledTableCell
+                    className={`font-bold text-lg cursor-pointer`}
+                    onClick={handleLabelClick}
+                    key={i}
+                  >
+                    <div className="flex items-center gap-2">
+                      <p>{header}</p>
+                      {sortLabel.label == header ? (
+                        sortLabel.state == 1 ? (
+                          <MdArrowUpward />
+                        ) : (
+                          <MdArrowDownward />
+                        )
+                      ) : (
+                        <VscCircleOutline />
+                      )}
+                    </div>
+                  </StyledTableCell>
+                </>
+              ) : header != 'Action' ? (
                 <StyledTableCell
-                  className={`font-bold text-lg `}
+                  onClick={handleLabelClick}
+                  className={`font-bold text-lg cursor-pointer`}
                   key={i}
                   align="right"
                 >
-                  {header}
+                  <div className="flex items-center float-right gap-2">
+                    {sortLabel.label == header ? (
+                      sortLabel.state == 1 ? (
+                        <MdArrowUpward />
+                      ) : (
+                        <MdArrowDownward />
+                      )
+                    ) : (
+                      <VscCircleOutline />
+                    )}
+                    <p>{header}</p>
+                  </div>
+                </StyledTableCell>
+              ) : (
+                <StyledTableCell
+                  className={`font-bold text-lg`}
+                  key={i}
+                  align="right"
+                >
+                  <p>{header}</p>
                 </StyledTableCell>
               ),
             )}
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {rows.length == 0 ? (
+          {items.length == 0 ? (
             !callApiPending ? (
-              <StyledTableCell className="p-4 text-center" colSpan={headers.length}>
+              <StyledTableCell
+                className="p-4 text-center"
+                colSpan={headers.length}
+              >
                 No Record
               </StyledTableCell>
             ) : (
               array.map((arr, i) => (
                 <TableRow
-
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <StyledTableCell component="th" scope="row" >
-                    {component == 'order' || component == 'review'
-                      ? <p className={`font-bold`}>...</p>
-                      : <img className="w-32" src="../images/holder.jpg" />
-                    }
+                  <StyledTableCell component="th" scope="row">
+                    {component != 'product' ? (
+                      <p className={`font-bold`}>...</p>
+                    ) : (
+                      <img className="w-32" src="../images/holder.jpg" />
+                    )}
                   </StyledTableCell>
                   <StyledTableCell align="right">...</StyledTableCell>
                   <StyledTableCell align="right">...</StyledTableCell>
@@ -99,23 +192,28 @@ export default function BasicTable({
               ))
             )
           ) : (
-            rows.map((row: any, key: number) => (
+            items.map((row: any, key: number) => (
               <TableRow
-              key={key}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                key={key}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 {row.map((r: any, i: number) =>
                   i == 0 ? (
                     <TableCell component="th" scope="row" key={i}>
-                      { component != 'product' ? 
-                       (
+                      {component != 'product' ? (
                         <p className={`font-bold`}>{r.content}</p>
-                        ) 
-                        : (<img className="w-32" src={r.content} />)}
+                      ) : (
+                        <img className="w-32" src={r.content} />
+                      )}
                     </TableCell>
                   ) : (
-                    
-                    <TableCell align="right" className={`text-${statusData[r]}-600`}>{r}</TableCell>
+                    <TableCell
+                      align="right"
+                      className={`${headers[i] ? `text-[${statusData[`${r}`]}]-600` : null}`}
+                    >
+                     
+                      {r}
+                    </TableCell>
                   ),
                 )}
               </TableRow>

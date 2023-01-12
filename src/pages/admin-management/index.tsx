@@ -15,12 +15,9 @@ export default function Index() {
     <div className={`container  mx-auto`}>
 
       <Head>
-        <title>Order Management</title>
-        <meta
-          name="description"
-          content="TypeScript starter for Next.js that includes all you need to build amazing apps"
+        <title>Admin Management</title>
+        <meta name="description" content="Products" />
 
-        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`h-[100vh]`}>
