@@ -19,6 +19,7 @@ import { useRouter } from 'next/router';
 import { style } from '@mui/system';
 import Rating from '@mui/material/Rating';
 import ViewIcon from '@/utils/UIs/ViewIcon';
+import Modal from '@/utils/UIs/Modal'
 
 import Cookies from 'universal-cookie'
 
@@ -54,7 +55,7 @@ export default function AdminManagement() {
       },
       fullname,
       status,
-      <ViewIcon />
+      <Modal component={<h1>Hello</h1>}/>
     ] as any;
   }
 
