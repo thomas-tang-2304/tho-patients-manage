@@ -170,7 +170,7 @@ export default function Category() {
             />
           </div>
           <div className="">
-            <Button variant="outlined">+ Add Category</Button>
+            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add Category</Button>
           </div>
         </form>
         <div className={`table-container py-4`}>

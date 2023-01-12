@@ -1,9 +1,3 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, {
   ReactNode,
   useEffect,
@@ -12,15 +6,12 @@ import React, {
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
-
-import SideMenu from '@/components/SideMenu';
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import { style } from '@mui/system';
-import Rating from '@mui/material/Rating';
 import ViewIcon from '@/utils/UIs/ViewIcon';
+import { Button } from '@mui/material';
 
 export default function AdminManagement() {
   // curl - X 'GET' \
@@ -29,7 +20,6 @@ export default function AdminManagement() {
   // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
 
   const router: any = useRouter();
-  const filterByStatus: any = useRef();
 
   const token = '6959e9fdd21d42b5ac880147315be436';
   const [pageNumber, setPageNumber] = useState(0);
@@ -100,22 +90,18 @@ export default function AdminManagement() {
 
     if (router.query.page) {
       if (router.query.filter_by) {
-        filterByStatus.current.value = router.query.filter_by;
         fetchMyAPI(router.query.page, router.query.filter_by);
       } else {
-        filterByStatus.current.value = 'Choose Status';
         fetchMyAPI(router.query.page, '');
       }
     } else {
       if (router.query.filter_by) {
-        filterByStatus.current.value = router.query.filter_by;
         fetchMyAPI(router.query.page, router.query.filter_by);
       } else {
-        filterByStatus.current.value = 'Choose Status';
         fetchMyAPI(router.query.page, '');
       }
     }
-  }, [router.query.page, router.query.filter_by, productsLength]);
+  }, [router.query.page]);
 
   const filterByValue = (e: any = 'PAID') => {
     setInstance([]);
@@ -136,7 +122,7 @@ export default function AdminManagement() {
     <>
       <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
-          <h1 className={`font-bold`}>Order Management</h1>
+          <h1 className={`font-bold`}>Admin Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
@@ -150,45 +136,8 @@ export default function AdminManagement() {
             />
           </div>
           <div className="">
-            <div>
-              <label htmlFor="cars" className={`font-bold text-xl`}>
-                Filter status
-              </label>
-            </div>
-
             <div className={`text-center`}>
-              <select
-                name="order-state"
-                id="order-selector"
-                ref={filterByStatus}
-                className={`border-2 px-3 py-2 capitalize`}
-                onChange={(e: any) => filterByValue(e)}
-              >
-                <option className="capitalize" value="ALL">
-                  all
-                </option>
-                <option className="capitalize" value="PAID">
-                  paid
-                </option>
-                <option className="capitalize" value="PENDING">
-                  pending
-                </option>
-                <option className="capitalize" value="DELIVERED">
-                  delivered
-                </option>
-                <option className="capitalize" value="DELIVERING">
-                  delivering
-                </option>
-                <option className="capitalize" value="REVIEWED">
-                  reviewed
-                </option>
-                <option className="capitalize" value="CANCELLED">
-                  cancelled
-                </option>
-                <option className="capitalize" value="CONFIRMED">
-                  confirmed
-                </option>
-              </select>
+            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add admin</Button>
             </div>
           </div>
         </form>

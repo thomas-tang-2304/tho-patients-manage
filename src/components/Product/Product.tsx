@@ -186,7 +186,7 @@ export default function Product() {
             />
           </div>
           <div className="">
-            <Button variant="outlined">+ Add products</Button>
+            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add products</Button>
           </div>
         </form>
         <div className={`table-container py-4`}>

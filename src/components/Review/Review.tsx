@@ -135,7 +135,7 @@ export default function Review() {
           </div>
           <div className="">
             <div className={`text-center`}>
-              <Button variant="outlined">+ Add Review</Button>
+              <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add Review</Button>
             </div>
           </div>
         </form>
