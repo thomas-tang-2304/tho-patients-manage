@@ -1,9 +1,3 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, {
   ReactNode,
   useEffect,
@@ -12,61 +6,50 @@ import React, {
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import { GrOverview } from 'react-icons/gr';
 
 import SideMenu from '@/components/SideMenu';
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import { style } from '@mui/system';
-import Rating from '@mui/material/Rating';
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import ViewIcon from '@/utils/UIs/ViewIcon';
-import { Button } from '@mui/material';
-
-export default function Review() {
+export default function Content() {
   const router: any = useRouter();
+  const filterByStatus: any = useRef();
 
-  const token = '008d7fddb4974935b81281e089716c57';
+  const token = '02d0a36b3dc4436d9cda4d072382c73f';
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-  const [checkRegex, setCheckRegex] = useState('');
+
   const offsets = {
     size: 10,
   };
 
   const tableHeader = [
-    'Rating',
     'Title',
-    'Product',
-    'Fullname',
-    'Review date',
+    'Content Type',
+    'Last modified date',
     'Status',
     'Action',
   ];
 
   function createData(
-    rating: number,
     title: string,
-    product: string,
-    fullname: string,
-    reviewdate: ReactNode,
+    content_type: string,
+    Last_modified_date: ReactNode,
     status: string,
   ) {
     return [
       {
-        type: 'rating',
-        content: <Rating name="read-only" defaultValue={rating} readOnly />,
+        content: title,
       },
-
-      title,
-      product,
-      fullname,
-      reviewdate,
+      content_type,
+      Last_modified_date,
       status,
-      <ViewIcon />,
+      <ViewIcon /> 
     ];
   }
 
@@ -74,7 +57,7 @@ export default function Review() {
     setCallApiPending(true);
 
     return await axios
-      .get('https://dev-api.digiex.asia/calobye-be-dev/api/review', {
+      .get('https://dev-api.digiex.asia/calobye-be-dev/api/content', {
         params: {
           asc_sort: 'false',
           page_number: p,
@@ -86,17 +69,14 @@ export default function Review() {
         },
       })
       .then((data: any) => {
-        setCheckRegex(data.data.data.content.content);
         setCallApiPending(false);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
           data?.data?.data?.content?.map((item: any) =>
             createData(
-              item.rating,
               item.title,
-              item.content,
-              item.first_name,
+              item.content_type,
               item.created_date,
               item.status,
             ),
@@ -113,18 +93,45 @@ export default function Review() {
   useEffect(() => {
     setInstance([]);
 
-    if (router.query.filter_by) {
-      fetchMyAPI(router.query.page, router.query.filter_by);
+    if (router.query.page) {
+      if (router.query.filter_by) {
+        filterByStatus.current.value = router.query.filter_by;
+        fetchMyAPI(router.query.page, router.query.filter_by);
+      } else {
+        filterByStatus.current.value = 'Choose Status';
+        fetchMyAPI(router.query.page, '');
+      }
     } else {
-      fetchMyAPI(router.query.page, '');
+      if (router.query.filter_by) {
+        filterByStatus.current.value = router.query.filter_by;
+        fetchMyAPI(router.query.page, router.query.filter_by);
+      } else {
+        filterByStatus.current.value = 'Choose Status';
+        fetchMyAPI(router.query.page, '');
+      }
     }
   }, [router.query.page, router.query.filter_by, productsLength]);
+
+  const filterByValue = (e: any = 'PAID') => {
+    setInstance([]);
+
+    const value = e.target.value;
+    router.push({
+      pathname: '/order',
+      query: {
+        page: 1,
+        filter_by: value,
+      },
+    });
+
+    fetchMyAPI(1, value);
+  };
 
   return (
     <>
       <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
-          <h1 className={`font-bold`}>Review Management</h1>
+          <h1 className={`font-bold`}>Order Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
@@ -138,8 +145,45 @@ export default function Review() {
             />
           </div>
           <div className="">
+            <div>
+              <label htmlFor="cars" className={`font-bold text-xl`}>
+                Filter status
+              </label>
+            </div>
+
             <div className={`text-center`}>
-              <Button variant="outlined">+ Add Review</Button>
+              <select
+                name="order-state"
+                id="order-selector"
+                ref={filterByStatus}
+                className={`border-2 px-3 py-2 capitalize`}
+                onChange={(e: any) => filterByValue(e)}
+              >
+                <option className="capitalize" value="ALL">
+                  all
+                </option>
+                <option className="capitalize" value="PAID">
+                  paid
+                </option>
+                <option className="capitalize" value="PENDING">
+                  pending
+                </option>
+                <option className="capitalize" value="DELIVERED">
+                  delivered
+                </option>
+                <option className="capitalize" value="DELIVERING">
+                  delivering
+                </option>
+                <option className="capitalize" value="REVIEWED">
+                  reviewed
+                </option>
+                <option className="capitalize" value="CANCELLED">
+                  cancelled
+                </option>
+                <option className="capitalize" value="CONFIRMED">
+                  confirmed
+                </option>
+              </select>
             </div>
           </div>
         </form>
@@ -149,7 +193,7 @@ export default function Review() {
             rows={instance}
             headers={tableHeader}
             callApiPending={callApiPending}
-            component={'review'}
+            component={'content'}
           />
         </div>
 
@@ -160,7 +204,6 @@ export default function Review() {
               items={productsLength}
               page={pageNumber}
               router={router}
-              currentPath={'/review'}
             />
           </div>
         )}

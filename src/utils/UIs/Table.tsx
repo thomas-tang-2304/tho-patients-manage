@@ -20,7 +20,6 @@ import tailwind from 'tailwind.config.js';
 import { styled } from '@mui/material/styles';
 import { useState, useLayoutEffect, SetStateAction, Dispatch } from 'react';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
-
 import { VscCircleOutline } from 'react-icons/vsc';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -48,8 +47,21 @@ export default function BasicTable({
 }: any) {
   const [array, setArray] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [items, setNewItems] = useState([]);
-
   const [sortLabel, setSortLabel] = useState({ label: '', state: 0 });
+
+  const statusData: any = {
+    "ACTIVE": "blue",
+    "INACTIVE": "red",
+    "APPROVED": "green",
+    "NOT APPVOVED": "red",
+    "PENDING": "red",
+    "CONFIMED": "yellow",
+    "PAID": "green",
+    "DELIVERED": "green",
+    "DELIVERING": "violet",
+    "CANELED": "DarkGray"
+  }
+
 
   useLayoutEffect(() => {
     setNewItems([...rows]);
@@ -93,7 +105,6 @@ export default function BasicTable({
 
   return (
     <TableContainer component={Paper}>
-      {console.log(sortLabel)}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <StyledTableRow>
@@ -188,19 +199,21 @@ export default function BasicTable({
               >
                 {row.map((r: any, i: number) =>
                   i == 0 ? (
-                    <StyledTableCell component="th" scope="row" key={i}>
-                      {component != 'product' ? (component == 'review' ? (
-                        <>
-                          <p className={`font-bold`}>{r.content}</p>
-                        </>
-                      ) : (
+                    <TableCell component="th" scope="row" key={i}>
+                      {component != 'product' ? (
                         <p className={`font-bold`}>{r.content}</p>
-                      )) : (
+                      ) : (
                         <img className="w-32" src={r.content} />
                       )}
-                    </StyledTableCell>
+                    </TableCell>
                   ) : (
-                    <StyledTableCell align="right"> {r}</StyledTableCell>
+                    <TableCell
+                      align="right"
+                      className={`${headers[i] ? `text-[${statusData[`${r}`]}]-600` : null}`}
+                    >
+                     
+                      {r}
+                    </TableCell>
                   ),
                 )}
               </TableRow>
