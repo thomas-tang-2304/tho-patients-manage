@@ -216,6 +216,7 @@ export default function Product() {
             rows={instance}
             headers={tableHeader}
             callApiPending={callApiPending}
+            component={'product'}
           />
         </div>
 

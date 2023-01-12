@@ -18,12 +18,15 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { RawOrder } from '@/components/Order/OrderInterface';
 import { RawProduct } from '@/components/Product/ProductInterface';
+import { request } from 'http';
+const statusData = require('@/utils/listStatusColor.json')
 
 export default function BasicTable({
   rows,
   headers,
   itemsPerPage,
   callApiPending,
+  component,
 }: any) {
   let array: Array<number> = [];
 
@@ -65,9 +68,7 @@ export default function BasicTable({
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
-                    ...
-                  </TableCell>
+                  <TableCell component="th" scope="row">...</TableCell>
                   <TableCell align="right">...</TableCell>
                   <TableCell align="right">...</TableCell>
                   <TableCell align="right">...</TableCell>
@@ -78,21 +79,21 @@ export default function BasicTable({
           ) : (
             rows.map((row: any, key: number) => (
               <TableRow
-                key={key}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              key={key}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 {row.map((r: any, i: number) =>
                   i == 0 ? (
                     <TableCell component="th" scope="row" key={i}>
-                      {r.type == 'text' || r.type == 'rating' ? (
-                        r.content
-                      ) 
-                      : (
-                        <img className="w-32" src={r.content} />
-                      )}
+                      { component != 'product' ? 
+                       (
+                        <p className={`font-bold`}>{r.content}</p>
+                        ) 
+                        : (<img className="w-32" src={r.content} />)}
                     </TableCell>
                   ) : (
-                    <TableCell align="right"> {r}</TableCell>
+                    
+                    <TableCell align="right" className={`text-${statusData[r]}-600`}>{r}</TableCell>
                   ),
                 )}
               </TableRow>

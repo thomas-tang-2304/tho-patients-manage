@@ -198,6 +198,7 @@ export default function Order() {
             rows={instance}
             headers={tableHeader}
             callApiPending={callApiPending}
+            component={'order'}
           />
         </div>
 
