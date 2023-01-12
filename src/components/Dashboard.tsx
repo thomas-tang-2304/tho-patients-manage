@@ -54,7 +54,6 @@ export default function Dashboard() {
 
   return (
     <div className={`h-[100vh]`}>
-      <div>Side menu</div>
       <div className={`flex gap-6 w-[100%`}>
         <SideMenu />
         <div className={`border-gray-200 border-2 p-4 w-3/4 `}>

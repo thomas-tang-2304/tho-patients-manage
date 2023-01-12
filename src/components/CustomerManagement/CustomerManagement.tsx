@@ -87,7 +87,6 @@ export default function CustomerManagement() {
             ),
           ),
         );
-        console.log(data);
       })
       .catch((err) => {
         setCustomerLength(0);
@@ -123,7 +122,6 @@ export default function CustomerManagement() {
               data.data.is_receive_promotion ? 'ACTIVE' : 'INACTIVE',
             ),
           ]);
-          console.log(data);
         })
         .catch((err) => {
           setCustomerLength(0);
@@ -146,7 +144,7 @@ export default function CustomerManagement() {
 
     if (router.query.page) fetchMyAPI(router.query.page);
     else fetchMyAPI(1);
-  }, [router.query.page, router.query.filter]);
+  }, [router.query]);
 
   return (
     <>

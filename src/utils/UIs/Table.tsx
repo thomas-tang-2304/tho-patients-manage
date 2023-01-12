@@ -18,7 +18,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import tailwind from 'tailwind.config.js';
 import { styled } from '@mui/material/styles';
-import { useState, useLayoutEffect, SetStateAction, Dispatch } from 'react';
+import { useState, useEffect } from 'react';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 import { VscCircleOutline } from 'react-icons/vsc';
 
@@ -50,20 +50,20 @@ export default function BasicTable({
   const [sortLabel, setSortLabel]: any = useState({ label: '', state: 0 });
 
   const statusData: any = {
-    "ACTIVE": "blue",
-    "INACTIVE": "red",
-    "APPROVED": "green",
-    "NOT APPVOVED": "red",
-    "PENDING": "red",
-    "CONFIMED": "yellow",
-    "PAID": "green",
-    "DELIVERED": "green",
-    "DELIVERING": "violet",
-    "CANELED": "DarkGray"
+    "ACTIVE": "green-600",
+    "INACTIVE": "red-500",
+    "APPROVED": "green-600",
+    "NOT APPVOVED": "red-500",
+    "PENDING": "red-500",
+    "CONFIRMED": "yellow-500",
+    "PAID": "green-600",
+    "DELIVERED": "green-600",
+    "DELIVERING": "violet-600",
+    "CANCELLED": "slate-300"
   }
 
 
-  useLayoutEffect(() => setNewItems(rows), [rows]);
+  useEffect(() => setNewItems(rows), [rows]);
 
   const handleSortLabel = (prev: any, e: Event | any) =>
     prev.label == e.target.textContent
@@ -175,17 +175,19 @@ export default function BasicTable({
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <StyledTableCell component="th" scope="row">
-                    {component != 'product' ? (
-                      <p className={`font-bold`}>...</p>
-                    ) : (
-                      <img className="w-32" src="../images/holder.jpg" />
-                    )}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">...</StyledTableCell>
-                  <StyledTableCell align="right">...</StyledTableCell>
-                  <StyledTableCell align="right">...</StyledTableCell>
-                  <StyledTableCell align="right">...</StyledTableCell>
+                  {headers.map(({index}) =>
+                    index == 0 ?
+                      <StyledTableCell key={index} component="th" scope="row">
+                        {component != 'product' ? (
+                          <p className={`font-bold`}>...</p>
+                        ) : (
+                          <img className="w-32" src="../images/holder.jpg" />
+                        )}
+                      </StyledTableCell>
+                      :
+                      <StyledTableCell key={index} align="right">...</StyledTableCell>
+                  )}
+                
                 </TableRow>
               ))
             )
@@ -207,9 +209,9 @@ export default function BasicTable({
                   ) : (
                     <TableCell
                       align="right"
-                      className={`${headers[i] ? `text-[${statusData[`${r}`]}]-600` : null}`}
+                      className={`${headers[i] ? `text-${statusData[r]}` : null}`}
                     >
-                     
+
                       {r}
                     </TableCell>
                   ),

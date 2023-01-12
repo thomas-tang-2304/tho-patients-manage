@@ -16,7 +16,6 @@ export default function customerManagement() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`h-[100vh]`}>
-        <div>Side menu</div>
         <div className={`flex gap-6 w-[100%`}>
           <SideMenu currentPath={asPath} />
           <CustomerManagement />

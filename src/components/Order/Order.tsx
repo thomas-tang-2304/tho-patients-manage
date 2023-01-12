@@ -140,7 +140,7 @@ export default function Order() {
   useLayoutEffect(() => {
     setInstance([]);
     getOrderRows();
-  }, [router.query.page, router.query.filter_by]);
+  }, [router.query]);
 
   const filterByValue = (e: any) => {
     setInstance([]);
