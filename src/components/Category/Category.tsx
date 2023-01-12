@@ -107,7 +107,7 @@ export default function Category() {
   useLayoutEffect(() => {
     setInstance([]);
     getCategoryRows();
-  }, [router.query.page, router.query.filter_by]);
+  }, [router.query]);
 
   // const filterByOrderCode = () => {
   //     setCallApiPending(true);

@@ -6,9 +6,7 @@
 
 import React, {
   ReactNode,
-  useEffect,
   useLayoutEffect,
-  useRef,
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
@@ -23,11 +21,13 @@ import { style } from '@mui/system';
 import Rating from '@mui/material/Rating';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import { Button } from '@mui/material';
+import Cookies from 'universal-cookie'
 
 export default function Review() {
   const router: any = useRouter();
+  const cookies = new Cookies()
 
-  const token = '008d7fddb4974935b81281e089716c57';
+  const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
@@ -84,7 +84,6 @@ export default function Review() {
       })
       .then((data: any) => {
         setCheckRegex(data.data.data.content.content);
-        setCallApiPending(false);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
@@ -98,15 +97,15 @@ export default function Review() {
             ),
           ),
         );
-        console.log(data);
       })
       .catch((err) => {
-        setCallApiPending(false);
         console.log(err);
+      }).finally(() => {
+        setCallApiPending(false);
       });
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setInstance([]);
 
     if (router.query.filter_by) {
@@ -114,7 +113,7 @@ export default function Review() {
     } else {
       fetchMyAPI(router.query.page, '');
     }
-  }, [router.query.page, router.query.filter_by, productsLength]);
+  }, [router.query]);
 
   return (
     <>
