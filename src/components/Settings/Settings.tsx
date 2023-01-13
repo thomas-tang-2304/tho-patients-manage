@@ -1,4 +1,8 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable react/jsx-key */
 import React, { useState } from 'react';
+import { SiFacebook, SiYoutube } from 'react-icons/si'
 
 export default function Settings() {
   const activeLinkClassName =
@@ -9,18 +13,18 @@ export default function Settings() {
   const [activeLink, setActiveLink] = useState(0);
 
   return (
-    <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+    <div className={`p-4 w-3/4 `}>
       <div className={`mx-2 flex flex-col gap-2 w-auto`}>
         <h1 className={`font-bold text-3xl`}>Settings</h1>
+
         <ul className="flex gap-4">
           {linkList.map((link, index) => (
             <li
               onClick={() => {
                 setActiveLink(index);
               }}
-              className={`hover:text-blue-900 cursor-pointer ${
-                index != activeLink ? linkClassName : activeLinkClassName
-              }`}
+              className={`hover:text-blue-900 cursor-pointer ${index != activeLink ? linkClassName : activeLinkClassName
+                }`}
             >
               {link}
             </li>
@@ -45,9 +49,9 @@ export default function Settings() {
             <div className="pb-1 mb-3 border-b-2">
               <label htmlFor="">Social network</label>
             </div>
-            <div className="mb-3 social-input-link">
-              <label className="py-2 mr-4" htmlFor="">
-                "Facebook icon"
+            <div className="flex items-center mb-3 social-input-link ">
+              <label className="py-2 mr-4 text-2xl" htmlFor="">
+                <SiFacebook />
               </label>
               <input
                 className="w-64 p-2 border-2"
@@ -55,9 +59,9 @@ export default function Settings() {
                 placeholder="http://facebook.com/fanpage"
               />
             </div>
-            <div className="mb-3 social-input-link">
-              <label className="py-2 mr-4" htmlFor="">
-                "Facebook icon"
+            <div className="flex items-center mb-3 social-input-link ">
+              <label className="py-2 mr-4 text-2xl" htmlFor="">
+                <SiYoutube />
               </label>
               <input
                 className="w-64 p-2 border-2"

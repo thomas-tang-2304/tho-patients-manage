@@ -1,24 +1,20 @@
-import React, {
-  ReactNode,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { ReactNode, useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
-import SideMenu from '@/components/SideMenu';
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import ViewIcon from '@/utils/UIs/ViewIcon';
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 export default function Content() {
   const router: any = useRouter();
   const filterByStatus: any = useRef();
-  const cookies = new Cookies()
+  const cookies = new Cookies();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
@@ -51,7 +47,7 @@ export default function Content() {
       content_type,
       Last_modified_date,
       status,
-      <ViewIcon />
+      <ViewIcon key={1}/>,
     ];
   }
 
@@ -88,9 +84,10 @@ export default function Content() {
       .catch((err) => {
         setCallApiPending(false);
         console.log(err);
-      }).finally(() => {
-        setCallApiPending(false);
       })
+      .finally(() => {
+        setCallApiPending(false);
+      });
   }
 
   useLayoutEffect(() => {
@@ -132,9 +129,9 @@ export default function Content() {
 
   return (
     <>
-      <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+      <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
-          <h1 className={`font-bold`}>Order Management</h1>
+          <h1 className={`font-bold mb-3`}>Order Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">

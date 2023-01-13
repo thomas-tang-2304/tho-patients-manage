@@ -45,20 +45,16 @@ export default function Dashboard() {
         });
     };
 
-    if (!cookies.get('account_token')) {
-      Router.push('/login');
-    }
-
     getStatistic();
   }, []);
 
   return (
     <div className={`h-[100vh]`}>
       <div className={`flex gap-6 w-[100%`}>
-        <SideMenu />
-        <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+        <SideMenu currentPath={'/'} />
+        <div className={`p-4 w-3/4 `}>
           <div className={`ml-2 text-3xl w-fit pb-5 mb-5`}>
-            <h1 className={`font-bold`}>Sale statistic</h1>
+            <h1 className={`font-bold mb-3`}>Sale statistic</h1>
           </div>
           <div className="grid grid-flow-col grid-rows-2 gap-4 py-3 ml-2">
             <span className={totalClass}>

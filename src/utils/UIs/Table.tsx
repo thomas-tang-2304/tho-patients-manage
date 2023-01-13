@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
@@ -16,6 +17,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import LinearProgress from '@mui/material/LinearProgress';
 import tailwind from 'tailwind.config.js';
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
@@ -50,18 +52,17 @@ export default function BasicTable({
   const [sortLabel, setSortLabel]: any = useState({ label: '', state: 0 });
 
   const statusData: any = {
-    "ACTIVE": "green-600",
-    "INACTIVE": "red-500",
-    "APPROVED": "green-600",
-    "NOT APPVOVED": "red-500",
-    "PENDING": "red-500",
-    "CONFIRMED": "yellow-500",
-    "PAID": "green-600",
-    "DELIVERED": "green-600",
-    "DELIVERING": "violet-600",
-    "CANCELLED": "slate-300"
-  }
-
+    ACTIVE: 'green-600',
+    INACTIVE: 'red-500',
+    APPROVED: 'green-600',
+    'NOT APPVOVED': 'red-500',
+    PENDING: 'red-500',
+    CONFIRMED: 'yellow-500',
+    PAID: 'green-600',
+    DELIVERED: 'green-600',
+    DELIVERING: 'violet-600',
+    CANCELLED: 'slate-300',
+  };
 
   useEffect(() => setNewItems(rows), [rows]);
 
@@ -161,7 +162,7 @@ export default function BasicTable({
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {items.length == 0 ? (
+          {items?.length == 0 ? (
             !callApiPending ? (
               <StyledTableCell
                 className="p-4 text-center"
@@ -175,24 +176,26 @@ export default function BasicTable({
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  {headers.map(({index}) =>
-                    index == 0 ?
+                  {headers.map(({ index }: { index: number }) =>
+                    index == 0 ? (
                       <StyledTableCell key={index} component="th" scope="row">
                         {component != 'product' ? (
-                          <p className={`font-bold`}>...</p>
+                          <LinearProgress color="inherit" />
                         ) : (
                           <img className="w-32" src="../images/holder.jpg" />
                         )}
                       </StyledTableCell>
-                      :
-                      <StyledTableCell key={index} align="right">...</StyledTableCell>
+                    ) : (
+                      <StyledTableCell key={index} align="right">
+                        <LinearProgress color="inherit" />
+                      </StyledTableCell>
+                    ),
                   )}
-                
                 </TableRow>
               ))
             )
           ) : (
-            items.map((row: any, key: number) => (
+            items?.map((row: any, key: number) => (
               <TableRow
                 key={key}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -209,9 +212,9 @@ export default function BasicTable({
                   ) : (
                     <TableCell
                       align="right"
-                      className={`${headers[i] ? `text-${statusData[r]}` : null}`}
+                      className={`${headers[i] ? `text-${statusData[r]}` : null
+                        }`}
                     >
-
                       {r}
                     </TableCell>
                   ),

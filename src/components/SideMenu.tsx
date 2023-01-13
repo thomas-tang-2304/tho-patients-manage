@@ -11,7 +11,7 @@ import styles from '../styles/SideMenu.module.css';
 import { NextRouter, useRouter } from 'next/router';
 import { FiLogOut } from 'react-icons/fi';
 import Cookies from 'universal-cookie';
-import { GoDashboard, GoGift } from 'react-icons/go'
+import { GoDashboard, GoGift } from 'react-icons/go';
 import {
   MdShoppingCart,
   MdReviews,
@@ -19,8 +19,8 @@ import {
   MdOutlineContentPaste,
   MdOutlineAdminPanelSettings,
   MdSupervisedUserCircle,
-  MdOutlineSettings
-} from 'react-icons/md'
+  MdOutlineSettings,
+} from 'react-icons/md';
 
 const cookies = new Cookies();
 interface SideList {
@@ -65,7 +65,7 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
         className: linkClassName,
       },
       {
-        icon: < MdCategory />,
+        icon: <MdCategory />,
         content: 'Category',
         href: '/category',
         className: linkClassName,
@@ -113,14 +113,13 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
 
   return (
     <div
-      className={`w-1/4 ${styles['side-menu']} border-2  flex flex-col justify-between `}
+      className={`w-1/4 ${styles['side-menu']} flex flex-col justify-between `}
     >
       <div className={`p-4`}>
         <div className={`${styles.logo} ml-2 w-fit rounded`}>
           <h1 className={`py-5 px-[50px] shadow-md`}>Logo Calobye</h1>
         </div>
-        <div className='flex flex-col justify-between'>
-
+        <div className="flex flex-col justify-between">
           <ul className="py-3 ml-2">
             {list?.map((li: SideList, i: number) => (
               <li

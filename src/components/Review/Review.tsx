@@ -4,11 +4,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, {
-  ReactNode,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { GrOverview } from 'react-icons/gr';
 
@@ -21,11 +17,11 @@ import { style } from '@mui/system';
 import Rating from '@mui/material/Rating';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import { Button } from '@mui/material';
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 export default function Review() {
   const router: any = useRouter();
-  const cookies = new Cookies()
+  const cookies = new Cookies();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
@@ -100,7 +96,8 @@ export default function Review() {
       })
       .catch((err) => {
         console.log(err);
-      }).finally(() => {
+      })
+      .finally(() => {
         setCallApiPending(false);
       });
   }
@@ -117,9 +114,9 @@ export default function Review() {
 
   return (
     <>
-      <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+      <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
-          <h1 className={`font-bold`}>Review Management</h1>
+          <h1 className={`font-bold mb-3`}>Review Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
@@ -148,17 +145,17 @@ export default function Review() {
           />
         </div>
 
-        {pageNumber && (
-          <div className={`paginator-container`}>
-            <PaginatedItems
-              itemsPerPage={offsets.size}
-              items={productsLength}
-              page={pageNumber}
-              router={router}
-              currentPath={'/review'}
-            />
-          </div>
-        )}
+
+        <div className={`paginator-container`}>
+          <PaginatedItems
+            itemsPerPage={offsets.size}
+            items={productsLength}
+            page={pageNumber}
+            router={router}
+            currentPath={'/review'}
+          />
+        </div>
+
       </div>
     </>
   );

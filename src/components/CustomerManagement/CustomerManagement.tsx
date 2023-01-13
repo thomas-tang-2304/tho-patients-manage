@@ -8,7 +8,6 @@
 
 import React, {
   MutableRefObject,
-  ReactNode,
   useLayoutEffect,
   useRef,
   useState,
@@ -148,9 +147,9 @@ export default function CustomerManagement() {
 
   return (
     <>
-      <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+      <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit`}>
-          <h1 className={`font-bold`}>Customer Management</h1>
+          <h1 className={`font-bold mb-3`}>Customer Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-60 first-letter:input-icons">

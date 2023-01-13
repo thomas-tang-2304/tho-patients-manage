@@ -4,31 +4,25 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, {
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
-import SideMenu from '@/components/SideMenu';
+
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import { style } from '@mui/system';
-import Rating from '@mui/material/Rating';
-import ViewIcon from '@/utils/UIs/ViewIcon';
-import Modal from '@/utils/UIs/Modal'
 
-import Cookies from 'universal-cookie'
+import Modal from '@/utils/UIs/Modal';
+
+import Cookies from 'universal-cookie';
 
 export default function AdminManagement() {
   // curl - X 'GET' \
   // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
   // -H 'accept: */*' \
   // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
-  const cookies = new Cookies()
+  const cookies = new Cookies();
 
   const router: any = useRouter();
   const filterByStatus: any = useRef();
@@ -38,7 +32,6 @@ export default function AdminManagement() {
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-  const [checkRegex, setCheckRegex] = useState('');
 
   // const re = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
 
@@ -55,7 +48,7 @@ export default function AdminManagement() {
       },
       fullname,
       status,
-      <Modal component={<h1>Hello</h1>} action_name={"View"}/>
+      <Modal component={<h1>Hello</h1>} action_name={'View'} />,
     ] as any;
   }
 
@@ -75,14 +68,13 @@ export default function AdminManagement() {
         },
       })
       .then((data: any) => {
-        setCheckRegex(data.data.data.content.content);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
           data?.data?.data?.content?.map((item: any) =>
             createData(
               item.email,
-              `${item.first_name} ${item.last_name}`,
+              `${item.first_name ?? ''} ${item.last_name ?? ''}`,
               item.status,
             ),
           ),
@@ -90,9 +82,10 @@ export default function AdminManagement() {
       })
       .catch((err) => {
         console.log(err);
-      }).finally(() => {
+      })
+      .finally(() => {
         setCallApiPending(false);
-      });;
+      });
   }
 
   useLayoutEffect(() => {
@@ -115,7 +108,7 @@ export default function AdminManagement() {
         fetchMyAPI(router.query.page, '');
       }
     }
-  }, [router.query.page, router.query.filter_by, productsLength]);
+  }, [router.query]);
 
   const filterByValue = (e: any = 'PAID') => {
     setInstance([]);
@@ -134,9 +127,9 @@ export default function AdminManagement() {
 
   return (
     <>
-      <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+      <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
-          <h1 className={`font-bold`}>Order Management</h1>
+          <h1 className={`font-bold mb-3`}>Admin Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">

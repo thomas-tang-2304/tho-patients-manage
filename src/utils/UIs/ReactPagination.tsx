@@ -9,13 +9,13 @@ import Order from '@/components/Order/Order';
 import React, { memo, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { IconButton } from '@mui/material';
 
 // Example items, to simulate fetching from another resources.
 
 const PaginatedItems = function ({
   itemsPerPage,
   items,
-  page,
   router,
   currentPath,
 }: any) {
@@ -56,11 +56,11 @@ const PaginatedItems = function ({
         initialPage={router.query.page - 1 <= 0 ? 0 : router.query.page - 1}
         className={`pagination`}
         breakLabel="..."
-        nextLabel={<FaChevronRight />}
+        nextLabel={<IconButton disabled={router.query.page == pageCount} ><FaChevronRight /></IconButton>}
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
-        previousLabel={<FaChevronLeft />}
+        previousLabel={<IconButton disabled={router.query.page == 1 || router.query.page == undefined || router.query.page == ""} ><FaChevronLeft /></IconButton>}
       />
     </>
   );
