@@ -28,6 +28,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.3",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "axios": "^1.2.2",
     "cookie": "^0.5.0",
     "cookiejs": "^2.1.2",

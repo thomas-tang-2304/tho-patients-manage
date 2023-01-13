@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 module.exports = {
   purge: {
     enabled: process.env.NODE_ENV === 'production',
@@ -8,10 +9,11 @@ module.exports = {
     theme: {
       colors: {
         'primary-background-color': '#064055',
-        'primary-color': '#ffb451'
+        'primary-color': '#ffb451',
       },
     },
   },
+  plugins: [require('@tailwindcss/line-clamp')],
 
   darkMode: `class`,
 };

@@ -1,19 +1,32 @@
-.logo {background-color: rgb(236, 238, 237);}
-.logout{
-  width: 334px;
+.logo {
+  background-color: rgb(236, 238, 237);
+}
+.logout {
+  width: 310px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  border-radius: 5px;  
-  color: #6C00FF;
+  border-radius: 5px;
+  color: #fff;
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   cursor: pointer;
-  margin: 10px;
-  border: 1px solid #6C00FF;
+  border: 1px solid #fff;
 }
-.logout > p {float: left; margin-right: 5px;}
-.icon{color: #6C00FF;}
-.logout:hover{border: 3px solid #6c00ff;}
+.logout > p {
+  float: left;
+  margin-right: 5px;
+}
+.icon {
+  color: #fff;
+}
+.logout:hover {
+  border: 3px solid #fff;
+}
+
+.side-menu {
+  background: var(--primary-color);
+  min-height: 100vh;
+}
