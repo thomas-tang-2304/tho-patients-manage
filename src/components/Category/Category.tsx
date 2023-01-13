@@ -21,8 +21,9 @@ import { useRouter, NextRouter } from 'next/router';
 
 import Cookies from 'universal-cookie';
 import { Button } from '@mui/material';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import ViewIcon from '@/utils/UIs/ViewIcon';
+import Modal from '@/utils/UIs/Modal';
+import AddCategory from './AddCategory';
 
 const cookies = new Cookies();
 
@@ -170,7 +171,7 @@ export default function Category() {
             />
           </div>
           <div className="">
-            <Button variant="outlined">+ Add Category</Button>
+            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white px-3 cursor-pointer text-center`}><Modal component={<AddCategory />}/></Button>
           </div>
         </form>
         <div className={`table-container py-4`}>

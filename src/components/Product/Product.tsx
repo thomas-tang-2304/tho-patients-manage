@@ -186,6 +186,7 @@ export default function Product() {
             />
           </div>
           <div className="">
+
             <Modal component={<AddProduct />} action_name={"+ Add Product"} />
           </div>
         </form>

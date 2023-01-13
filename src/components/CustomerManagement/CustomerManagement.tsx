@@ -23,7 +23,8 @@ import { NextRouter, useRouter } from 'next/router';
 import Cookies from 'universal-cookie';
 import { Button } from '@mui/material';
 import ViewIcon from '@/utils/UIs/ViewIcon';
-
+import Modal from '@/utils/UIs/Modal';
+import AddCustomer from './AddCustomer';
 const cookies = new Cookies();
 
 export default function CustomerManagement() {
@@ -165,7 +166,7 @@ export default function CustomerManagement() {
             />
           </div>
           <div className="">
-            <Button variant="outlined">+ Add customer</Button>
+            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white px-3 cursor-pointer text-center`}><Modal component={<AddCustomer />}/></Button>
           </div>
         </form>
         <div className={`table-container py-4`}>

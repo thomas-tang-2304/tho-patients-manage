@@ -14,11 +14,10 @@ const style = {
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
     boxShadow: 24,
-   
 };
 
 
-export default function NestedModal({ component, action_name }: any) {
+export default function NestedModal({ component, action_name, width }: any) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -27,23 +26,26 @@ export default function NestedModal({ component, action_name }: any) {
         setOpen(false);
     };
 
+    const addData: any = {
+        "AddCategory":"Category",
+        "AddAdmin" : "Admin",
+        "AddCustomer" : "Customer",
+    }
     return (
         <div>
 
             <Button onClick={handleOpen}>{action_name}</Button>
             <Modal
                 open={open}
-
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
             >
-                <Box sx={{ ...style, width: `75%` }}>
-
+                <Box sx={{ ...style, width: {width ?? 700} }}>
                     {component}
+                    <Stack spacing={2} direction="row" className={`w-50 mt-10 flex flex-col justify-end content-end`}>
+                        <Button onClick={handleClose} variant="outlined">Cancel</Button>
+                        <Button variant="contained">Save</Button>
 
-                    <Stack spacing={2} direction="row" className="float-right p-6">
-                        <Button onClick={handleClose} variant="text">Cancel</Button>
-                        <Button variant="outlined">Save</Button>
                     </Stack>
                 </Box>
             </Modal>

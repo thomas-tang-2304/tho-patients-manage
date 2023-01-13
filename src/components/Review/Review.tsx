@@ -22,6 +22,8 @@ import Rating from '@mui/material/Rating';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import { Button } from '@mui/material';
 import Cookies from 'universal-cookie'
+import Modal from '@/utils/UIs/Modal';
+import ReviewDetail from './ReviewDetail';
 
 export default function Review() {
   const router: any = useRouter();
@@ -134,7 +136,7 @@ export default function Review() {
           </div>
           <div className="">
             <div className={`text-center`}>
-              <Button variant="outlined">+ Add Review</Button>
+              <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}><Modal component={<ReviewDetail />}/></Button>
             </div>
           </div>
         </form>
