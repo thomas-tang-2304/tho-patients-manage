@@ -113,7 +113,7 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
 
   return (
     <div
-      className={`w-1/4 ${styles['side-menu']} border-2  flex flex-col justify-between `}
+      className={`w-1/4 ${styles['side-menu']} flex flex-col justify-between `}
     >
       <div className={`p-4`}>
         <div className={`${styles.logo} ml-2 w-fit rounded`}>

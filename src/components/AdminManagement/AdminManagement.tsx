@@ -24,7 +24,6 @@ export default function AdminManagement() {
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-  const [checkRegex, setCheckRegex] = useState('');
 
   // const re = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
 
@@ -61,14 +60,13 @@ export default function AdminManagement() {
         },
       })
       .then((data: any) => {
-        setCheckRegex(data.data.data.content.content);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
           data?.data?.data?.content?.map((item: any) =>
             createData(
               item.email,
-              `${item.first_name} ${item.last_name}`,
+              `${item.first_name ?? ''} ${item.last_name ?? ''}`,
               item.status,
             ),
           ),
@@ -98,7 +96,8 @@ export default function AdminManagement() {
         fetchMyAPI(router.query.page, '');
       }
     }
-  }, [router.query.page]);
+  }, [router.query]);
+
 
   const filterByValue = (e: any = 'PAID') => {
     setInstance([]);
@@ -117,9 +116,9 @@ export default function AdminManagement() {
 
   return (
     <>
-      <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+      <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
-          <h1 className={`font-bold`}>Admin Management</h1>
+          <h1 className={`font-bold mb-3`}>Admin Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">

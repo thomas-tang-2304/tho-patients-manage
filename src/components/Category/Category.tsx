@@ -1,9 +1,5 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable react/jsx-no-undef */
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
 
 import React, {
   MutableRefObject,
@@ -20,6 +16,7 @@ import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter, NextRouter } from 'next/router';
 
 import Cookies from 'universal-cookie';
+import { Button } from '@mui/material';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import Modal from '@/utils/UIs/Modal';
 import AddCategory from './AddCategory';
@@ -55,7 +52,7 @@ export default function Category() {
       },
       create_date,
       status,
-      <ViewIcon />,
+      <ViewIcon key={1}/>,
     ];
   }
 
@@ -111,9 +108,9 @@ export default function Category() {
 
   return (
     <>
-      <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+      <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
-          <h1 className={`font-bold`}>Category Management</h1>
+          <h1 className={`font-bold mb-3`}>Category Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">

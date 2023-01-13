@@ -31,7 +31,7 @@ export default function Order() {
   const router: NextRouter = useRouter();
   const OrderCodeInput: MutableRefObject<string | undefined | any> = useRef();
 
-  const [token, setToken] = useState(cookies.get('account_token'));
+  const [token] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber]: any = useState(router.query.page);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
@@ -177,7 +177,9 @@ export default function Order() {
           setInstance([
             createData(
               data.data.order_code,
-              `${data.data.customer.first_name} ${data.data.customer.last_name}`,
+              `${data.data.customer.first_name ?? ''} ${
+                data.data.customer.last_name ?? ''
+              }`,
               data.data.total_price,
               data.data.created_date,
               data.data.status,
@@ -202,9 +204,9 @@ export default function Order() {
 
   return (
     <>
-      <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
+      <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit`}>
-          <h1 className={`font-bold`}>Order Management</h1>
+          <h1 className={`font-bold mb-3`}>Order Management</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
