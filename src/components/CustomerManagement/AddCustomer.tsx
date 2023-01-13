@@ -1,17 +1,20 @@
-import React from 'react'
+import React from 'react';
 import styles from '@/styles/Add.module.css';
-import Switch, { SwitchProps } from '@mui/material/Switch';
-import { styled } from '@mui/material/styles';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import Input from '@mui/material/Input';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import{ SwitchProps, 
+        Switch, 
+        FormControlLabel, 
+        FormGroup, 
+        Stack, 
+        TextField,
+        styled} from '@mui/material';
 
 export default function AddAdmin() {
-    
-const IOSSwitch = styled((props: SwitchProps) => (
-    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+  const IOSSwitch = styled((props: SwitchProps) => (
+    <Switch
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      {...props}
+    />
   ))(({ theme }) => ({
     width: 42,
     height: 26,
@@ -24,7 +27,8 @@ const IOSSwitch = styled((props: SwitchProps) => (
         transform: 'translateX(16px)',
         color: '#fff',
         '& + .MuiSwitch-track': {
-          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+          backgroundColor:
+            theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
           opacity: 1,
           border: 0,
         },
@@ -61,24 +65,23 @@ const IOSSwitch = styled((props: SwitchProps) => (
     },
   }));
 
-
   return (
     <>
-        <div className={`${styles.title}`}>
-            <div className={`text-black`}>Customer detail</div>
-        </div>
-        <FormGroup className={`${styles.content} text-black`}>
-            <Stack direction="row" spacing={2}>
-                    <Input type='text'className={`mr-20`} placeholder='First name'/>
-                    <Input type="text" placeholder='Last name'/>
-            </Stack>
-            <Input type="email" placeholder='Email' className={`my-5`}/>
-            <FormControlLabel
-                className={`flex justify-end`}
-                label="Active/Inactive"
-                control={<IOSSwitch defaultChecked sx={{ m: 1 }} />}
-            />
-        </FormGroup>
+      <div className={`${styles.title}`}>
+        <div className={`text-black`}>Customer detail</div>
+      </div>
+      <FormGroup className={`${styles.content} text-black`}>
+        <Stack direction="row" spacing={2}>
+          <TextField type="text" className={`mr-20`} label="First name" />
+          <TextField type="text" label="Last name" />
+        </Stack>
+        <TextField type="email" label="Email" className={`my-5`} />
+        <FormControlLabel
+          className={`flex justify-end`}
+          label="Active/Inactive"
+          control={<IOSSwitch defaultChecked sx={{ m: 1 }} />}
+        />
+      </FormGroup>
     </>
-  )
+  );
 }

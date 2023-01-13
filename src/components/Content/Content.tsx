@@ -12,14 +12,15 @@ import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import ViewIcon from '@/utils/UIs/ViewIcon';
-import { Button } from '@mui/material';
+import Modal from '@/utils/UIs/Modal';
+import AddContent from './AddContent';
 
 import Cookies from 'universal-cookie';
 
 export default function Content() {
   const router: any = useRouter();
   const filterByStatus: any = useRef();
-  const cookies = new Cookies()
+  const cookies = new Cookies();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
@@ -52,7 +53,7 @@ export default function Content() {
       content_type,
       Last_modified_date,
       status,
-      <ViewIcon />
+      <ViewIcon />,
     ];
   }
 
@@ -89,9 +90,10 @@ export default function Content() {
       .catch((err) => {
         setCallApiPending(false);
         console.log(err);
-      }).finally(() => {
-        setCallApiPending(false);
       })
+      .finally(() => {
+        setCallApiPending(false);
+      });
   }
 
   useLayoutEffect(() => {
@@ -148,11 +150,7 @@ export default function Content() {
               placeholder="Search order code"
             />
           </div>
-          <div className="">
-            <div className={`text-center`}>
-              <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add content</Button>
-            </div>
-          </div>
+          <Modal component={<AddContent />} action_name="+ Add Content"/>
         </form>
         <div className={`table-container py-4`}>
           <BasicTable

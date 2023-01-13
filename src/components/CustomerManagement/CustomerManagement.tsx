@@ -166,7 +166,7 @@ export default function CustomerManagement() {
             />
           </div>
           <div className="">
-            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white px-3 cursor-pointer text-center`}><Modal component={<AddCustomer />}/></Button>
+              <Modal component={<AddCustomer />} action_name='+ Add customer'/>
           </div>
         </form>
         <div className={`table-container py-4`}>

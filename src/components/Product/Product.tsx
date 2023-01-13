@@ -186,8 +186,7 @@ export default function Product() {
             />
           </div>
           <div className="">
-
-            <Modal component={<AddProduct />} action_name={"+ Add Product"} />
+            <Modal component={<AddProduct />} action_name={'+ Add Product'} width={'75%'} />
           </div>
         </form>
         <div className={`table-container py-4`}>

@@ -1,8 +1,4 @@
-import React, {
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
@@ -10,8 +6,8 @@ import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import { Button } from '@mui/material';
-import Modal from '@/utils/UIs/Modal'
-import Cookies from 'universal-cookie'
+import Modal from '@/utils/UIs/Modal';
+import Cookies from 'universal-cookie';
 import AddAdmin from './AddAdmin';
 
 export default function AdminManagement() {
@@ -19,7 +15,7 @@ export default function AdminManagement() {
   // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
   // -H 'accept: */*' \
   // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
-  const cookies = new Cookies()
+  const cookies = new Cookies();
 
   const router: any = useRouter();
 
@@ -45,7 +41,7 @@ export default function AdminManagement() {
       },
       fullname,
       status,
-      <ViewIcon />
+      <ViewIcon />,
     ] as any;
   }
 
@@ -80,9 +76,10 @@ export default function AdminManagement() {
       })
       .catch((err) => {
         console.log(err);
-      }).finally(() => {
+      })
+      .finally(() => {
         setCallApiPending(false);
-      });;
+      });
   }
 
   useLayoutEffect(() => {
@@ -135,11 +132,7 @@ export default function AdminManagement() {
               placeholder="Search order code"
             />
           </div>
-          <div className="">
-            <div className={`text-center`}>
-            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white px-3 cursor-pointer text-center`}><Modal component={<AddAdmin />}/></Button>
-            </div>
-          </div>
+          <Modal component={<AddAdmin />} action_name="+ Add Admin"/>
         </form>
         <div className={`table-container py-4`}>
           <BasicTable

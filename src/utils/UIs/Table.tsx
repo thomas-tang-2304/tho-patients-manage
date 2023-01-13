@@ -21,6 +21,8 @@ import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 import { VscCircleOutline } from 'react-icons/vsc';
+import { color } from '@mui/system';
+import { green } from '@mui/material/colors';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,20 +51,21 @@ export default function BasicTable({
   const [items, setNewItems]: any = useState([]);
   const [sortLabel, setSortLabel]: any = useState({ label: '', state: 0 });
 
-  const statusData: any = {
-    "ACTIVE": "green-600",
-    "INACTIVE": "red-500",
-    "APPROVED": "green-600",
-    "NOT APPVOVED": "red-500",
-    "PENDING": "red-500",
-    "CONFIRMED": "yellow-500",
-    "PAID": "green-600",
-    "DELIVERED": "green-600",
-    "DELIVERING": "violet-600",
-    "CANCELLED": "slate-300"
+
+  const colorPicker = (status: string) => {
+    if(status == 'ACTIVE' || status == 'APPROVED' || status == 'PAID' || status == 'DELIVERED')
+    return 'green';
+    if(status == 'INACTIVE' || status == 'NOT APPROVED' || status == 'PENDING')
+    return 'red';
+    if(status == 'CONFIRMED')
+    return '#FFB100';
+    if(status == 'DELIVERING')
+    return 'violet';
+    else {
+      return 'gray';
+    }
+
   }
-
-
   useEffect(() => setNewItems(rows), [rows]);
 
   const handleSortLabel = (prev: any, e: Event | any) =>
@@ -73,23 +76,23 @@ export default function BasicTable({
   const arrSort = (arr: any[], index: number, state: number) =>
     state == 1
       ? [...arr].sort((a: any, b: any) =>
-        index == 0
-          ? a[index]['content'] < b[index]['content']
-            ? -1
-            : 1
-          : a[index] < b[index]
+          index == 0
+            ? a[index]['content'] < b[index]['content']
+              ? -1
+              : 1
+            : a[index] < b[index]
             ? -1
             : 1,
-      )
+        )
       : [...arr].sort((a: any, b: any) =>
-        index == 0
-          ? a[index]['content'] > b[index]['content']
-            ? -1
-            : 1
-          : a[index] > b[index]
+          index == 0
+            ? a[index]['content'] > b[index]['content']
+              ? -1
+              : 1
+            : a[index] > b[index]
             ? -1
             : 1,
-      );
+        );
 
   const handleLabelClick = (e: Event | any) => {
     setSortLabel((prev: any) => handleSortLabel(prev, e));
@@ -175,8 +178,8 @@ export default function BasicTable({
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  {headers.map(({index}) =>
-                    index == 0 ?
+                  {headers.map(({ index }) =>
+                    index == 0 ? (
                       <StyledTableCell key={index} component="th" scope="row">
                         {component != 'product' ? (
                           <p className={`font-bold`}>...</p>
@@ -184,10 +187,12 @@ export default function BasicTable({
                           <img className="w-32" src="../images/holder.jpg" />
                         )}
                       </StyledTableCell>
-                      :
-                      <StyledTableCell key={index} align="right">...</StyledTableCell>
+                    ) : (
+                      <StyledTableCell key={index} align="right">
+                        ...
+                      </StyledTableCell>
+                    ),
                   )}
-                
                 </TableRow>
               ))
             )
@@ -209,9 +214,8 @@ export default function BasicTable({
                   ) : (
                     <TableCell
                       align="right"
-                      className={`${headers[i] ? `text-${statusData[r]}` : null}`}
+                      style={{color: colorPicker(r)}}
                     >
-
                       {r}
                     </TableCell>
                   ),
