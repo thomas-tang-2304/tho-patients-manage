@@ -1,25 +1,17 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import { GrOverview } from 'react-icons/gr';
 
-import SideMenu from '@/components/SideMenu';
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import { style } from '@mui/system';
-import Rating from '@mui/material/Rating';
-import ViewIcon from '@/utils/UIs/ViewIcon';
-import { Button } from '@mui/material';
+import { Button, Rating} from '@mui/material';
 import Cookies from 'universal-cookie';
+import Modal from '@/utils/UIs/Modal';
+import ReviewDetail from './ReviewDetail';
 
 export default function Review() {
+
   const router: any = useRouter();
   const cookies = new Cookies();
 
@@ -29,6 +21,7 @@ export default function Review() {
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
   const [checkRegex, setCheckRegex] = useState('');
+  
   const offsets = {
     size: 10,
   };
@@ -59,7 +52,7 @@ export default function Review() {
       product,
       fullname,
       reviewdate,
-      <ViewIcon />,
+      <Modal component={<ReviewDetail />} action_name="View"/>,
     ];
   }
 
@@ -131,7 +124,11 @@ export default function Review() {
           </div>
           <div className="">
             <div className={`text-center`}>
-              <Button variant="outlined">+ Add Review</Button>
+              <Button
+                variant="outlined"
+              >
+                + Add review
+              </Button>
             </div>
           </div>
         </form>

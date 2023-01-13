@@ -1,10 +1,10 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable react/jsx-key */
+
+import { useRouter, Router } from 'next/router';
 import React, { useState } from 'react';
 import { SiFacebook, SiYoutube } from 'react-icons/si'
 
 export default function Settings() {
+  const router = useRouter();
   const activeLinkClassName =
     'font-semibold pb-2 text-blue-900 border-b-4 border-blue-900';
   const linkClassName = 'font-semibold pb-2';

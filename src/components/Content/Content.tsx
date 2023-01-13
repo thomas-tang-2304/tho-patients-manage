@@ -1,7 +1,10 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { BsSearch } from 'react-icons/bs';
 
 import BasicTable from '@/utils/UIs/Table';
@@ -9,6 +12,10 @@ import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import ViewIcon from '@/utils/UIs/ViewIcon';
+
+import Modal from '@/utils/UIs/Modal';
+import AddContent from './AddContent';
+
 import Cookies from 'universal-cookie';
 
 export default function Content() {
@@ -48,6 +55,7 @@ export default function Content() {
       Last_modified_date,
       status,
       <ViewIcon key={1}/>,
+
     ];
   }
 
@@ -95,18 +103,18 @@ export default function Content() {
 
     if (router.query.page) {
       if (router.query.filter_by) {
-        filterByStatus.current.value = router.query.filter_by;
+        // filterByStatus.current.value = router.query.filter_by;
         fetchMyAPI(router.query.page, router.query.filter_by);
       } else {
-        filterByStatus.current.value = 'Choose Status';
+        // filterByStatus.current.value = 'Choose Status';
         fetchMyAPI(router.query.page, '');
       }
     } else {
       if (router.query.filter_by) {
-        filterByStatus.current.value = router.query.filter_by;
+        // filterByStatus.current.value = router.query.filter_by;
         fetchMyAPI(router.query.page, router.query.filter_by);
       } else {
-        filterByStatus.current.value = 'Choose Status';
+        // filterByStatus.current.value = 'Choose Status';
         fetchMyAPI(router.query.page, '');
       }
     }
@@ -132,6 +140,7 @@ export default function Content() {
       <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
           <h1 className={`font-bold mb-3`}>Order Management</h1>
+
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
@@ -144,48 +153,7 @@ export default function Content() {
               placeholder="Search order code"
             />
           </div>
-          <div className="">
-            <div>
-              <label htmlFor="cars" className={`font-bold text-xl`}>
-                Filter status
-              </label>
-            </div>
-
-            <div className={`text-center`}>
-              <select
-                name="order-state"
-                id="order-selector"
-                ref={filterByStatus}
-                className={`border-2 px-3 py-2 capitalize`}
-                onChange={(e: any) => filterByValue(e)}
-              >
-                <option className="capitalize" value="ALL">
-                  all
-                </option>
-                <option className="capitalize" value="PAID">
-                  paid
-                </option>
-                <option className="capitalize" value="PENDING">
-                  pending
-                </option>
-                <option className="capitalize" value="DELIVERED">
-                  delivered
-                </option>
-                <option className="capitalize" value="DELIVERING">
-                  delivering
-                </option>
-                <option className="capitalize" value="REVIEWED">
-                  reviewed
-                </option>
-                <option className="capitalize" value="CANCELLED">
-                  cancelled
-                </option>
-                <option className="capitalize" value="CONFIRMED">
-                  confirmed
-                </option>
-              </select>
-            </div>
-          </div>
+          <Modal component={<AddContent />} action_name="+ Add Content"/>
         </form>
         <div className={`table-container py-4`}>
           <BasicTable

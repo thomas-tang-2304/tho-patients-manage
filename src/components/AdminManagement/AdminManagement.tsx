@@ -1,21 +1,14 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-
-
 import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-
+import ViewIcon from '@/utils/UIs/ViewIcon';
+import { Button } from '@mui/material';
 import Modal from '@/utils/UIs/Modal';
-
 import Cookies from 'universal-cookie';
+import AddAdmin from './AddAdmin';
 
 export default function AdminManagement() {
   // curl - X 'GET' \
@@ -25,7 +18,6 @@ export default function AdminManagement() {
   const cookies = new Cookies();
 
   const router: any = useRouter();
-  const filterByStatus: any = useRef();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
@@ -48,7 +40,7 @@ export default function AdminManagement() {
       },
       fullname,
       status,
-      <Modal component={<h1>Hello</h1>} action_name={'View'} />,
+      <ViewIcon />,
     ] as any;
   }
 
@@ -93,22 +85,19 @@ export default function AdminManagement() {
 
     if (router.query.page) {
       if (router.query.filter_by) {
-        filterByStatus.current.value = router.query.filter_by;
         fetchMyAPI(router.query.page, router.query.filter_by);
       } else {
-        filterByStatus.current.value = 'Choose Status';
         fetchMyAPI(router.query.page, '');
       }
     } else {
       if (router.query.filter_by) {
-        filterByStatus.current.value = router.query.filter_by;
         fetchMyAPI(router.query.page, router.query.filter_by);
       } else {
-        filterByStatus.current.value = 'Choose Status';
         fetchMyAPI(router.query.page, '');
       }
     }
   }, [router.query]);
+
 
   const filterByValue = (e: any = 'PAID') => {
     setInstance([]);
@@ -142,48 +131,7 @@ export default function AdminManagement() {
               placeholder="Search order code"
             />
           </div>
-          <div className="">
-            <div>
-              <label htmlFor="cars" className={`font-bold text-xl`}>
-                Filter status
-              </label>
-            </div>
-
-            <div className={`text-center`}>
-              <select
-                name="order-state"
-                id="order-selector"
-                ref={filterByStatus}
-                className={`border-2 px-3 py-2 capitalize`}
-                onChange={(e: any) => filterByValue(e)}
-              >
-                <option className="capitalize" value="ALL">
-                  all
-                </option>
-                <option className="capitalize" value="PAID">
-                  paid
-                </option>
-                <option className="capitalize" value="PENDING">
-                  pending
-                </option>
-                <option className="capitalize" value="DELIVERED">
-                  delivered
-                </option>
-                <option className="capitalize" value="DELIVERING">
-                  delivering
-                </option>
-                <option className="capitalize" value="REVIEWED">
-                  reviewed
-                </option>
-                <option className="capitalize" value="CANCELLED">
-                  cancelled
-                </option>
-                <option className="capitalize" value="CONFIRMED">
-                  confirmed
-                </option>
-              </select>
-            </div>
-          </div>
+          <Modal component={<AddAdmin />} action_name="+ Add Admin"/>
         </form>
         <div className={`table-container py-4`}>
           <BasicTable

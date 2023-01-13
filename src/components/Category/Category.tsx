@@ -18,6 +18,8 @@ import { useRouter, NextRouter } from 'next/router';
 import Cookies from 'universal-cookie';
 import { Button } from '@mui/material';
 import ViewIcon from '@/utils/UIs/ViewIcon';
+import Modal from '@/utils/UIs/Modal';
+import AddCategory from './AddCategory';
 
 const cookies = new Cookies();
 
@@ -122,7 +124,7 @@ export default function Category() {
             />
           </div>
           <div className="">
-            <Button variant="outlined">+ Add Category</Button>
+              <Modal component={<AddCategory />} action_name="+ Add category"/>
           </div>
         </form>
         <div className={`table-container py-4`}>

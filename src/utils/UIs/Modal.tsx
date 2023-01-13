@@ -4,8 +4,7 @@
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import { Stack, Button } from '@mui/material';
+import { Stack, Button, Modal } from '@mui/material';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -16,7 +15,8 @@ const style = {
   boxShadow: 24,
 };
 
-export default function NestedModal({ component, action_name }: any) {
+
+export default function NestedModal({ component, action_name, width }: any) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -25,25 +25,34 @@ export default function NestedModal({ component, action_name }: any) {
     setOpen(false);
   };
 
+
+  const addData: any = {
+    AddCategory: 'Category',
+    AddAdmin: 'Admin',
+    AddCustomer: 'Customer',
+  };
   return (
-    <div>
-      <Button onClick={handleOpen}>{action_name}</Button>
+    <>
+      <Button variant="outlined" onClick={handleOpen}>{action_name}</Button>
       <Modal
         open={open}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: `75%` }}>
+        <Box sx={{ ...style, width: width ?? 700 }}>
           {component}
-
-          <Stack spacing={2} direction="row" className="float-right p-6">
-            <Button onClick={handleClose} variant="text">
+          <Stack
+            spacing={2}
+            direction="row"
+            className={`flex justify-end  p-6`}
+          >
+            <Button onClick={handleClose} variant="outlined">
               Cancel
             </Button>
-            <Button variant="outlined">Save</Button>
+            <Button variant="contained">Save</Button>
           </Stack>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }
