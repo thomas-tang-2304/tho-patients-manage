@@ -10,10 +10,8 @@ import { NextRouter, useRouter } from 'next/router';
 export default function Index() {
   const { asPath }: NextRouter = useRouter();
 
-
   return (
     <div className={`container  mx-auto`}>
-
       <Head>
         <title>Admin Management</title>
         <meta name="description" content="Products" />

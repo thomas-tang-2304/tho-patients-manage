@@ -13,8 +13,21 @@ body {
   --pagination-active-border-color: #ffb451;
   --pagination-active-color: #ffb451;
   --pagination-color: rgb(0, 0, 0);
-
   --primary-color: #064055;
+
+/* 
+  const statusData: any = {
+    ACTIVE: 'green-600',
+    INACTIVE: 'red-500',
+    APPROVED: 'green-600',
+    'NOT APPVOVED': 'red-500',
+    PENDING: 'red-500',
+    CONFIRMED: 'yellow-500',
+    PAID: 'green-600',
+    DELIVERED: 'green-600',
+    DELIVERING: 'violet-600',
+    CANCELLED: 'slate-300',
+  }; */
 }
 
 a {

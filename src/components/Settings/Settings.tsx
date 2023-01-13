@@ -2,15 +2,11 @@ import { useRouter, Router } from 'next/router';
 import React, { useState } from 'react';
 
 export default function Settings() {
-
   const router = useRouter();
   const activeLinkClassName =
     'font-semibold pb-2 text-blue-900 border-b-4 border-blue-900';
   const linkClassName = 'font-semibold pb-2';
-  const linkList = [
-    'General',
-     'Banner'
-  ];
+  const linkList = ['General', 'Banner'];
 
   const [activeLink, setActiveLink] = useState(0);
 

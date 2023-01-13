@@ -20,7 +20,6 @@ import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter, NextRouter } from 'next/router';
 
 import Cookies from 'universal-cookie';
-import { Button } from '@mui/material';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import Modal from '@/utils/UIs/Modal';
 import AddCategory from './AddCategory';
@@ -110,49 +109,6 @@ export default function Category() {
     getCategoryRows();
   }, [router.query]);
 
-  // const filterByOrderCode = () => {
-  //     setCallApiPending(true);
-
-  //     const call = async () => {
-  //         return await axios.get(`https://dev-api.digiex.asia/calobye-be-dev/api/orders/${OrderCodeInput.current.value}`, {
-  //             headers: {
-  //                 'accept': '*/*',
-  //                 'Auth-Token': token
-  //             }
-  //         })
-  //             .then((res: any) => {
-  //                 const { data } = res
-  //                 setOrderLength(1);
-  //                 setInstance(
-  //                     [
-  //                         createData(
-  //                             data.data.order_code,
-  //                             `${data.data.customer.first_name} ${data.data.customer.last_name}`,
-  //                             data.data.total_price,
-  //                             data.data.created_date,
-  //                             data.data.status
-  //                         )
-  //                     ]
-  //                 );
-
-  //             })
-  //             .catch((err) => {
-  //                 setOrderLength(0);
-  //                 setInstance([]);
-  //                 console.log(err);
-  //             }).finally(() => {
-  //                 setCallApiPending(false);
-
-  //             });
-  //     }
-
-  //     if (OrderCodeInput.current.value != "") call();
-
-  //     else {
-  //         getOrderRows();
-  //     }
-  // }
-
   return (
     <>
       <div className={`border-gray-200 border-2 p-4 w-3/4 `}>
@@ -171,7 +127,7 @@ export default function Category() {
             />
           </div>
           <div className="">
-            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white px-3 cursor-pointer text-center`}><Modal component={<AddCategory />}/></Button>
+              <Modal component={<AddCategory />} action_name="+ Add category"/>
           </div>
         </form>
         <div className={`table-container py-4`}>
