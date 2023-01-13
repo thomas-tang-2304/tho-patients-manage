@@ -1,6 +1,8 @@
 import React, {
   ReactNode,
   useEffect,
+  useLayoutEffect,
+  useRef,
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
@@ -12,10 +14,14 @@ import { useRouter } from 'next/router';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import { Button } from '@mui/material';
 
+import Cookies from 'universal-cookie';
+
 export default function Content() {
   const router: any = useRouter();
+  const filterByStatus: any = useRef();
+  const cookies = new Cookies()
 
-  const token = '02d0a36b3dc4436d9cda4d072382c73f';
+  const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
@@ -46,7 +52,7 @@ export default function Content() {
       content_type,
       Last_modified_date,
       status,
-      <ViewIcon /> 
+      <ViewIcon />
     ];
   }
 
@@ -79,15 +85,16 @@ export default function Content() {
             ),
           ),
         );
-        console.log(data);
       })
       .catch((err) => {
         setCallApiPending(false);
         console.log(err);
-      });
+      }).finally(() => {
+        setCallApiPending(false);
+      })
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setInstance([]);
 
     if (router.query.page) {
@@ -107,7 +114,7 @@ export default function Content() {
         fetchMyAPI(router.query.page, '');
       }
     }
-  }, [router.query.page, router.query.filter_by, productsLength]);
+  }, [router.query]);
 
   const filterByValue = (e: any = 'PAID') => {
     setInstance([]);

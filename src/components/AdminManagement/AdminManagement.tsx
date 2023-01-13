@@ -1,6 +1,4 @@
 import React, {
-  ReactNode,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -12,25 +10,28 @@ import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import { Button } from '@mui/material';
+import Modal from '@/utils/UIs/Modal'
+import Cookies from 'universal-cookie'
+import AddAdmin from './AddAdmin';
 
 export default function AdminManagement() {
   // curl - X 'GET' \
   // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
   // -H 'accept: */*' \
   // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
+  const cookies = new Cookies()
 
   const router: any = useRouter();
 
-  const token = '6959e9fdd21d42b5ac880147315be436';
+  const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
   const [checkRegex, setCheckRegex] = useState('');
 
-  const re = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
+  // const re = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
 
-  console.log(re.test(checkRegex));
   const offsets = {
     size: 10,
   };
@@ -65,7 +66,6 @@ export default function AdminManagement() {
       })
       .then((data: any) => {
         setCheckRegex(data.data.data.content.content);
-        setCallApiPending(false);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
@@ -77,15 +77,15 @@ export default function AdminManagement() {
             ),
           ),
         );
-        console.log(data);
       })
       .catch((err) => {
-        setCallApiPending(false);
         console.log(err);
-      });
+      }).finally(() => {
+        setCallApiPending(false);
+      });;
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setInstance([]);
 
     if (router.query.page) {
@@ -137,7 +137,7 @@ export default function AdminManagement() {
           </div>
           <div className="">
             <div className={`text-center`}>
-            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add admin</Button>
+            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white px-3 cursor-pointer text-center`}><Modal component={<AddAdmin />}/></Button>
             </div>
           </div>
         </form>

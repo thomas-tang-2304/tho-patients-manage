@@ -6,9 +6,7 @@
 
 import React, {
   ReactNode,
-  useEffect,
   useLayoutEffect,
-  useRef,
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
@@ -23,11 +21,15 @@ import { style } from '@mui/system';
 import Rating from '@mui/material/Rating';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import { Button } from '@mui/material';
+import Cookies from 'universal-cookie'
+import Modal from '@/utils/UIs/Modal';
+import ReviewDetail from './ReviewDetail';
 
 export default function Review() {
   const router: any = useRouter();
+  const cookies = new Cookies()
 
-  const token = '008d7fddb4974935b81281e089716c57';
+  const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
@@ -84,7 +86,6 @@ export default function Review() {
       })
       .then((data: any) => {
         setCheckRegex(data.data.data.content.content);
-        setCallApiPending(false);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
@@ -98,15 +99,15 @@ export default function Review() {
             ),
           ),
         );
-        console.log(data);
       })
       .catch((err) => {
-        setCallApiPending(false);
         console.log(err);
+      }).finally(() => {
+        setCallApiPending(false);
       });
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setInstance([]);
 
     if (router.query.filter_by) {
@@ -114,7 +115,7 @@ export default function Review() {
     } else {
       fetchMyAPI(router.query.page, '');
     }
-  }, [router.query.page, router.query.filter_by, productsLength]);
+  }, [router.query]);
 
   return (
     <>
@@ -135,7 +136,7 @@ export default function Review() {
           </div>
           <div className="">
             <div className={`text-center`}>
-              <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add Review</Button>
+              <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}><Modal component={<ReviewDetail />}/></Button>
             </div>
           </div>
         </form>

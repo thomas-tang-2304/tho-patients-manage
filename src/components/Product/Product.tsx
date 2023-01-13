@@ -165,7 +165,7 @@ export default function Product() {
 
     if (router.query.page) fetchMyAPI(router.query.page);
     else fetchMyAPI(1);
-  }, [router.query.page, router.query.filter_by]);
+  }, [router.query]);
 
   return (
     <>
