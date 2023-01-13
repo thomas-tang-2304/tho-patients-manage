@@ -18,10 +18,10 @@ import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { NextRouter, useRouter } from 'next/router';
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
 import Cookies from 'universal-cookie';
-import { Button } from '@mui/material';
+import Modal from '@/utils/UIs/Modal';
+import AddProduct from './AddProductModal';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 
 const cookies = new Cookies();
@@ -186,7 +186,8 @@ export default function Product() {
             />
           </div>
           <div className="">
-            <Button variant="outlined" className={`hover:bg-indigo-700 rounded bg-indigo-500 text-white p-2 px-3 cursor-pointer text-center`}>+ Add products</Button>
+
+            <Modal component={<AddProduct />} action_name={"+ Add Product"} />
           </div>
         </form>
         <div className={`table-container py-4`}>
