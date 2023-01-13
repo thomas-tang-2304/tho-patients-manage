@@ -55,7 +55,7 @@ export default function AdminManagement() {
       },
       fullname,
       status,
-      <Modal component={<h1>Hello</h1>}/>
+      <Modal component={<h1>Hello</h1>} action_name={"View"}/>
     ] as any;
   }
 
