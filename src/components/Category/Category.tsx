@@ -24,10 +24,6 @@ import AddCategory from './AddCategory';
 const cookies = new Cookies();
 
 export default function Category() {
-  // curl - X 'GET' \
-  // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
-  // -H 'accept: */*' \
-  // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
 
   const filterByStatus: MutableRefObject<string | undefined | any> = useRef();
   const router: NextRouter = useRouter();
@@ -52,7 +48,7 @@ export default function Category() {
       },
       create_date,
       status,
-      <ViewIcon key={1}/>,
+      <ViewIcon key={1} />,
     ];
   }
 
@@ -124,7 +120,7 @@ export default function Category() {
             />
           </div>
           <div className="">
-              <Modal component={<AddCategory />} action_name="+ Add category"/>
+            <Modal component={<AddCategory />} action_name="+ Add category" />
           </div>
         </form>
         <div className={`table-container py-4`}>

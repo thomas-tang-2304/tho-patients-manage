@@ -1,11 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, {
   MutableRefObject,
   useLayoutEffect,
@@ -20,16 +12,15 @@ import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { NextRouter, useRouter } from 'next/router';
 
 import Cookies from 'universal-cookie';
-import { Button } from '@mui/material';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import Modal from '@/utils/UIs/Modal';
 import AddCustomer from './AddCustomer';
+
 const cookies = new Cookies();
 
 export default function CustomerManagement() {
   const router: NextRouter = useRouter();
-  const SeachCustomerInput: MutableRefObject<string | undefined | any> =
-    useRef();
+  const SeachCustomerInput: MutableRefObject<string | undefined | any> = useRef();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber]: any = useState(router.query.page);
@@ -165,7 +156,7 @@ export default function CustomerManagement() {
             />
           </div>
           <div className="">
-              <Modal component={<AddCustomer />} action_name='+ Add customer'/>
+            <Modal component={<AddCustomer />} action_name="+ Add customer" />
           </div>
         </form>
         <div className={`table-container py-4`}>

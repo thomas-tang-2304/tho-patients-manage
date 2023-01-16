@@ -56,11 +56,25 @@ const PaginatedItems = function ({
         initialPage={router.query.page - 1 <= 0 ? 0 : router.query.page - 1}
         className={`pagination`}
         breakLabel="..."
-        nextLabel={<IconButton disabled={router.query.page == pageCount} ><FaChevronRight /></IconButton>}
+        nextLabel={
+          <IconButton disabled={router.query.page == pageCount}>
+            <FaChevronRight />
+          </IconButton>
+        }
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
-        previousLabel={<IconButton disabled={router.query.page == 1 || router.query.page == undefined || router.query.page == ""} ><FaChevronLeft /></IconButton>}
+        previousLabel={
+          <IconButton
+            disabled={
+              router.query.page == 1 ||
+              router.query.page == undefined ||
+              router.query.page == ''
+            }
+          >
+            <FaChevronLeft />
+          </IconButton>
+        }
       />
     </>
   );

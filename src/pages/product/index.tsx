@@ -11,7 +11,7 @@ import SideMenu from '@/components/SideMenu';
 import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
@@ -23,7 +23,7 @@ export default function products() {
     if (!cookies.get('account_token')) {
       router.push('/login');
     }
-  }, [])
+  }, []);
   return (
     <div className={`container  mx-auto`}>
       <Head>

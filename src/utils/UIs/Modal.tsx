@@ -15,7 +15,6 @@ const style = {
   boxShadow: 24,
 };
 
-
 export default function NestedModal({ component, action_name, width }: any) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -25,7 +24,6 @@ export default function NestedModal({ component, action_name, width }: any) {
     setOpen(false);
   };
 
-
   const addData: any = {
     AddCategory: 'Category',
     AddAdmin: 'Admin',
@@ -33,13 +31,15 @@ export default function NestedModal({ component, action_name, width }: any) {
   };
   return (
     <>
-      <Button variant="outlined" onClick={handleOpen}>{action_name}</Button>
+      <Button variant="outlined" onClick={handleOpen}>
+        {action_name}
+      </Button>
       <Modal
         open={open}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: width ?? 700 }}>
+        <Box className='rounded p-2' sx={{ ...style, width: width ?? 700 }}>
           {component}
           <Stack
             spacing={2}

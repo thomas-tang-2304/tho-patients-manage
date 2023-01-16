@@ -7,7 +7,7 @@ import Admin from '@/components/AdminManagement/AdminManagement';
 import Head from 'next/head';
 import SideMenu from '@/components/SideMenu';
 import { NextRouter, useRouter } from 'next/router';
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 export default function Index() {
@@ -17,11 +17,10 @@ export default function Index() {
   useEffect(() => {
     if (!cookies.get('account_token')) {
       console.log(cookies.get('account_token'));
-      
+
       router.push('/login');
     }
-  }, [])
-
+  }, []);
 
   return (
     <div className={`container  mx-auto`}>

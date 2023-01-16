@@ -2,16 +2,15 @@ import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
 import BasicTable from '@/utils/UIs/Table';
-import axios from 'axios';
+import Axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import { Button, Rating} from '@mui/material';
+import { Button, Rating } from '@mui/material';
 import Cookies from 'universal-cookie';
 import Modal from '@/utils/UIs/Modal';
 import ReviewDetail from './ReviewDetail';
 
 export default function Review() {
-
   const router: any = useRouter();
   const cookies = new Cookies();
 
@@ -21,7 +20,7 @@ export default function Review() {
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
   const [checkRegex, setCheckRegex] = useState('');
-  
+
   const offsets = {
     size: 10,
   };
@@ -52,14 +51,14 @@ export default function Review() {
       product,
       fullname,
       reviewdate,
-      <Modal component={<ReviewDetail />} action_name="View"/>,
+      <Modal component={<ReviewDetail />} action_name="View" />,
     ];
   }
 
   async function fetchMyAPI(p = 1, filter_status = '') {
     setCallApiPending(true);
 
-    return await axios
+    return await Axios
       .get('https://dev-api.digiex.asia/calobye-be-dev/api/review', {
         params: {
           asc_sort: 'false',
@@ -86,6 +85,7 @@ export default function Review() {
             ),
           ),
         );
+        console.log(data.data.data.content.map((i:any) => {}))
       })
       .catch((err) => {
         console.log(err);
@@ -124,11 +124,7 @@ export default function Review() {
           </div>
           <div className="">
             <div className={`text-center`}>
-              <Button
-                variant="outlined"
-              >
-                + Add review
-              </Button>
+              <Button variant="outlined">+ Add review</Button>
             </div>
           </div>
         </form>
@@ -142,7 +138,6 @@ export default function Review() {
           />
         </div>
 
-
         <div className={`paginator-container`}>
           <PaginatedItems
             itemsPerPage={offsets.size}
@@ -152,7 +147,6 @@ export default function Review() {
             currentPath={'/review'}
           />
         </div>
-
       </div>
     </>
   );

@@ -7,7 +7,7 @@ import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import Category from '@/components/Category/Category';
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
@@ -19,7 +19,7 @@ export default function category() {
     if (!cookies.get('account_token')) {
       router.push('/login');
     }
-  }, [])
+  }, []);
   return (
     <div className={`container  mx-auto`}>
       <Head>

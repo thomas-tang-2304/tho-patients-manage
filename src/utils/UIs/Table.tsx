@@ -54,18 +54,21 @@ export default function BasicTable({
   const [sortLabel, setSortLabel]: any = useState({ label: '', state: 0 });
 
   const colorPicker = (status: string) => {
-    if(status == 'ACTIVE' || status == 'APPROVED' || status == 'PAID' || status == 'DELIVERED')
-    return 'green';
-    if(status == 'INACTIVE' || status == 'NOT APPROVED' || status == 'PENDING')
-    return 'red';
-    if(status == 'CONFIRMED')
-    return '#FFB100';
-    if(status == 'DELIVERING')
-    return 'violet';
+    if (
+      status == 'ACTIVE' ||
+      status == 'APPROVED' ||
+      status == 'PAID' ||
+      status == 'DELIVERED'
+    )
+      return 'green';
+    if (status == 'INACTIVE' || status == 'NOT APPROVED' || status == 'PENDING')
+      return 'red';
+    if (status == 'CONFIRMED') return '#FFB100';
+    if (status == 'DELIVERING') return 'violet';
     else {
       return 'gray';
     }
-  }
+  };
   useEffect(() => setNewItems(rows), [rows]);
 
   const handleSortLabel = (prev: any, e: Event | any) =>
@@ -179,7 +182,6 @@ export default function BasicTable({
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   {headers.map(({ index }: { index: number }) =>
-
                     index == 0 ? (
                       <StyledTableCell key={index} component="th" scope="row">
                         {component != 'product' ? (
@@ -213,10 +215,7 @@ export default function BasicTable({
                       )}
                     </TableCell>
                   ) : (
-                    <TableCell
-                      align="right"
-                      style={{color: colorPicker(r)}}
-                    >
+                    <TableCell align="right" style={{ color: colorPicker(r) }}>
                       {r}
                     </TableCell>
                   ),

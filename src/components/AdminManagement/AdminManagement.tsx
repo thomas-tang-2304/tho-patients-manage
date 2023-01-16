@@ -1,22 +1,16 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import BasicTable from '@/utils/UIs/Table';
-import axios from 'axios';
-import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import ViewIcon from '@/utils/UIs/ViewIcon';
-import { Button } from '@mui/material';
-import Modal from '@/utils/UIs/Modal';
+import axios from 'axios';
 import Cookies from 'universal-cookie';
 import AddAdmin from './AddAdmin';
+import Modal from '@/utils/UIs/Modal';
+import BasicTable from '@/utils/UIs/Table';
+import ViewIcon from '@/utils/UIs/ViewIcon';
+import PaginatedItems from '@/utils/UIs/ReactPagination';
 
 export default function AdminManagement() {
-  // curl - X 'GET' \
-  // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
-  // -H 'accept: */*' \
-  // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
   const cookies = new Cookies();
-
   const router: any = useRouter();
 
   const [token, setToken] = useState(cookies.get('account_token'));
@@ -24,8 +18,6 @@ export default function AdminManagement() {
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-
-  // const re = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
 
   const offsets = {
     size: 10,
@@ -98,7 +90,6 @@ export default function AdminManagement() {
     }
   }, [router.query]);
 
-
   const filterByValue = (e: any = 'PAID') => {
     setInstance([]);
 
@@ -131,7 +122,7 @@ export default function AdminManagement() {
               placeholder="Search order code"
             />
           </div>
-          <Modal component={<AddAdmin />} action_name="+ Add Admin"/>
+          <Modal component={<AddAdmin />} action_name="+ Add Admin" />
         </form>
         <div className={`table-container py-4`}>
           <BasicTable
