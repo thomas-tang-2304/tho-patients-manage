@@ -3,11 +3,27 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable prettier/prettier */
 import Head from 'next/head';
+import { NextRouter, useRouter } from 'next/router';
+import Cookies from 'universal-cookie'
+import React, { useEffect } from 'react';
 import Dashboard from '../components/Dashboard';
 import { useEffect } from 'react'
 
 export default function Home({ text, setText }: any) {
 
+
+const cookies = new Cookies();
+
+export default function Home({dataHook}: {dataHook: any}) {
+
+  const { asPath }: NextRouter = useRouter();
+  const router: NextRouter = useRouter();
+
+  useEffect(() => {
+    if (!cookies.get('account_token')) {
+      router.push('/login');
+    }
+  }, [])
   return (
     <div className={`container mx-auto`}  >
       <Head>
@@ -19,7 +35,7 @@ export default function Home({ text, setText }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Dashboard />
+      <Dashboard dataHook={dataHook}/>
     </div>
   );
 }
