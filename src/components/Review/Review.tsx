@@ -101,11 +101,8 @@ export default function Review() {
   useLayoutEffect(() => {
     setInstance([]);
 
-    if (router.query.filter_by) {
-      fetchMyAPI(router.query.page);
-    } else {
-      fetchMyAPI(router.query.page);
-    }
+    if (router.query.page) fetchMyAPI(router.query.page);
+    else fetchMyAPI(1);
     return () => { source.cancel("Cancelling in cleanup"); }
   }, [router.query]);
 

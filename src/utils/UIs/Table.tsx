@@ -184,7 +184,7 @@ export default function BasicTable({
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  {headers.map(({ index }: { index: number }) =>
+                  {headers.map((ele: any, index: number ) =>
                     index == 0 ? (
                       <StyledTableCell key={index} component="th" scope="row">
                         {component != 'product' ? (

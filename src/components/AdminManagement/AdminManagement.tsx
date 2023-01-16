@@ -87,8 +87,11 @@ export default function AdminManagement() {
     setInstance([]);
 
 
-    fetchMyAPI(router.query.page);
-
+    if (router.query.page)
+      fetchMyAPI(router.query.page);
+    else {
+      fetchMyAPI(1);
+    }
 
     return () => { source.cancel("Cancelling in cleanup"); }
   }, [router.query]);
@@ -124,17 +127,17 @@ export default function AdminManagement() {
           />
         </div>
 
-        {pageNumber && (
-          <div className={`paginator-container`}>
-            <PaginatedItems
-              itemsPerPage={offsets.size}
-              items={productsLength}
-              page={pageNumber}
-              router={router}
-              currentPath={'/admin-management'}
-            />
-          </div>
-        )}
+
+        <div className={`paginator-container`}>
+          <PaginatedItems
+            itemsPerPage={offsets.size}
+            items={productsLength}
+            page={pageNumber}
+            router={router}
+            currentPath={'/admin-management'}
+          />
+        </div>
+
       </div>
     </>
   );

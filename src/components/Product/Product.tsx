@@ -72,7 +72,7 @@ export default function Product() {
       price,
       create_date,
       status,
-      <ViewIcon />,
+      <ViewIcon key={1}/>,
     ];
   }
 
@@ -144,7 +144,6 @@ export default function Product() {
               data.data.status,
             ),
           ]);
-          console.log(data);
         })
         .catch((err) => {
           setProductsLength(0);

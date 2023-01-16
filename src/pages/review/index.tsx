@@ -18,7 +18,7 @@ export default function review() {
       router.push('/login');
     }
   }, []);
-                 return (
+  return (
     <div className={`container  mx-auto`}>
       <Head>
         <title>Review</title>
