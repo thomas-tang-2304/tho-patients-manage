@@ -23,13 +23,10 @@ export default function Login() {
   const inputPass = useRef<any>();
   const router = useRouter();
 
-  const changeUser = (e: any) => {
-    setUserName(e.target.value);
+ 
 
-    setIsDisabled(
-      inputUserName?.current?.value == '' || inputPass?.current?.value == '',
-    );
-  };
+
+
 
   const valueUser = () => {
     setUserName(inputUserName.current.value);

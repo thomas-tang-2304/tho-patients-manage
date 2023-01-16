@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/quotes */
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import BasicTable from '@/utils/UIs/Table';
@@ -5,19 +7,19 @@ import axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import ViewIcon from '@/utils/UIs/ViewIcon';
-import { Button } from '@mui/material';
 import Modal from '@/utils/UIs/Modal';
 import Cookies from 'universal-cookie';
 import AddAdmin from './AddAdmin';
 
+const cookies = new Cookies();
 export default function AdminManagement() {
   // curl - X 'GET' \
   // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
   // -H 'accept: */*' \
   // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
-  const cookies = new Cookies();
 
   const router: any = useRouter();
+  const source = axios.CancelToken.source();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
@@ -40,11 +42,11 @@ export default function AdminManagement() {
       },
       fullname,
       status,
-      <ViewIcon />,
+      <ViewIcon key={1} />,
     ] as any;
   }
 
-  async function fetchMyAPI(p = 1, filter_status = '') {
+  async function fetchMyAPI(p = 1) {
     setCallApiPending(true);
 
     return await axios
@@ -58,6 +60,7 @@ export default function AdminManagement() {
           accept: '*/*',
           'Auth-Token': token,
         },
+        cancelToken: source.token
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -83,35 +86,17 @@ export default function AdminManagement() {
   useLayoutEffect(() => {
     setInstance([]);
 
-    if (router.query.page) {
-      if (router.query.filter_by) {
-        fetchMyAPI(router.query.page, router.query.filter_by);
-      } else {
-        fetchMyAPI(router.query.page, '');
-      }
-    } else {
-      if (router.query.filter_by) {
-        fetchMyAPI(router.query.page, router.query.filter_by);
-      } else {
-        fetchMyAPI(router.query.page, '');
-      }
+
+    if (router.query.page)
+      fetchMyAPI(router.query.page);
+    else {
+      fetchMyAPI(1);
     }
+
+    return () => { source.cancel("Cancelling in cleanup"); }
   }, [router.query]);
 
-  const filterByValue = (e: any = 'PAID') => {
-    setInstance([]);
 
-    const value = e.target.value;
-    router.push({
-      pathname: '/order',
-      query: {
-        page: 1,
-        filter_by: value,
-      },
-    });
-
-    fetchMyAPI(1, value);
-  };
 
   return (
     <>
@@ -142,17 +127,17 @@ export default function AdminManagement() {
           />
         </div>
 
-        {pageNumber && (
-          <div className={`paginator-container`}>
-            <PaginatedItems
-              itemsPerPage={offsets.size}
-              items={productsLength}
-              page={pageNumber}
-              router={router}
-              currentPath={'/admin-management'}
-            />
-          </div>
-        )}
+
+        <div className={`paginator-container`}>
+          <PaginatedItems
+            itemsPerPage={offsets.size}
+            items={productsLength}
+            page={pageNumber}
+            router={router}
+            currentPath={'/admin-management'}
+          />
+        </div>
+
       </div>
     </>
   );

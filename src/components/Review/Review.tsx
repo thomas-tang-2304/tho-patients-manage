@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/quotes */
 import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
@@ -15,12 +16,14 @@ export default function Review() {
   const router: any = useRouter();
   const cookies = new Cookies();
 
+  const source: any = axios.CancelToken.source();
+
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-  const [checkRegex, setCheckRegex] = useState('');
+
 
   const offsets = {
     size: 10,
@@ -52,11 +55,11 @@ export default function Review() {
       product,
       fullname,
       reviewdate,
-      <Modal component={<ReviewDetail />} action_name="View" />,
+      <Modal key={1} scomponent={<ReviewDetail />} action_name="View" />,
     ];
   }
 
-  async function fetchMyAPI(p = 1, filter_status = '') {
+  async function fetchMyAPI(p = 1) {
     setCallApiPending(true);
 
     return await axios
@@ -70,9 +73,9 @@ export default function Review() {
           accept: '*/*',
           'Auth-Token': token,
         },
+        cancelToken: source.token
       })
       .then((data: any) => {
-        setCheckRegex(data.data.data.content.content);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
@@ -98,11 +101,9 @@ export default function Review() {
   useLayoutEffect(() => {
     setInstance([]);
 
-    if (router.query.filter_by) {
-      fetchMyAPI(router.query.page, router.query.filter_by);
-    } else {
-      fetchMyAPI(router.query.page, '');
-    }
+    if (router.query.page) fetchMyAPI(router.query.page);
+    else fetchMyAPI(1);
+    return () => { source.cancel("Cancelling in cleanup"); }
   }, [router.query]);
 
   return (
