@@ -1,9 +1,13 @@
-import {  FormControl, 
-          Box, 
-          MenuItem, 
-          TextField, 
-          FormGroup, 
-          Input } from '@mui/material';
+/* eslint-disable prettier/prettier */
+import {
+  FormControl,
+  Box,
+  MenuItem,
+  TextField,
+  FormGroup,
+  Input,
+} from '@mui/material';
+
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import React from 'react';
 import styles from '@/styles/Add.module.css';
@@ -16,14 +20,15 @@ export default function AddContent() {
     setContentType(event.target.value as string);
   };
   return (
-
-    <div className="text-black px-10">
+    <div className="px-10 text-black">
       <div className={`${styles.title}`}>
         <div className={`text-black`}>Category detail</div>
       </div>
 
       <FormGroup className={`my-5`}>
-        <label>Title name<span className='text-red'>*</span></label>
+        <label>
+          Title name<span className="text-red">*</span>
+        </label>
         <Input className="w-9/12" type="text" placeholder="Category name" />
       </FormGroup>
 
@@ -49,7 +54,7 @@ export default function AddContent() {
             maxWidth: '100%',
           }}
         >
-          <TextField variant='standard' fullWidth id="fullWidth" />
+          <TextField variant="standard" fullWidth id="fullWidth" />
         </Box>
       </FormGroup>
 
@@ -59,7 +64,7 @@ export default function AddContent() {
         <textarea className="text-white" rows={3} cols={50}></textarea>
       </div>
 
-      <Switches title="Publish/Unpublish"/>
+      <Switches title="Publish/Unpublish" />
     </div>
   );
 }

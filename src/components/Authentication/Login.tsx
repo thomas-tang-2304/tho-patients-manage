@@ -4,7 +4,13 @@
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import styles from '@/styles/Login.module.css';
-import {Button, InputAdornment, FormGroup, IconButton, Input} from '@mui/material';
+import {
+  Button,
+  InputAdornment,
+  FormGroup,
+  IconButton,
+  Input,
+} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Notify from './notifyPopup';
 
@@ -43,14 +49,14 @@ export default function Login() {
     );
   };
 
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     event.preventDefault();
   };
 
   const loginClick = async () => {
-    
     await axios
       .post(
         'https://dev-api.digiex.asia/calobye-be-dev/api/auth/login',
@@ -69,7 +75,6 @@ export default function Login() {
       )
       .then((res: any) => {
         const result = res?.data?.status;
-        
 
         cookies.set('account_token', res.data.data.id, {
           secure: process.env.NODE_ENV !== 'development',
@@ -79,48 +84,57 @@ export default function Login() {
         });
 
         setCookie(cookies.get('account_token'));
-        setNotifyModal(result == 200 ? <Notify title={'success'} state={'success'}/> : <Notify title={'Invalid user name and password'} state={'error'}/>);
-        
-          result == 200 ? setTimeout(()=> {router.push('/')},2000) : null;
-        
+        setNotifyModal(
+          result == 200 ? (
+            <Notify title={'success'} state={'success'} />
+          ) : (
+            <Notify title={'Invalid user name and password'} state={'error'} />
+          ),
+        );
+
+        result == 200
+          ? setTimeout(() => {
+              router.push('/');
+            }, 2000)
+          : null;
       })
       .catch((error: any) => error);
   };
 
   return (
     <>
-        {notifyModal}
+      {notifyModal}
       <div className={`${styles.login} text-black`}>
         <div className={`${styles.title}`}>CALOBYE</div>
         <FormGroup className="grid justify-around">
-            <Input
-              className='mb-5'
-              type="text"
-              ref={inputUserName}
-              name="uname"
-              onChange={changeUser}
-              placeholder="UserName..."
-            />
-            <Input
-              className='mt-5'
-              type={showPassword ? 'text' : 'password'}
-              ref={inputPass}
-              onChange={changePassWord}
-              placeholder="PassWord..."
-              name="pass"
-              endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-              }
-            />
+          <Input
+            className="mb-5"
+            type="text"
+            ref={inputUserName}
+            name="uname"
+            onChange={changeUser}
+            placeholder="UserName..."
+          />
+          <Input
+            className="mt-5"
+            type={showPassword ? 'text' : 'password'}
+            ref={inputPass}
+            onChange={changePassWord}
+            placeholder="PassWord..."
+            name="pass"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
           <Button
             disabled={isDisabled}
             className={`${styles.button} mt-16 rounded text-white`}
@@ -129,7 +143,6 @@ export default function Login() {
           >
             Login
           </Button>
-          
         </FormGroup>
       </div>
     </>

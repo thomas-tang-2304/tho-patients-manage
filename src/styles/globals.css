@@ -15,7 +15,9 @@ body {
   --pagination-color: rgb(0, 0, 0);
   --primary-color: #064055;
 
-/* 
+  background: #f3efe0;
+
+  /* 
   const statusData: any = {
     ACTIVE: 'green-600',
     INACTIVE: 'red-500',

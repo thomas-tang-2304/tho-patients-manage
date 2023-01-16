@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/quotes */
 import React, {
   MutableRefObject,
   useLayoutEffect,
@@ -20,7 +22,10 @@ const cookies = new Cookies();
 
 export default function CustomerManagement() {
   const router: NextRouter = useRouter();
-  const SeachCustomerInput: MutableRefObject<string | undefined | any> = useRef();
+
+  const SeachCustomerInput: MutableRefObject<string | undefined | any> =
+    useRef();
+  const source: any = axios.CancelToken.source();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber]: any = useState(router.query.page);
@@ -65,6 +70,7 @@ export default function CustomerManagement() {
           accept: '*/*',
           'Auth-Token': token,
         },
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -135,6 +141,9 @@ export default function CustomerManagement() {
 
     if (router.query.page) fetchMyAPI(router.query.page);
     else fetchMyAPI(1);
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   return (

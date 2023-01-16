@@ -1,4 +1,6 @@
-import React, { useLayoutEffect, useState } from 'react';
+/* eslint-disable prettier/prettier */
+
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -9,11 +11,12 @@ import BasicTable from '@/utils/UIs/Table';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 
+const cookies = new Cookies();
 export default function AdminManagement() {
-  const cookies = new Cookies();
   const router: any = useRouter();
+  const source = axios.CancelToken.source();
 
-  const [token, setToken] = useState(cookies.get('account_token'));
+  const [token, setToken] = useState(cookies.get(`account_token`));
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
@@ -23,7 +26,7 @@ export default function AdminManagement() {
     size: 10,
   };
 
-  const tableHeader = ['Email', 'Fullname', 'Status', 'Action'];
+  const tableHeader = [`Email`, `Fullname`, `Status`, `Action`];
 
   function createData(email: string, fullname: string, status: string) {
     return [
@@ -32,24 +35,25 @@ export default function AdminManagement() {
       },
       fullname,
       status,
-      <ViewIcon />,
+      <ViewIcon key={1} />,
     ] as any;
   }
 
-  async function fetchMyAPI(p = 1, filter_status = '') {
+  async function fetchMyAPI(p = 1) {
     setCallApiPending(true);
 
     return await axios
-      .get('https://dev-api.digiex.asia/calobye-be-dev/api/admin', {
+      .get(`https://dev-api.digiex.asia/calobye-be-dev/api/admin`, {
         params: {
           page_number: p,
           size_number: offsets.size,
-          asc_sort: 'false',
+          asc_sort: `false`,
         },
         headers: {
-          accept: '*/*',
+          accept: `*/*`,
           'Auth-Token': token,
         },
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -58,7 +62,7 @@ export default function AdminManagement() {
           data?.data?.data?.content?.map((item: any) =>
             createData(
               item.email,
-              `${item.first_name ?? ''} ${item.last_name ?? ''}`,
+              `${item.first_name ?? ``} ${item.last_name ?? ``}`,
               item.status,
             ),
           ),
@@ -75,35 +79,15 @@ export default function AdminManagement() {
   useLayoutEffect(() => {
     setInstance([]);
 
-    if (router.query.page) {
-      if (router.query.filter_by) {
-        fetchMyAPI(router.query.page, router.query.filter_by);
-      } else {
-        fetchMyAPI(router.query.page, '');
-      }
-    } else {
-      if (router.query.filter_by) {
-        fetchMyAPI(router.query.page, router.query.filter_by);
-      } else {
-        fetchMyAPI(router.query.page, '');
-      }
+    if (router.query.page) fetchMyAPI(router.query.page);
+    else {
+      fetchMyAPI(1);
     }
+
+    return () => {
+      source.cancel(`Cancelling in cleanup`);
+    };
   }, [router.query]);
-
-  const filterByValue = (e: any = 'PAID') => {
-    setInstance([]);
-
-    const value = e.target.value;
-    router.push({
-      pathname: '/order',
-      query: {
-        page: 1,
-        filter_by: value,
-      },
-    });
-
-    fetchMyAPI(1, value);
-  };
 
   return (
     <>
@@ -130,21 +114,19 @@ export default function AdminManagement() {
             rows={instance}
             headers={tableHeader}
             callApiPending={callApiPending}
-            component={'admin-management'}
+            component={`admin-management`}
           />
         </div>
 
-        {pageNumber && (
-          <div className={`paginator-container`}>
-            <PaginatedItems
-              itemsPerPage={offsets.size}
-              items={productsLength}
-              page={pageNumber}
-              router={router}
-              currentPath={'/admin-management'}
-            />
-          </div>
-        )}
+        <div className={`paginator-container`}>
+          <PaginatedItems
+            itemsPerPage={offsets.size}
+            items={productsLength}
+            page={pageNumber}
+            router={router}
+            currentPath={`/admin-management`}
+          />
+        </div>
       </div>
     </>
   );
