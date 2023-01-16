@@ -25,7 +25,7 @@ export default function notifyPopup({title, state}: any) {
       };
   return (
     <Stack className='m-2 absolute right-0' spacing={2} sx={{ width: '300px' }}>
-      <Snackbar open={open} autoHideDuration={6000} >
+      <Snackbar open={open} autoHideDuration={2000} >
         <Alert severity="success" sx={{ width: '100%' }}>
           {title}
         </Alert>
