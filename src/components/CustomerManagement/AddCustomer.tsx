@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 import React from 'react';
 import styles from '@/styles/Add.module.css';
 import {

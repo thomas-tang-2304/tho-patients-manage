@@ -29,8 +29,8 @@ export default function Category() {
   // -H 'accept: */*' \
   // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
 
-  const filterByStatus: MutableRefObject<string | undefined | any> = useRef();
   const router: NextRouter = useRouter();
+  const source: any = axios.CancelToken.source();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber]: any = useState(router.query.page);
@@ -72,6 +72,7 @@ export default function Category() {
           accept: '*/*',
           'Auth-Token': token,
         },
+        cancelToken: source.token
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -104,6 +105,7 @@ export default function Category() {
   useLayoutEffect(() => {
     setInstance([]);
     getCategoryRows();
+    return () => { source.cancel("Cancelling in cleanup"); }
   }, [router.query]);
 
   return (
