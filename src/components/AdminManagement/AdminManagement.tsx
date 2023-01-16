@@ -98,7 +98,6 @@ export default function AdminManagement() {
     }
   }, [router.query]);
 
-
   const filterByValue = (e: any = 'PAID') => {
     setInstance([]);
 
@@ -131,7 +130,7 @@ export default function AdminManagement() {
               placeholder="Search order code"
             />
           </div>
-          <Modal component={<AddAdmin />} action_name="+ Add Admin"/>
+          <Modal component={<AddAdmin />} action_name="+ Add Admin" />
         </form>
         <div className={`table-container py-4`}>
           <BasicTable

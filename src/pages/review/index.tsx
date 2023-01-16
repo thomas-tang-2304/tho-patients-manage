@@ -5,7 +5,7 @@ import SideMenu from '@/components/SideMenu';
 import Head from 'next/head';
 import { NextRouter, useRouter } from 'next/router';
 import Review from '@/components/Review/Review';
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
@@ -17,8 +17,8 @@ export default function review() {
     if (!cookies.get('account_token')) {
       router.push('/login');
     }
-  }, [])
-  return (
+  }, []);
+                 return (
     <div className={`container  mx-auto`}>
       <Head>
         <title>Review</title>

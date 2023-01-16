@@ -165,7 +165,7 @@ export default function CustomerManagement() {
             />
           </div>
           <div className="">
-              <Modal component={<AddCustomer />} action_name='+ Add customer'/>
+            <Modal component={<AddCustomer />} action_name="+ Add customer" />
           </div>
         </form>
         <div className={`table-container py-4`}>

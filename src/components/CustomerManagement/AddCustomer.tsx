@@ -1,12 +1,14 @@
 import React from 'react';
 import styles from '@/styles/Add.module.css';
-import{ SwitchProps, 
-        Switch, 
-        FormControlLabel, 
-        FormGroup, 
-        Stack, 
-        TextField,
-        styled} from '@mui/material';
+import {
+  SwitchProps,
+  Switch,
+  FormControlLabel,
+  FormGroup,
+  Stack,
+  TextField,
+  styled,
+} from '@mui/material';
 
 export default function AddAdmin() {
   const IOSSwitch = styled((props: SwitchProps) => (

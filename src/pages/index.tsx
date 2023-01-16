@@ -7,6 +7,10 @@ import { NextRouter, useRouter } from 'next/router';
 import Cookies from 'universal-cookie'
 import React, { useEffect } from 'react';
 import Dashboard from '../components/Dashboard';
+import { useEffect } from 'react'
+
+export default function Home({ text, setText }: any) {
+
 
 const cookies = new Cookies();
 
@@ -21,7 +25,7 @@ export default function Home({dataHook}: {dataHook: any}) {
     }
   }, [])
   return (
-    <div className={`container mx-auto`}>
+    <div className={`container mx-auto`}  >
       <Head>
         <title>Dashboard</title>
         <meta
