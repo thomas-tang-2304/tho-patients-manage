@@ -2,12 +2,8 @@
 import React from 'react';
 import styles from '@/styles/Add.module.css';
 
-import {
-
-  Rating,
-} from '@mui/material';
+import { Rating } from '@mui/material';
 import Switches from '@/utils/UIs/Switches';
-
 
 export default function ReviewDetail() {
   return (

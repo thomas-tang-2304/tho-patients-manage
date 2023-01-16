@@ -3,16 +3,19 @@
 /* eslint-disable prettier/prettier */
 
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import LinearProgress from '@mui/material/LinearProgress';
+import {
+  TableCell,
+  tableCellClasses,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  LinearProgress,
+  styled
+} from '@mui/material';
 import tailwind from 'tailwind.config.js';
-import { styled } from '@mui/material/styles';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 import { VscCircleOutline } from 'react-icons/vsc';
@@ -70,23 +73,23 @@ export default function BasicTable({
   const arrSort = (arr: any[], index: number, state: number) =>
     state == 1
       ? [...arr].sort((a: any, b: any) =>
-          index == 0
-            ? a[index]['content'] < b[index]['content']
-              ? -1
-              : 1
-            : a[index] < b[index]
+        index == 0
+          ? a[index]['content'] < b[index]['content']
+            ? -1
+            : 1
+          : a[index] < b[index]
             ? -1
             : 1,
-        )
+      )
       : [...arr].sort((a: any, b: any) =>
-          index == 0
-            ? a[index]['content'] > b[index]['content']
-              ? -1
-              : 1
-            : a[index] > b[index]
+        index == 0
+          ? a[index]['content'] > b[index]['content']
+            ? -1
+            : 1
+          : a[index] > b[index]
             ? -1
             : 1,
-        );
+      );
 
   const handleLabelClick = (text: string) => {
     setSortLabel((prev: any) => handleSortLabel(prev, text));
