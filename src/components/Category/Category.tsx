@@ -24,11 +24,6 @@ import AddCategory from './AddCategory';
 const cookies = new Cookies();
 
 export default function Category() {
-  // curl - X 'GET' \
-  // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
-  // -H 'accept: */*' \
-  // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
-
   const router: NextRouter = useRouter();
   const source: any = axios.CancelToken.source();
 
@@ -72,7 +67,7 @@ export default function Category() {
           accept: '*/*',
           'Auth-Token': token,
         },
-        cancelToken: source.token
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -105,7 +100,9 @@ export default function Category() {
   useLayoutEffect(() => {
     setInstance([]);
     getCategoryRows();
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   return (

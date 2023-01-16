@@ -1,11 +1,5 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, {
   MutableRefObject,
   useLayoutEffect,
@@ -20,14 +14,15 @@ import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { NextRouter, useRouter } from 'next/router';
 
 import Cookies from 'universal-cookie';
-import { Button } from '@mui/material';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import Modal from '@/utils/UIs/Modal';
 import AddCustomer from './AddCustomer';
+
 const cookies = new Cookies();
 
 export default function CustomerManagement() {
   const router: NextRouter = useRouter();
+
   const SeachCustomerInput: MutableRefObject<string | undefined | any> =
     useRef();
   const source: any = axios.CancelToken.source();
@@ -75,8 +70,7 @@ export default function CustomerManagement() {
           accept: '*/*',
           'Auth-Token': token,
         },
-        cancelToken: source.token
-
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -147,7 +141,9 @@ export default function CustomerManagement() {
 
     if (router.query.page) fetchMyAPI(router.query.page);
     else fetchMyAPI(1);
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   return (

@@ -1,11 +1,4 @@
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable prettier/prettier */
 
@@ -23,7 +16,6 @@ import { styled } from '@mui/material/styles';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 import { VscCircleOutline } from 'react-icons/vsc';
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -68,6 +60,7 @@ export default function BasicTable({
       return 'gray';
     }
   };
+  useEffect(() => setNewItems(rows), [rows]);
 
   const handleSortLabel = (prev: any, text: string) =>
     prev.label == text
@@ -77,23 +70,23 @@ export default function BasicTable({
   const arrSort = (arr: any[], index: number, state: number) =>
     state == 1
       ? [...arr].sort((a: any, b: any) =>
-        index == 0
-          ? a[index]['content'] < b[index]['content']
-            ? -1
-            : 1
-          : a[index] < b[index]
+          index == 0
+            ? a[index]['content'] < b[index]['content']
+              ? -1
+              : 1
+            : a[index] < b[index]
             ? -1
             : 1,
-      )
+        )
       : [...arr].sort((a: any, b: any) =>
-        index == 0
-          ? a[index]['content'] > b[index]['content']
-            ? -1
-            : 1
-          : a[index] > b[index]
+          index == 0
+            ? a[index]['content'] > b[index]['content']
+              ? -1
+              : 1
+            : a[index] > b[index]
             ? -1
             : 1,
-      );
+        );
 
   const handleLabelClick = (text: string) => {
     setSortLabel((prev: any) => handleSortLabel(prev, text));
@@ -102,14 +95,13 @@ export default function BasicTable({
     setNewItems(rows);
   }, [rows]);
   useLayoutEffect(() => {
-
     setNewItems((prev: any) => {
       const index = headers.findIndex(
         (ele: Element | string) => ele == sortLabel.label,
       );
       return arrSort(prev, index, sortLabel.state);
     });
-  }, [headers, sortLabel])
+  }, [headers, sortLabel]);
 
   return (
     <TableContainer component={Paper}>
@@ -121,10 +113,12 @@ export default function BasicTable({
                 <>
                   <StyledTableCell
                     className={`font-bold text-lg cursor-pointer`}
-
                     key={i}
                   >
-                    <div onClick={() => handleLabelClick(header)} className="flex items-center gap-2">
+                    <div
+                      onClick={() => handleLabelClick(header)}
+                      className="flex items-center gap-2"
+                    >
                       <p>{header}</p>
                       {sortLabel.label == header ? (
                         sortLabel.state == 1 ? (
@@ -144,7 +138,10 @@ export default function BasicTable({
                   key={i}
                   align="right"
                 >
-                  <div onClick={() => handleLabelClick(header)} className="flex items-center float-right gap-2">
+                  <div
+                    onClick={() => handleLabelClick(header)}
+                    className="flex items-center float-right gap-2"
+                  >
                     {sortLabel.label == header ? (
                       sortLabel.state == 1 ? (
                         <MdArrowUpward />
@@ -184,7 +181,7 @@ export default function BasicTable({
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  {headers.map((ele: any, index: number ) =>
+                  {headers.map((ele: any, index: number) =>
                     index == 0 ? (
                       <StyledTableCell key={index} component="th" scope="row">
                         {component != 'product' ? (

@@ -1,39 +1,32 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
+
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import BasicTable from '@/utils/UIs/Table';
-import axios from 'axios';
-import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import ViewIcon from '@/utils/UIs/ViewIcon';
-import Modal from '@/utils/UIs/Modal';
+import axios from 'axios';
 import Cookies from 'universal-cookie';
 import AddAdmin from './AddAdmin';
+import Modal from '@/utils/UIs/Modal';
+import BasicTable from '@/utils/UIs/Table';
+import ViewIcon from '@/utils/UIs/ViewIcon';
+import PaginatedItems from '@/utils/UIs/ReactPagination';
 
 const cookies = new Cookies();
 export default function AdminManagement() {
-  // curl - X 'GET' \
-  // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
-  // -H 'accept: */*' \
-  // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
-
   const router: any = useRouter();
   const source = axios.CancelToken.source();
 
-  const [token, setToken] = useState(cookies.get('account_token'));
+  const [token, setToken] = useState(cookies.get(`account_token`));
   const [pageNumber, setPageNumber] = useState(0);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
 
-  // const re = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
-
   const offsets = {
     size: 10,
   };
 
-  const tableHeader = ['Email', 'Fullname', 'Status', 'Action'];
+  const tableHeader = [`Email`, `Fullname`, `Status`, `Action`];
 
   function createData(email: string, fullname: string, status: string) {
     return [
@@ -50,17 +43,17 @@ export default function AdminManagement() {
     setCallApiPending(true);
 
     return await axios
-      .get('https://dev-api.digiex.asia/calobye-be-dev/api/admin', {
+      .get(`https://dev-api.digiex.asia/calobye-be-dev/api/admin`, {
         params: {
           page_number: p,
           size_number: offsets.size,
-          asc_sort: 'false',
+          asc_sort: `false`,
         },
         headers: {
-          accept: '*/*',
+          accept: `*/*`,
           'Auth-Token': token,
         },
-        cancelToken: source.token
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -69,7 +62,7 @@ export default function AdminManagement() {
           data?.data?.data?.content?.map((item: any) =>
             createData(
               item.email,
-              `${item.first_name ?? ''} ${item.last_name ?? ''}`,
+              `${item.first_name ?? ``} ${item.last_name ?? ``}`,
               item.status,
             ),
           ),
@@ -86,17 +79,15 @@ export default function AdminManagement() {
   useLayoutEffect(() => {
     setInstance([]);
 
-
-    if (router.query.page)
-      fetchMyAPI(router.query.page);
+    if (router.query.page) fetchMyAPI(router.query.page);
     else {
       fetchMyAPI(1);
     }
 
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel(`Cancelling in cleanup`);
+    };
   }, [router.query]);
-
-
 
   return (
     <>
@@ -123,10 +114,9 @@ export default function AdminManagement() {
             rows={instance}
             headers={tableHeader}
             callApiPending={callApiPending}
-            component={'admin-management'}
+            component={`admin-management`}
           />
         </div>
-
 
         <div className={`paginator-container`}>
           <PaginatedItems
@@ -134,10 +124,9 @@ export default function AdminManagement() {
             items={productsLength}
             page={pageNumber}
             router={router}
-            currentPath={'/admin-management'}
+            currentPath={`/admin-management`}
           />
         </div>
-
       </div>
     </>
   );

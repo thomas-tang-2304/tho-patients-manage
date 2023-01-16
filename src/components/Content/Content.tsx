@@ -1,12 +1,7 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable prettier/prettier */
-import React, {
-  ReactNode,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
 import BasicTable from '@/utils/UIs/Table';
@@ -74,7 +69,7 @@ export default function Content() {
           accept: '*/*',
           'Auth-Token': token,
         },
-        cancelToken: source.token
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setCallApiPending(false);
@@ -103,14 +98,13 @@ export default function Content() {
   useLayoutEffect(() => {
     setInstance([]);
 
-
     fetchMyAPI(router.query.page);
 
-
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
-  
   return (
     <>
       <div className={`p-4 w-3/4 `}>

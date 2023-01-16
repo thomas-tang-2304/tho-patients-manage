@@ -91,7 +91,7 @@ export default function Order() {
           accept: '*/*',
           'Auth-Token': token,
         },
-        cancelToken: source.token
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -140,10 +140,11 @@ export default function Order() {
   };
 
   useLayoutEffect(() => {
-
     setInstance([]);
     getOrderRows();
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   const filterByValue = (e: any) => {
@@ -181,7 +182,8 @@ export default function Order() {
           setInstance([
             createData(
               data.data.order_code,
-              `${data.data.customer.first_name ?? ''} ${data.data.customer.last_name ?? ''
+              `${data.data.customer.first_name ?? ''} ${
+                data.data.customer.last_name ?? ''
               }`,
               data.data.total_price,
               data.data.created_date,

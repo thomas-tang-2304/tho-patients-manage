@@ -4,13 +4,14 @@ import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
 import BasicTable from '@/utils/UIs/Table';
-import axios from 'axios';
+import Axios from 'axios';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import { Button, Rating } from '@mui/material';
 import Cookies from 'universal-cookie';
 import Modal from '@/utils/UIs/Modal';
 import ReviewDetail from './ReviewDetail';
+import axios from 'axios';
 
 export default function Review() {
   const router: any = useRouter();
@@ -23,7 +24,6 @@ export default function Review() {
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-
 
   const offsets = {
     size: 10,
@@ -55,15 +55,17 @@ export default function Review() {
       product,
       fullname,
       reviewdate,
-      <Modal key={1} scomponent={<ReviewDetail />} action_name="View" />,
+
+      <Modal key={1} component={<ReviewDetail />} action_name="View" />,
     ];
   }
 
   async function fetchMyAPI(p = 1) {
     setCallApiPending(true);
 
-    return await axios
-      .get('https://dev-api.digiex.asia/calobye-be-dev/api/review', {
+    return await Axios.get(
+      'https://dev-api.digiex.asia/calobye-be-dev/api/review',
+      {
         params: {
           asc_sort: 'false',
           page_number: p,
@@ -73,8 +75,9 @@ export default function Review() {
           accept: '*/*',
           'Auth-Token': token,
         },
-        cancelToken: source.token
-      })
+        cancelToken: source.token,
+      },
+    )
       .then((data: any) => {
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
@@ -89,6 +92,7 @@ export default function Review() {
             ),
           ),
         );
+        console.log(data.data.data.content.map((i: any) => {}));
       })
       .catch((err) => {
         console.log(err);
@@ -103,7 +107,9 @@ export default function Review() {
 
     if (router.query.page) fetchMyAPI(router.query.page);
     else fetchMyAPI(1);
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   return (
@@ -151,4 +157,4 @@ export default function Review() {
       </div>
     </>
   );
-};
+}

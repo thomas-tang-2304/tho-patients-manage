@@ -72,7 +72,7 @@ export default function Product() {
       price,
       create_date,
       status,
-      <ViewIcon key={1}/>,
+      <ViewIcon key={1} />,
     ];
   }
 
@@ -90,7 +90,7 @@ export default function Product() {
           accept: '*/*',
           'Auth-Token': token,
         },
-        cancelToken: source.token
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -166,7 +166,9 @@ export default function Product() {
 
     if (router.query.page) fetchMyAPI(router.query.page);
     else fetchMyAPI(1);
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   return (

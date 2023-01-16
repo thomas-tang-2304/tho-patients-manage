@@ -14,7 +14,6 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 export default function Dashboard({ dataHook }: { dataHook: any }) {
-
   const [token, setToken] = useState(cookies.get('account_token'));
   const source = axios.CancelToken.source();
   const totalClass: string = `text-2xl bg- w-2/3 border-2 pt-2 px-3 text-orange-500 pb-4 pt-5`;
@@ -27,7 +26,6 @@ export default function Dashboard({ dataHook }: { dataHook: any }) {
 
   useEffect(() => {
     if (dataHook[0].dashboard == undefined) {
-
       const getStatistic = async () => {
         await axios
           .get(
@@ -37,13 +35,21 @@ export default function Dashboard({ dataHook }: { dataHook: any }) {
                 accept: '*/*',
                 'Auth-Token': token,
               },
-              cancelToken: source.token
+              cancelToken: source.token,
             },
           )
           .then((res) => {
             const { total_customer, total_order, total_product, total_sales } =
               res?.data?.data;
-            dataHook[1]((prev: any) => ({ ...prev, dashboard: { total_customer, total_order, total_product, total_sales } }))
+            dataHook[1]((prev: any) => ({
+              ...prev,
+              dashboard: {
+                total_customer,
+                total_order,
+                total_product,
+                total_sales,
+              },
+            }));
             setStatistic({
               total_customer,
               total_order,
@@ -51,7 +57,7 @@ export default function Dashboard({ dataHook }: { dataHook: any }) {
               total_sales,
             });
           });
-      }
+      };
       getStatistic();
     } else {
       setStatistic({
@@ -62,7 +68,9 @@ export default function Dashboard({ dataHook }: { dataHook: any }) {
       });
     }
 
-    return () => { source.cancel("Cancelling in cleanup"); }
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, []);
 
   return (

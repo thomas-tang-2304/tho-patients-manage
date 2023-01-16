@@ -23,11 +23,6 @@ export default function Login() {
   const inputPass = useRef<any>();
   const router = useRouter();
 
- 
-
-
-
-
   const valueUser = () => {
     setUserName(inputUserName.current.value);
     setPassWord(hashPass(inputPass.current.value));
