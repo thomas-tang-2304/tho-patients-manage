@@ -39,17 +39,18 @@ export default function NestedModal({ component, action_name, width }: any) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box className="rounded p-2" sx={{ ...style, width: width ?? 700 }}>
+        <Box className="p-2 rounded" sx={{ ...style, width: width ?? 700 }}>
           {component}
           <Stack
             spacing={2}
             direction="row"
             className={`flex justify-end  p-6`}
           >
-            <Button onClick={handleClose} variant="outlined">
+
+            <Button onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="contained">Save</Button>
+            <Button variant="outlined">Save</Button>
           </Stack>
         </Box>
       </Modal>

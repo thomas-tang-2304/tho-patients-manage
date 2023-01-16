@@ -2,12 +2,7 @@
 import React from 'react';
 import styles from '@/styles/Add.module.css';
 
-import {
-
-  FormGroup,
-  Stack,
-  TextField,
-} from '@mui/material';
+import { FormGroup, Stack, TextField } from '@mui/material';
 import Switches from '@/utils/UIs/Switches';
 
 export default function AddAdmin() {

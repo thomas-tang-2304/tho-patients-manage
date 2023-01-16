@@ -149,6 +149,7 @@ export default function Order() {
 
   const filterByValue = (e: any) => {
     setInstance([]);
+    setPageNumber(null)
 
     const value = e.target.value;
     router.push({
@@ -158,7 +159,7 @@ export default function Order() {
         filter_by: value,
       },
     });
-
+    setPageNumber(1)
     fetchMyAPI(1, value);
   };
 
@@ -182,8 +183,7 @@ export default function Order() {
           setInstance([
             createData(
               data.data.order_code,
-              `${data.data.customer.first_name ?? ''} ${
-                data.data.customer.last_name ?? ''
+              `${data.data.customer.first_name ?? ''} ${data.data.customer.last_name ?? ''
               }`,
               data.data.total_price,
               data.data.created_date,
@@ -282,14 +282,12 @@ export default function Order() {
         </div>
 
         <div className={`paginator-container`}>
-          {pageNumber && (
-            <PaginatedItems
-              itemsPerPage={offsets.size}
-              items={orderLength}
-              router={router}
-              currentPath={'/order'}
-            />
-          )}
+          {pageNumber && <PaginatedItems
+            itemsPerPage={offsets.size}
+            items={orderLength}
+            router={router}
+            currentPath={'/order'}
+          />}
         </div>
       </div>
     </>

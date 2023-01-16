@@ -21,8 +21,6 @@ import hashPass from 'md5';
 const cookies = new Cookies();
 
 export default function Login() {
-  const [token, setToken]: any = useState();
-  const [cookie, setCookie] = useState();
   const [userName, setUserName] = useState();
   const [passWord, setPassWord] = useState<string>();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -83,7 +81,6 @@ export default function Login() {
           path: '/',
         });
 
-        setCookie(cookies.get('account_token'));
         setNotifyModal(
           result == 200 ? (
             <Notify title={'success'} state={'success'} />
@@ -137,7 +134,7 @@ export default function Login() {
           />
           <Button
             disabled={isDisabled}
-            className={`${styles.button} mt-16 rounded text-white`}
+            className={`${styles.button} mt-16 rounded text-white `}
             onClick={loginClick}
             variant="contained"
           >
