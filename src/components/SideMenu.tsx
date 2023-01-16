@@ -38,7 +38,7 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
   const [list, setList]: [
     SideList[] | undefined,
     Dispatch<SetStateAction<SideList[] | undefined>>,
-  ] = useState(
+  ] | any[] = useState(
     [
       {
         icon: <GoDashboard />,

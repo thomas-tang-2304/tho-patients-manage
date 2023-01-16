@@ -1,7 +1,4 @@
-import {FormControl, 
-        Box, 
-        MenuItem ,
-        TextField} from '@mui/material';
+import { FormControl, Box, MenuItem, TextField } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import React from 'react';
 import styles from '@/styles/Add.module.css';
@@ -75,54 +72,55 @@ export default function AddContent() {
     setAge(event.target.value as string);
   };
   return (
-    <div className='text-black px-10'>
-        <div className={`${styles.title}`}>
-            <div className={`text-black`}>Category detail</div>
-        </div>
+    <div className="text-black px-10">
+      <div className={`${styles.title}`}>
+        <div className={`text-black`}>Category detail</div>
+      </div>
 
-           <FormGroup className={`my-5`}>
-                <label>Title name*</label>
-                <Input className='w-9/12' type="text" placeholder="Category name" />           
-            </FormGroup>
+      <FormGroup className={`my-5`}>
+        <label>Title name*</label>
+        <Input className="w-9/12" type="text" placeholder="Category name" />
+      </FormGroup>
 
-            <FormGroup className={`my-5`}>
-                <label>Content type</label>
-                <Box className='py-5' sx={{ width:200,minWidth: 120 }}>
-                    <FormControl fullWidth>
-                    <Select
-                        // labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        // label="Age"
-                        onChange={handleChange}
-                        >
-                        <MenuItem value={10}>NEWS</MenuItem>
-                        <MenuItem value={20}>FAQ</MenuItem>
-                        <MenuItem value={30}>KTM</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box
-                    sx={{
-                        width: 200,
-                        maxWidth: '100%',
-                    }}
-                    >
-                    <TextField fullWidth id="fullWidth" />
-                </Box>
-            </FormGroup>
+      <FormGroup className={`my-5`}>
+        <label>Content type</label>
+        <Box className="py-5" sx={{ width: 200, minWidth: 120 }}>
+          <FormControl fullWidth>
+            <Select
+              // labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              // label="Age"
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>NEWS</MenuItem>
+              <MenuItem value={20}>FAQ</MenuItem>
+              <MenuItem value={30}>KTM</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <Box
+          sx={{
+            width: 200,
+            maxWidth: '100%',
+          }}
+        >
+          <TextField fullWidth id="fullWidth" />
+        </Box>
+      </FormGroup>
 
-            <div>
-                <label>Short descripti</label><br/>
-                <textarea className='text-white' rows={3} cols={50}></textarea>
-            </div>
+      <div>
+        <label>Short descripti</label>
+        <br />
+        <textarea className="text-white" rows={3} cols={50}></textarea>
+      </div>
 
-            <FormControlLabel
-            className='flex content-end'
-            labelPlacement="start"
-            label="Publish/Unpublish"
-            control={<IOSSwitch defaultChecked sx={{ m: 1 }} />}
-            />
+      <FormControlLabel
+        className="flex content-end"
+        labelPlacement="start"
+        label="Publish/Unpublish"
+        control={<IOSSwitch defaultChecked sx={{ m: 1 }} />}
+      />
     </div>
   );
 }

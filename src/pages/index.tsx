@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable prettier/prettier */
 import Head from 'next/head';
-import styles from '@/styles/Home.module.css';
 import Dashboard from '../components/Dashboard';
+import { useEffect } from 'react'
 
-export default function Home() {
+export default function Home({ text, setText }: any) {
+
   return (
-    <div className={`container mx-auto`}>
+    <div className={`container mx-auto`}  >
       <Head>
         <title>Dashboard</title>
         <meta

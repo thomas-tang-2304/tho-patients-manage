@@ -1,12 +1,14 @@
 import React from 'react';
 import styles from '@/styles/Add.module.css';
-import  { Switch, 
-          SwitchProps, 
-          FormGroup, 
-          FormControlLabel, 
-          Stack, 
-          TextField, 
-          styled } from '@mui/material';
+import {
+  Switch,
+  SwitchProps,
+  FormGroup,
+  FormControlLabel,
+  Stack,
+  TextField,
+  styled,
+} from '@mui/material';
 
 export default function AddAdmin() {
   const IOSSwitch = styled((props: SwitchProps) => (
@@ -72,8 +74,8 @@ export default function AddAdmin() {
       </div>
       <FormGroup className={`${styles.content} text-black`}>
         <Stack direction="row" className={`flex justify-between`} spacing={2}>
-          <TextField type="text" label="First name"/>
-          <TextField type="text" label="Last name"/>
+          <TextField type="text" label="First name" />
+          <TextField type="text" label="Last name" />
         </Stack>
         <TextField type="email" label="Email" className={`my-5`} />
         <FormControlLabel

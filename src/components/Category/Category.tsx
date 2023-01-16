@@ -52,7 +52,7 @@ export default function Category() {
       },
       create_date,
       status,
-      <ViewIcon key={1}/>,
+      <ViewIcon key={1} />,
     ];
   }
 
@@ -124,7 +124,7 @@ export default function Category() {
             />
           </div>
           <div className="">
-              <Modal component={<AddCategory />} action_name="+ Add category"/>
+            <Modal component={<AddCategory />} action_name="+ Add category" />
           </div>
         </form>
         <div className={`table-container py-4`}>

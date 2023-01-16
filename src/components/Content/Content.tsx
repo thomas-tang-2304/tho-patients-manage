@@ -54,8 +54,7 @@ export default function Content() {
       content_type,
       Last_modified_date,
       status,
-      <ViewIcon key={1}/>,
-
+      <ViewIcon key={1} />,
     ];
   }
 
@@ -140,7 +139,6 @@ export default function Content() {
       <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit  `}>
           <h1 className={`font-bold mb-3`}>Order Management</h1>
-
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-52 input-icons">
@@ -153,7 +151,7 @@ export default function Content() {
               placeholder="Search order code"
             />
           </div>
-          <Modal component={<AddContent />} action_name="+ Add Content"/>
+          <Modal component={<AddContent />} action_name="+ Add Content" />
         </form>
         <div className={`table-container py-4`}>
           <BasicTable

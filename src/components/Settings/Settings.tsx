@@ -1,7 +1,6 @@
-
 import { useRouter, Router } from 'next/router';
 import React, { useState } from 'react';
-import { SiFacebook, SiYoutube } from 'react-icons/si'
+import { SiFacebook, SiYoutube } from 'react-icons/si';
 
 export default function Settings() {
   const router = useRouter();
@@ -23,8 +22,9 @@ export default function Settings() {
               onClick={() => {
                 setActiveLink(index);
               }}
-              className={`hover:text-blue-900 cursor-pointer ${index != activeLink ? linkClassName : activeLinkClassName
-                }`}
+              className={`hover:text-blue-900 cursor-pointer ${
+                index != activeLink ? linkClassName : activeLinkClassName
+              }`}
             >
               {link}
             </li>

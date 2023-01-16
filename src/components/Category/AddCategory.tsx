@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from '@/styles/Add.module.css';
 import Switch, { SwitchProps } from '@mui/material/Switch';
-import { styled, 
-         FormControlLabel, 
-         FormGroup, 
-         Input, 
-         TextField
+import {
+  styled,
+  FormControlLabel,
+  FormGroup,
+  Input,
+  TextField,
 } from '@mui/material';
 
 export default function AddAdmin() {
@@ -72,7 +73,12 @@ export default function AddAdmin() {
       </div>
       <FormGroup className={`${styles.content} text-black`}>
         <TextField fullWidth label="Category name" id="category" />
-        <TextField fullWidth label="Parent category" id="category" className={`my-5`}/>
+        <TextField
+          fullWidth
+          label="Parent category"
+          id="category"
+          className={`my-5`}
+        />
         <FormControlLabel
           labelPlacement="start"
           label="Active/Inactive"
