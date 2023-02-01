@@ -102,7 +102,7 @@ export default function BasicTable({
       const index = headers.findIndex(
         (ele: Element | string) => ele == sortLabel.label,
       );
-      return arrSort(prev, index, sortLabel.state);
+      return prev ? arrSort(prev, index, sortLabel.state) : prev;
     });
   }, [headers, sortLabel]);
 
@@ -190,7 +190,7 @@ export default function BasicTable({
                         {component != 'product' ? (
                           <LinearProgress color="inherit" />
                         ) : (
-                          <img className="w-32" src="../images/holder.jpg" />
+                          <img className="w-24" src="../images/holder.jpg" />
                         )}
                       </StyledTableCell>
                     ) : (
@@ -214,7 +214,7 @@ export default function BasicTable({
                       {component != 'product' ? (
                         <p className={`font-bold`}>{r.content}</p>
                       ) : (
-                        <img className="w-32" src={r.content} />
+                        <img className="w-24" src={r.content} />
                       )}
                     </TableCell>
                   ) : (

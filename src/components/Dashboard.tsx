@@ -49,13 +49,18 @@ export default function Dashboard({ dataHook }: { dataHook: any }) {
                 total_product,
                 total_sales,
               },
-            }));
+            }))
+
+
             setStatistic({
               total_customer,
               total_order,
               total_product,
               total_sales,
             });
+          }).catch((err: Error) => {
+            console.log(err);
+
           });
       };
       getStatistic();
