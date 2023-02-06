@@ -1,16 +1,18 @@
 import * as React from 'react';
 import {
-  Table, 
-  TableBody, 
-  TableContainer, 
-  TableHead, 
-  TableRow, 
-  Paper, 
-  LinearProgress, 
-  styled} from '@mui/material';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+  TableCell,
+  tableCellClasses,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  LinearProgress,
+  styled
+} from '@mui/material';
 import tailwind from 'tailwind.config.js';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 import { VscCircleOutline } from 'react-icons/vsc';
 
@@ -59,41 +61,46 @@ export default function BasicTable({
   };
   useEffect(() => setNewItems(rows), [rows]);
 
-  const handleSortLabel = (prev: any, e: Event | any) =>
-    prev.label == e.target.textContent
+  const handleSortLabel = (prev: any, text: string) =>
+    prev.label == text
       ? { state: prev.state == 1 ? -1 : 1, label: prev.label }
-      : { state: 1, label: e.target.textContent };
+      : { state: 1, label: text };
 
   const arrSort = (arr: any[], index: number, state: number) =>
     state == 1
       ? [...arr].sort((a: any, b: any) =>
-          index == 0
-            ? a[index]['content'] < b[index]['content']
-              ? -1
-              : 1
-            : a[index] < b[index]
+        index == 0
+          ? a[index]['content'] < b[index]['content']
+            ? -1
+            : 1
+          : a[index] < b[index]
             ? -1
             : 1,
-        )
+      )
       : [...arr].sort((a: any, b: any) =>
-          index == 0
-            ? a[index]['content'] > b[index]['content']
-              ? -1
-              : 1
-            : a[index] > b[index]
+        index == 0
+          ? a[index]['content'] > b[index]['content']
+            ? -1
+            : 1
+          : a[index] > b[index]
             ? -1
             : 1,
-        );
+      );
 
-  const handleLabelClick = (e: Event | any) => {
-    setSortLabel((prev: any) => handleSortLabel(prev, e));
+  const handleLabelClick = (text: string) => {
+    setSortLabel((prev: any) => handleSortLabel(prev, text));
+  };
+  useEffect(() => {
+    setNewItems(rows);
+  }, [rows]);
+  useLayoutEffect(() => {
     setNewItems((prev: any) => {
       const index = headers.findIndex(
-        (ele: Element) => ele == e.target.textContent,
+        (ele: Element | string) => ele == sortLabel.label,
       );
-      return arrSort(prev, index, sortLabel.state);
+      return prev ? arrSort(prev, index, sortLabel.state) : prev;
     });
-  };
+  }, [headers, sortLabel]);
 
   return (
     <TableContainer component={Paper}>
@@ -105,10 +112,12 @@ export default function BasicTable({
                 <>
                   <StyledTableCell
                     className={`font-bold text-lg cursor-pointer`}
-                    onClick={handleLabelClick}
                     key={i}
                   >
-                    <div className="flex items-center gap-2">
+                    <div
+                      onClick={() => handleLabelClick(header)}
+                      className="flex items-center gap-2"
+                    >
                       <p>{header}</p>
                       {sortLabel.label == header ? (
                         sortLabel.state == 1 ? (
@@ -124,12 +133,14 @@ export default function BasicTable({
                 </>
               ) : header != 'Action' ? (
                 <StyledTableCell
-                  onClick={handleLabelClick}
                   className={`font-bold text-lg cursor-pointer`}
                   key={i}
                   align="right"
                 >
-                  <div className="flex items-center float-right gap-2">
+                  <div
+                    onClick={() => handleLabelClick(header)}
+                    className="flex items-center float-right gap-2"
+                  >
                     {sortLabel.label == header ? (
                       sortLabel.state == 1 ? (
                         <MdArrowUpward />
@@ -169,13 +180,13 @@ export default function BasicTable({
                   key={i}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  {headers.map(({ index }: { index: number }) =>
+                  {headers.map((ele: any, index: number) =>
                     index == 0 ? (
                       <StyledTableCell key={index} component="th" scope="row">
                         {component != 'product' ? (
                           <LinearProgress color="inherit" />
                         ) : (
-                          <img className="w-32" src="../images/holder.jpg" />
+                          <img className="w-24" src="../images/holder.jpg" />
                         )}
                       </StyledTableCell>
                     ) : (
@@ -199,7 +210,7 @@ export default function BasicTable({
                       {component != 'product' ? (
                         <p className={`font-bold`}>{r.content}</p>
                       ) : (
-                        <img className="w-32" src={r.content} />
+                        <img className="w-24" src={r.content} />
                       )}
                     </TableCell>
                   ) : (

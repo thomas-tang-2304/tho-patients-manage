@@ -22,6 +22,12 @@ import ViewIcon from '@/utils/UIs/ViewIcon';
 const cookies = new Cookies();
 
 export default function Order() {
+  // curl - X 'GET' \
+  // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
+  // -H 'accept: */*' \
+  // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
+  const source: any = axios.CancelToken.source();
+
   const filterByStatus: MutableRefObject<string | undefined | any> = useRef();
   const router: NextRouter = useRouter();
   const OrderCodeInput: MutableRefObject<string | undefined | any> = useRef();
@@ -85,6 +91,7 @@ export default function Order() {
           accept: '*/*',
           'Auth-Token': token,
         },
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -135,10 +142,14 @@ export default function Order() {
   useLayoutEffect(() => {
     setInstance([]);
     getOrderRows();
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   const filterByValue = (e: any) => {
     setInstance([]);
+    setPageNumber(null)
 
     const value = e.target.value;
     router.push({
@@ -148,7 +159,7 @@ export default function Order() {
         filter_by: value,
       },
     });
-
+    setPageNumber(1)
     fetchMyAPI(1, value);
   };
 
@@ -172,8 +183,7 @@ export default function Order() {
           setInstance([
             createData(
               data.data.order_code,
-              `${data.data.customer.first_name ?? ''} ${
-                data.data.customer.last_name ?? ''
+              `${data.data.customer.first_name ?? ''} ${data.data.customer.last_name ?? ''
               }`,
               data.data.total_price,
               data.data.created_date,
@@ -272,14 +282,12 @@ export default function Order() {
         </div>
 
         <div className={`paginator-container`}>
-          {pageNumber && (
-            <PaginatedItems
-              itemsPerPage={offsets.size}
-              items={orderLength}
-              router={router}
-              currentPath={'/order'}
-            />
-          )}
+          {pageNumber && <PaginatedItems
+            itemsPerPage={offsets.size}
+            items={orderLength}
+            router={router}
+            currentPath={'/order'}
+          />}
         </div>
       </div>
     </>

@@ -16,10 +16,12 @@ import Modal from '@/utils/UIs/Modal';
 import AddContent from './AddContent';
 
 import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 export default function Content() {
   const router: any = useRouter();
   const cookies = new Cookies();
+  const source: any = axios.CancelToken.source();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber] = useState(0);
@@ -56,7 +58,7 @@ export default function Content() {
     ];
   }
 
-  async function fetchMyAPI(p = 1, filter_status = '') {
+  async function fetchMyAPI(p = 1) {
     setCallApiPending(true);
 
     return await axios
@@ -70,6 +72,7 @@ export default function Content() {
           accept: '*/*',
           'Auth-Token': token,
         },
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setCallApiPending(false);
@@ -99,35 +102,12 @@ export default function Content() {
   useLayoutEffect(() => {
     setInstance([]);
 
-    if (router.query.page) {
-      if (router.query.filter_by) {
-        fetchMyAPI(router.query.page, router.query.filter_by);
-      } else {
-        fetchMyAPI(router.query.page, '');
-      }
-    } else {
-      if (router.query.filter_by) {
-        fetchMyAPI(router.query.page, router.query.filter_by);
-      } else {
-        fetchMyAPI(router.query.page, '');
-      }
-    }
+    fetchMyAPI(router.query.page);
+
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
-
-  const filterByValue = (e: any = 'PAID') => {
-    setInstance([]);
-
-    const value = e.target.value;
-    router.push({
-      pathname: '/order',
-      query: {
-        page: 1,
-        filter_by: value,
-      },
-    });
-
-    fetchMyAPI(1, value);
-  };
 
   return (
     <>

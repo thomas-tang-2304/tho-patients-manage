@@ -27,8 +27,7 @@ export default function Switches({title, approve}: any) {
             transform: 'translateX(16px)',
             color: '#fff',
             '& + .MuiSwitch-track': {
-              backgroundColor:
-                theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+              backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
               opacity: 1,
               border: 0,
             },
@@ -63,7 +62,7 @@ export default function Switches({title, approve}: any) {
             duration: 500,
           }),
         },
-      }));
+  }));
 
   return (
     <>
@@ -73,5 +72,5 @@ export default function Switches({title, approve}: any) {
           control={<IOSSwitch checked={checked} sx={{ m: 1 }} />}
         />
     </>
-  )
+  );
 }

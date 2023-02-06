@@ -1,12 +1,9 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import styles from '@/styles/Add.module.css';
+
+import { FormGroup, Stack, TextField } from '@mui/material';
 import Switches from '@/utils/UIs/Switches';
-import {
-  FormGroup,
-  FormControlLabel,
-  Stack,
-  TextField,
-} from '@mui/material';
 
 export default function AddAdmin() {
   return (
@@ -20,7 +17,7 @@ export default function AddAdmin() {
           <TextField type="text" label="Last name" />
         </Stack>
         <TextField type="email" label="Email" className={`my-5`} />
-        <Switches title='Active/Inactive'/>
+        <Switches title="Active/Inactive" />
       </FormGroup>
     </>
   );

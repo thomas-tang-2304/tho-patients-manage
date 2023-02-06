@@ -15,7 +15,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-export default function products() {
+export default function products({ text, setText }: any) {
   const { asPath }: NextRouter = useRouter();
   const router: NextRouter = useRouter();
 

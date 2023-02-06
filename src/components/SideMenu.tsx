@@ -35,10 +35,9 @@ const activeLinkClassName = `py-2 cursor-pointer px-4 text-black font-bold text-
 export default function SideMenu({ currentPath }: { currentPath: string }) {
   const router: NextRouter = useRouter();
 
-  const [list, setList]: [
-    SideList[] | undefined,
-    Dispatch<SetStateAction<SideList[] | undefined>>,
-  ] = useState(
+  const [list, setList]:
+    | [SideList[] | undefined, Dispatch<SetStateAction<SideList[] | undefined>>]
+    | any[] = useState(
     [
       {
         icon: <GoDashboard />,

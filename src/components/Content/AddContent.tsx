@@ -1,8 +1,11 @@
-import {  FormControl, 
-          Box, 
-          MenuItem, 
-          FormGroup, 
-          Input } from '@mui/material';
+import {
+  FormControl,
+  Box,
+  MenuItem,
+  TextField,
+  FormGroup,
+  Input,
+} from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import React from 'react';
 import styles from '@/styles/Add.module.css';
@@ -21,8 +24,7 @@ export default function AddContent() {
   };
 
   return (
-
-    <div className="text-black px-10">
+    <div className="px-10 text-black">
       <div className={`${styles.title}`}>
         <div className={`text-black`}>Category detail</div>
       </div>
@@ -47,6 +49,14 @@ export default function AddContent() {
             </Select>
           </FormControl>
         </Box>
+        <Box
+          sx={{
+            width: 200,
+            maxWidth: '100%',
+          }}
+        >
+          <TextField variant="standard" fullWidth id="fullWidth" />
+        </Box>
       </FormGroup>
 
       <div>
@@ -54,7 +64,7 @@ export default function AddContent() {
         <textarea id='shortDescripti' value={data.shortDescripti} className="text-white" rows={3} cols={50}></textarea>
       </div>
 
-      <Switches title="Publish/Unpublish"/>
+      <Switches title="Publish/Unpublish" />
     </div>
   );
 }

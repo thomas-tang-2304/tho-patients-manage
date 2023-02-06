@@ -34,7 +34,7 @@ export default function NestedModal(this: any, { component, action_name, width, 
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box className='rounded p-2' sx={{ ...style, width: width ?? 700 }}>
+        <Box className="p-2 rounded" sx={{ ...style, width: width ?? 700 }}>
           {component}
             <Stack
               spacing={2}

@@ -20,6 +20,12 @@ import AddProduct from './AddProductModal';
 const cookies = new Cookies();
 
 export default function Product() {
+  // curl - X 'GET' \
+  // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
+  // -H 'accept: */*' \
+  // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
+  const source: any = axios.CancelToken.source();
+
   const router: NextRouter = useRouter();
   const SearchProductInput: MutableRefObject<string | undefined | any> = useRef();
 
@@ -58,7 +64,7 @@ export default function Product() {
       price,
       create_date,
       status,
-      <ViewIcon />,
+      <ViewIcon key={1} />,
     ];
   }
 
@@ -76,6 +82,7 @@ export default function Product() {
           accept: '*/*',
           'Auth-Token': token,
         },
+        cancelToken: source.token,
       })
       .then((data: any) => {
         setPageNumber(p);
@@ -128,7 +135,6 @@ export default function Product() {
               data.data.status,
             ),
           ]);
-          console.log(data);
         })
         .catch((err) => {
           setProductsLength(0);
@@ -151,6 +157,9 @@ export default function Product() {
 
     if (router.query.page) fetchMyAPI(router.query.page);
     else fetchMyAPI(1);
+    return () => {
+      source.cancel('Cancelling in cleanup');
+    };
   }, [router.query]);
 
   return (

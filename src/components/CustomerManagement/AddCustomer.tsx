@@ -3,7 +3,7 @@ import styles from '@/styles/Add.module.css';
 import Switches from '@/utils/UIs/Switches';
 import Cookies from 'universal-cookie';
 import Modal from '@/utils/UIs/Modal';
-import { FormGroup, Stack, TextField, Button } from '@mui/material';
+import { FormGroup, Stack, TextField } from '@mui/material';
 
 export default function AddAdmin() {
 
