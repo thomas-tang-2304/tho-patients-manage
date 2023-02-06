@@ -1,34 +1,43 @@
-import React, { useState} from 'react';
+import React, { ReactNode} from 'react';
 import styles from '@/styles/Add.module.css';
 import Switches from '@/utils/UIs/Switches';
-import { ListItem, Rating } from '@mui/material';
+import { Table, TableContainer, TableCell, TableRow, Paper, Rating, TableBody, TextField } from '@mui/material';
 
-export default function ReviewDetail() {
+export default function ReviewDetail({rating, fullName, titleName, reviewDate, comment, isApproved}: any) {
+
+  function createData(
+    name: string,
+    content: ReactNode,
+  ) {
+    return {name, content}
+  }
+  
+  const rows = [
+    createData('Approved', <Switches approve={isApproved}/>),
+    createData('Rating', <Rating className='align-middle' name="read-only" defaultValue={rating} readOnly />),
+    createData('Fullname', fullName),
+    createData('Title name', titleName),
+    createData('Review date', reviewDate),
+    createData('Comment', <textarea id='shortDescripti' value={comment} className="p-1 text-white" rows={3} cols={50}/>),
+  ];
+
   return (
-    <div className={`${styles.main} text-black`}>
+    <div className={`${styles.main} text-black `}>
       <div className={`${styles.title}`}>Review detail</div>
-      <Switches title="Approve "/>
-      <p>
-        <b>Rating</b> <Rating className='align-middle' name="read-only" defaultValue={5} readOnly />
-      </p>
-      <p>
-        <b>Fullname</b> John Doe
-      </p>
-      <p>
-        <b>Title name</b> Sản phẩm dùng tốt, giao hàng nhanh
-      </p>
-      <p>
-        <b>Review date</b> {new Date().toISOString()}
-      </p>
-      <p>
-        <b>Comment</b>
-      </p>
-      <p>Đây là commet review sản phẩm tốt và tiện ích</p>
-      <img 
-        className='w-30 h-40 p-5'
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949" 
-        alt=""
-      />
+      <TableContainer className='mt-2' component={Paper}>
+        <Table sx={{ Width: 400 }} aria-label="caption table">
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell sx={{fontWeight: 900}} component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.content}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

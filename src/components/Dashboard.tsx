@@ -1,11 +1,5 @@
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable prettier/prettier */
-
 import SideMenu from '@/components/SideMenu';
+import Styles from '@/styles/Home.module.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
@@ -13,7 +7,7 @@ import Router from 'next/router';
 
 const cookies = new Cookies();
 export default function Dashboard() {
-  const totalClass: string = `text-2xl bg- w-2/3 border-2 pt-2 px-3 text-orange-500 pb-4 pt-5`;
+  const totalClass: string = `flex  rounded text-2xl bg- w-2/3 border-2 pt-2 px-3 text-orange-500 pb-4 pt-5`;
   const [statistic, setStatistic] = useState({
     total_customer: 0,
     total_order: 0,
@@ -29,7 +23,7 @@ export default function Dashboard() {
           {
             headers: {
               accept: '*/*',
-              'Auth-Token': '02d0a36b3dc4436d9cda4d072382c73f',
+              'Auth-Token': 'e4bf404990784530943ef6ca1fe450a4',
             },
           },
         )
@@ -42,7 +36,10 @@ export default function Dashboard() {
             total_product,
             total_sales,
           });
-        });
+        }).catch((err) => {
+          console.error(err);
+        })
+        ;
     };
 
     getStatistic();

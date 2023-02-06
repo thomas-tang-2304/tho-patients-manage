@@ -1,30 +1,18 @@
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
+import {
+  Table, 
+  TableBody, 
+  TableContainer, 
+  TableHead, 
+  TableRow, 
+  Paper, 
+  LinearProgress, 
+  styled} from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import LinearProgress from '@mui/material/LinearProgress';
 import tailwind from 'tailwind.config.js';
-import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 import { VscCircleOutline } from 'react-icons/vsc';
-import { color } from '@mui/system';
-import { green } from '@mui/material/colors';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

@@ -1,18 +1,17 @@
 import React, {
   ReactNode,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
-import BasicTable from '@/utils/UIs/Table';
 import axios from 'axios';
-import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
-import ViewIcon from '@/utils/UIs/ViewIcon';
 
+import PaginatedItems from '@/utils/UIs/ReactPagination';
+import BasicTable from '@/utils/UIs/Table';
+import ViewIcon from '@/utils/UIs/ViewIcon';
 import Modal from '@/utils/UIs/Modal';
 import AddContent from './AddContent';
 
@@ -20,7 +19,6 @@ import Cookies from 'universal-cookie';
 
 export default function Content() {
   const router: any = useRouter();
-  const filterByStatus: any = useRef();
   const cookies = new Cookies();
 
   const [token, setToken] = useState(cookies.get('account_token'));
@@ -87,6 +85,7 @@ export default function Content() {
             ),
           ),
         );
+        console.log(data)
       })
       .catch((err) => {
         setCallApiPending(false);
@@ -147,7 +146,7 @@ export default function Content() {
               placeholder="Search order code"
             />
           </div>
-          <Modal component={<AddContent />} action_name="+ Add Content" />
+          <Modal component={<AddContent />} action_name="+ Add Content" saveClick='save'/>
         </form>
         <div className={`table-container py-4`}>
           <BasicTable

@@ -1,13 +1,14 @@
 import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-
-import BasicTable from '@/utils/UIs/Table';
-import Axios from 'axios';
-import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import { Button, Rating } from '@mui/material';
-import Cookies from 'universal-cookie';
+
 import Modal from '@/utils/UIs/Modal';
+import BasicTable from '@/utils/UIs/Table';
+import PaginatedItems from '@/utils/UIs/ReactPagination';
+
+import Axios from 'axios';
+import Cookies from 'universal-cookie';
 import ReviewDetail from './ReviewDetail';
 
 export default function Review() {
@@ -19,7 +20,6 @@ export default function Review() {
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
   const [productsLength, setProductsLength] = useState(0);
-  const [checkRegex, setCheckRegex] = useState('');
 
   const offsets = {
     size: 10,
@@ -40,6 +40,8 @@ export default function Review() {
     product: string,
     fullname: string,
     reviewdate: ReactNode,
+    isapproved: string,
+    content: string,
   ) {
     return [
       {
@@ -51,7 +53,15 @@ export default function Review() {
       product,
       fullname,
       reviewdate,
-      <Modal component={<ReviewDetail />} action_name="View" />,
+      
+      <Modal component={<ReviewDetail 
+        rating={rating} 
+        titleName={title} 
+        fullName={fullname} 
+        reviewDate={reviewdate} 
+        comment={content} 
+        isApproved={isapproved} />
+      } action_name="View"/>,
     ];
   }
 
@@ -71,7 +81,6 @@ export default function Review() {
         },
       })
       .then((data: any) => {
-        setCheckRegex(data.data.data.content.content);
         setPageNumber(p);
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
@@ -79,13 +88,15 @@ export default function Review() {
             createData(
               item.rating,
               item.title,
-              item.content,
+              item.product_name,
               item.first_name,
               item.created_date,
+              item.is_approved,
+              item.content,
             ),
           ),
         );
-        console.log(data.data.data.content.map((i:any) => {}))
+        console.log(data)
       })
       .catch((err) => {
         console.log(err);

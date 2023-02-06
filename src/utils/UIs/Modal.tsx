@@ -1,10 +1,5 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/prefer-as-const */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import { Stack, Button, Modal } from '@mui/material';
+import { Stack, Button, Modal, Box} from '@mui/material';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -15,7 +10,7 @@ const style = {
   boxShadow: 24,
 };
 
-export default function NestedModal({ component, action_name, width }: any) {
+export default function NestedModal(this: any, { component, action_name, width, saveClick }: any) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -41,16 +36,16 @@ export default function NestedModal({ component, action_name, width }: any) {
       >
         <Box className='rounded p-2' sx={{ ...style, width: width ?? 700 }}>
           {component}
-          <Stack
-            spacing={2}
-            direction="row"
-            className={`flex justify-end  p-6`}
-          >
-            <Button onClick={handleClose} variant="outlined">
-              Cancel
-            </Button>
-            <Button variant="contained">Save</Button>
-          </Stack>
+            <Stack
+              spacing={2}
+              direction="row"
+              className={`flex justify-end  p-6`}
+            >
+              <Button onClick={handleClose} variant="outlined">
+                Cancel
+              </Button>
+              {saveClick == 'save' ? (<Button variant="contained">Save</Button>) : ''}
+            </Stack>
         </Box>
       </Modal>
     </>

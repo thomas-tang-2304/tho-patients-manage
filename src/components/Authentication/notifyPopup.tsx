@@ -1,6 +1,5 @@
 import React from 'react'
-import {Button, Stack} from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
+import { Stack, Snackbar } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 export default function notifyPopup({title, state}: any) {
@@ -12,17 +11,15 @@ export default function notifyPopup({title, state}: any) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
       });
     
-      const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
     
-      const handleClick = () => {
-        setOpen(true);
-      };
+    const handleClick = () => {
+      setOpen(true);
+    };
     
-      const handleClose = () => {
-        
-    
-        setOpen(false);
-      };
+    const handleClose = () => {
+      setOpen(false);
+    };
   return (
     <Stack className='m-2 absolute right-0' spacing={2} sx={{ width: '300px' }}>
       <Snackbar open={open} autoHideDuration={2000} >

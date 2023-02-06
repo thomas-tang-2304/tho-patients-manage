@@ -37,7 +37,6 @@ export default function CustomerManagement() {
   function createData(
     usermail: string,
     fullname: string,
-
     status: string,
   ) {
     return [
@@ -156,7 +155,7 @@ export default function CustomerManagement() {
             />
           </div>
           <div className="">
-            <Modal component={<AddCustomer />} action_name="+ Add customer" />
+            <Modal component={<AddCustomer />} action_name="+ Add customer" saveClick='save'/>
           </div>
         </form>
         <div className={`table-container py-4`}>

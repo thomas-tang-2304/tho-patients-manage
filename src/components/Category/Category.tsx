@@ -9,14 +9,13 @@ import React, {
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
-
-import BasicTable from '@/utils/UIs/Table';
-import axios from 'axios';
-import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter, NextRouter } from 'next/router';
 
+import axios from 'axios';
 import Cookies from 'universal-cookie';
-import { Button } from '@mui/material';
+
+import BasicTable from '@/utils/UIs/Table';
+import PaginatedItems from '@/utils/UIs/ReactPagination';
 import ViewIcon from '@/utils/UIs/ViewIcon';
 import Modal from '@/utils/UIs/Modal';
 import AddCategory from './AddCategory';
@@ -120,7 +119,7 @@ export default function Category() {
             />
           </div>
           <div className="">
-            <Modal component={<AddCategory />} action_name="+ Add category" />
+            <Modal component={<AddCategory />} action_name="+ Add category" saveClick='save'/>
           </div>
         </form>
         <div className={`table-container py-4`}>

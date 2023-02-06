@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Switch,
     SwitchProps,
@@ -6,8 +6,9 @@ import {
     styled,
   } from '@mui/material';
 
-export default function Switches({title}: any) {
+export default function Switches({title, approve}: any) {
     
+    const [checked, setChecked] = useState(approve)
     const IOSSwitch = styled((props: SwitchProps) => (
         <Switch
           focusVisibleClassName=".Mui-focusVisible"
@@ -69,7 +70,7 @@ export default function Switches({title}: any) {
         <FormControlLabel
           labelPlacement="start"
           label={title}
-          control={<IOSSwitch defaultChecked sx={{ m: 1 }} />}
+          control={<IOSSwitch checked={checked} sx={{ m: 1 }} />}
         />
     </>
   )
