@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import styles from '@/styles/Login.module.css';
@@ -21,6 +18,7 @@ import hashPass from 'md5';
 const cookies = new Cookies();
 
 export default function Login() {
+  const [cookie, setCookie] = useState();
   const [userName, setUserName] = useState();
   const [passWord, setPassWord] = useState<string>();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -101,8 +99,8 @@ export default function Login() {
   return (
     <>
       {notifyModal}
-      <div className={`${styles.login} text-black`}>
-        <div className={`${styles.title}`}>CALOBYE</div>
+      <div className={`${styles.login} h-96 w-96 text-center text-black`}>
+        <div className={`${styles.title} text-4xl h-14`}>CALOBYE</div>
         <FormGroup className="grid justify-around">
           <Input
             className="mb-5"
@@ -134,7 +132,7 @@ export default function Login() {
           />
           <Button
             disabled={isDisabled}
-            className={`${styles.button} mt-16 rounded text-white `}
+            className={`${styles.button} font-bold cursor-pointer mt-16 rounded text-white`}
             onClick={loginClick}
             variant="contained"
           >

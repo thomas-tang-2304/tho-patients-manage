@@ -2,14 +2,15 @@
 /* eslint-disable @typescript-eslint/quotes */
 import React, { ReactNode, useLayoutEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-
-import BasicTable from '@/utils/UIs/Table';
-import Axios from 'axios';
-import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { useRouter } from 'next/router';
 import { Button, Rating } from '@mui/material';
-import Cookies from 'universal-cookie';
+
 import Modal from '@/utils/UIs/Modal';
+import BasicTable from '@/utils/UIs/Table';
+import PaginatedItems from '@/utils/UIs/ReactPagination';
+
+import Axios from 'axios';
+import Cookies from 'universal-cookie';
 import ReviewDetail from './ReviewDetail';
 import axios from 'axios';
 
@@ -44,6 +45,8 @@ export default function Review() {
     product: string,
     fullname: string,
     reviewdate: ReactNode,
+    isapproved: string,
+    content: string,
   ) {
     return [
       {
@@ -55,8 +58,15 @@ export default function Review() {
       product,
       fullname,
       reviewdate,
-
-      <Modal key={1} component={<ReviewDetail />} action_name="View" />,
+      
+      <Modal component={<ReviewDetail 
+        rating={rating} 
+        titleName={title} 
+        fullName={fullname} 
+        reviewDate={reviewdate} 
+        comment={content} 
+        isApproved={isapproved} />
+      } action_name="View"/>,
     ];
   }
 
@@ -86,12 +96,15 @@ export default function Review() {
             createData(
               item.rating,
               item.title,
-              item.content,
+              item.product_name,
               item.first_name,
               item.created_date,
+              item.is_approved,
+              item.content,
             ),
           ),
         );
+        console.log(data)
         console.log(data.data.data.content.map((i: any) => {}));
       })
       .catch((err) => {

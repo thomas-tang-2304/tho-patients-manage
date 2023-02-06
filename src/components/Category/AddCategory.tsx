@@ -11,6 +11,7 @@ export default function AddAdmin() {
       <div className={`${styles.title}`}>
         <div className={`text-black`}>Category detail</div>
       </div>
+      
       <FormGroup className={`${styles.content} grid justify-around text-black`}>
         <TextField fullWidth label="Category name" id="category" />
         <TextField fullWidth label="Parent category" id="category" />

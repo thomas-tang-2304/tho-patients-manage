@@ -1,18 +1,11 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable prettier/prettier */
 
 import SideMenu from '@/components/SideMenu';
+import Styles from '@/styles/Home.module.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
-
 export default function Dashboard({ dataHook }: { dataHook: any }) {
   const [token, setToken] = useState(cookies.get('account_token'));
   const source = axios.CancelToken.source();
@@ -50,7 +43,6 @@ export default function Dashboard({ dataHook }: { dataHook: any }) {
                 total_sales,
               },
             }))
-
 
             setStatistic({
               total_customer,

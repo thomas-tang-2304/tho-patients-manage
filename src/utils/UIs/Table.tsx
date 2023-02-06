@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-
 import * as React from 'react';
 import {
   TableCell,

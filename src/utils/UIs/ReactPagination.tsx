@@ -1,12 +1,4 @@
-/* eslint-disable react/display-name */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-import Order from '@/components/Order/Order';
-import React, { memo, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { IconButton } from '@mui/material';

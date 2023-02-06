@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   FormControl,
   Box,
@@ -7,7 +6,6 @@ import {
   FormGroup,
   Input,
 } from '@mui/material';
-
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import React from 'react';
 import styles from '@/styles/Add.module.css';
@@ -15,10 +13,16 @@ import Switches from '@/utils/UIs/Switches';
 
 export default function AddContent() {
   const [contentType, setContentType] = React.useState('');
+  const [data, setData] = React.useState({
+    titleName: "",
+    contentType: "",
+    shortDescripti:"",
+  });
 
   const handleChange = (event: SelectChangeEvent) => {
     setContentType(event.target.value as string);
   };
+
   return (
     <div className="px-10 text-black">
       <div className={`${styles.title}`}>
@@ -26,10 +30,8 @@ export default function AddContent() {
       </div>
 
       <FormGroup className={`my-5`}>
-        <label>
-          Title name<span className="text-red">*</span>
-        </label>
-        <Input className="w-9/12" type="text" placeholder="Category name" />
+        <label>Title name<span className='text-red-700'>*</span></label>
+        <Input value={data.titleName} className="w-9/12" type="text" placeholder="Category name" />
       </FormGroup>
 
       <FormGroup className={`my-5`}>
@@ -38,13 +40,12 @@ export default function AddContent() {
           <FormControl fullWidth>
             <Select
               id="demo-simple-select"
-              value={contentType}
+              value={data.contentType}
               onChange={handleChange}
               variant="standard"
             >
               <MenuItem value={10}>NEWS</MenuItem>
               <MenuItem value={20}>FAQ</MenuItem>
-              <MenuItem value={30}>KTM</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -59,9 +60,8 @@ export default function AddContent() {
       </FormGroup>
 
       <div>
-        <label>Short descripti</label>
-        <br />
-        <textarea className="text-white" rows={3} cols={50}></textarea>
+        <label>Short descripti</label><br />
+        <textarea id='shortDescripti' value={data.shortDescripti} className="text-white" rows={3} cols={50}></textarea>
       </div>
 
       <Switches title="Publish/Unpublish" />

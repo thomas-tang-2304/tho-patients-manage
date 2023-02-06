@@ -1,6 +1,5 @@
-import React from 'react';
-import { Button, Stack } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
+import React from 'react'
+import { Stack, Snackbar } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 export default function notifyPopup({ title, state }: any) {

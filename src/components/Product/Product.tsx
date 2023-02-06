@@ -1,10 +1,3 @@
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable react/jsx-key */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, {
   MutableRefObject,
   ReactNode,
@@ -14,15 +7,15 @@ import React, {
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
+import Modal from '@/utils/UIs/Modal';
 import BasicTable from '@/utils/UIs/Table';
-import axios from 'axios';
+import ViewIcon from '@/utils/UIs/ViewIcon';
 import PaginatedItems from '@/utils/UIs/ReactPagination';
+import axios from 'axios';
 import { NextRouter, useRouter } from 'next/router';
 
 import Cookies from 'universal-cookie';
-import Modal from '@/utils/UIs/Modal';
 import AddProduct from './AddProductModal';
-import ViewIcon from '@/utils/UIs/ViewIcon';
 
 const cookies = new Cookies();
 
@@ -34,8 +27,7 @@ export default function Product() {
   const source: any = axios.CancelToken.source();
 
   const router: NextRouter = useRouter();
-  const SearchProductInput: MutableRefObject<string | undefined | any> =
-    useRef();
+  const SearchProductInput: MutableRefObject<string | undefined | any> = useRef();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber]: any = useState(router.query.page);
@@ -121,7 +113,6 @@ export default function Product() {
     setCallApiPending(true);
 
     const call = async () => {
-      // 856acdfc5c0a4656aa38af32a63ff7f4
       return await axios
         .get(
           `https://dev-api.digiex.asia/calobye-be-dev/api/product/${SearchProductInput.current.value}`,
@@ -192,8 +183,9 @@ export default function Product() {
           <div className="">
             <Modal
               component={<AddProduct />}
-              action_name={'+ Add Product'}
-              width={'75%'}
+              action_name='+ Add Product'
+              saveClick='save'
+              width='75%'
             />
           </div>
         </form>
