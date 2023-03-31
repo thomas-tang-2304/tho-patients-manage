@@ -1,82 +1,69 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/quotes */
 import React, {
   MutableRefObject,
-  ReactNode,
   useLayoutEffect,
   useRef,
   useState,
 } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
-import Modal from '@/utils/UIs/Modal';
 import BasicTable from '@/utils/UIs/Table';
-import ViewIcon from '@/utils/UIs/ViewIcon';
-import PaginatedItems from '@/utils/UIs/ReactPagination';
 import axios from 'axios';
+import PaginatedItems from '@/utils/UIs/ReactPagination';
 import { NextRouter, useRouter } from 'next/router';
 
 import Cookies from 'universal-cookie';
-import AddProduct from './AddProductModal';
+import ViewIcon from '@/utils/UIs/ViewIcon';
+import Modal from '@/utils/UIs/Modal';
+import AddCustomer from './AddCustomer';
 
 const cookies = new Cookies();
 
-export default function Product() {
-  // curl - X 'GET' \
-  // 'https://dev-api.digiex.asia/calobye-be-dev/api/orders/page?page_number=1&page_size=10&asc_sort=false' \
-  // -H 'accept: */*' \
-  // -H 'Auth-Token: 02d0a36b3dc4436d9cda4d072382c73f'
-  const source: any = axios.CancelToken.source();
-
+export default function CustomerManagement() {
   const router: NextRouter = useRouter();
-  const SearchProductInput: MutableRefObject<string | undefined | any> = useRef();
+
+  const SeachCustomerInput: MutableRefObject<string | undefined | any> =
+    useRef();
+  const source: any = axios.CancelToken.source();
 
   const [token, setToken] = useState(cookies.get('account_token'));
   const [pageNumber, setPageNumber]: any = useState(router.query.page);
   const [callApiPending, setCallApiPending] = useState(false);
   const [instance, setInstance]: any = useState([]);
-  const [productsLength, setProductsLength] = useState(0);
+  const [customerLength, setCustomerLength] = useState(0);
 
   const offsets = {
-    size: 5,
+    size: 10,
   };
 
-  const tableHeader = [
-    'Image',
-    'Product name',
-    'Price',
-    'Create date',
-    'Status',
-    'Action',
-  ];
+  const tableHeader = ['User Email', 'Fullname', 'Status', 'Action'];
 
   function createData(
-    image: string,
-    product_name: string,
-    price: number,
-    create_date: ReactNode,
+    usermail: string,
+    fullname: string,
     status: string,
   ) {
     return [
       {
-        type: 'image',
-        content: image,
+        type: 'text',
+        content: usermail,
       },
-      product_name,
-      price,
-      create_date,
+      fullname,
       status,
-      <ViewIcon key={1} />,
+      <ViewIcon />,
     ];
   }
 
   async function fetchMyAPI(p: number | string | string[]) {
     setCallApiPending(true);
 
-    return await axios
-      .get('https://dev-api.digiex.asia/calobye-be-dev/api/product', {
+    await axios
+      .get('https://dev-api.digiex.asia/calobye-be-dev/api/customer', {
         params: {
-          asc_sort: 'false',
           page_number: p,
           page_size: offsets.size,
+          asc_sort: 'false',
         },
         headers: {
           accept: '*/*',
@@ -86,21 +73,19 @@ export default function Product() {
       })
       .then((data: any) => {
         setPageNumber(p);
-        setProductsLength(data?.data?.data?.total_elements);
+        setCustomerLength(data?.data?.data?.total_elements);
         setInstance(
           data?.data?.data?.content?.map((item: any) =>
             createData(
-              item.thumbnail,
-              item.product_name,
-              item.price,
-              item.created_date,
-              item.status,
+              item.email,
+              `${item.first_name ?? ''} ${item.last_name ?? ''}`,
+              item.is_receive_promotion ? 'ACTIVE' : 'INACTIVE',
             ),
           ),
         );
       })
       .catch((err) => {
-        setProductsLength(0);
+        setCustomerLength(0);
         setInstance([]);
         console.log(err);
       })
@@ -109,13 +94,13 @@ export default function Product() {
       });
   }
 
-  const searchProduct = () => {
+  const searchCustomer = () => {
     setCallApiPending(true);
 
     const call = async () => {
       return await axios
         .get(
-          `https://dev-api.digiex.asia/calobye-be-dev/api/product/${SearchProductInput.current.value}`,
+          `https://dev-api.digiex.asia/calobye-be-dev/api/customer/${SeachCustomerInput.current.value}`,
           {
             headers: {
               accept: '*/*',
@@ -125,19 +110,17 @@ export default function Product() {
         )
         .then((res: any) => {
           const { data } = res;
-          setProductsLength(1);
+          setCustomerLength(1);
           setInstance([
             createData(
-              data.data.thumbnail,
-              data.data.product_name,
-              data.data.price,
-              data.data.created_date,
-              data.data.status,
+              data.data.email,
+              `${data.data.first_name ?? ''} ${data.data.last_name ?? ''}`,
+              data.data.is_receive_promotion ? 'ACTIVE' : 'INACTIVE',
             ),
           ]);
         })
         .catch((err) => {
-          setProductsLength(0);
+          setCustomerLength(0);
           setInstance([]);
           console.log(err);
         })
@@ -145,7 +128,7 @@ export default function Product() {
           setCallApiPending(false);
         });
     };
-    if (SearchProductInput.current.value != '') call();
+    if (SeachCustomerInput.current.value != '') call();
     else {
       if (router.query.page) fetchMyAPI(router.query.page);
       else fetchMyAPI(1);
@@ -166,27 +149,22 @@ export default function Product() {
     <>
       <div className={`p-4 w-3/4 `}>
         <div className={`ml-2 text-3xl w-fit`}>
-          <h1 className={`font-bold mb-3`}>Product Management</h1>
+          <h1 className={`font-bold mb-3 text-black`}>Support</h1>
         </div>
         <form action="" className="flex items-center justify-between">
           <div className="flex items-center border-2 w-60 first-letter:input-icons">
-            <span className="icon" onClick={searchProduct}>
+            <span className="icon" onClick={searchCustomer}>
               <BsSearch />
             </span>
             <input
               className="input-field"
               type="text"
               placeholder="Search Product"
-              ref={SearchProductInput}
+              ref={SeachCustomerInput}
             />
           </div>
           <div className="">
-            <Modal
-              component={<AddProduct />}
-              action_name='+ Add Product'
-              saveClick='save'
-              width='75%'
-            />
+            <Modal component={<AddCustomer />} action_name="+ Add customer" saveClick='save'/>
           </div>
         </form>
         <div className={`table-container py-4`}>
@@ -195,7 +173,7 @@ export default function Product() {
             rows={instance}
             headers={tableHeader}
             callApiPending={callApiPending}
-            component={'product'}
+            component={'customer-management'}
           />
         </div>
 
@@ -203,9 +181,9 @@ export default function Product() {
           {pageNumber && (
             <PaginatedItems
               itemsPerPage={offsets.size}
-              items={productsLength}
+              items={customerLength}
               router={router}
-              currentPath={'/product'}
+              currentPath={'/support'}
             />
           )}
         </div>

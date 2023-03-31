@@ -13,7 +13,7 @@ body {
   --pagination-active-border-color: #ffb451;
   --pagination-active-color: #ffb451;
   --pagination-color: rgb(0, 0, 0);
-  --primary-color: #064055;
+  --primary-color: linear-gradient(to bottom, #77a1d3, #79cbca, #e684ae);
 
   background: #f3efe0;
 

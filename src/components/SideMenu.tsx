@@ -13,14 +13,12 @@ import { FiLogOut } from 'react-icons/fi';
 import Cookies from 'universal-cookie';
 import { GoDashboard, GoGift } from 'react-icons/go';
 import {
-  MdShoppingCart,
-  MdReviews,
-  MdCategory,
   MdOutlineContentPaste,
   MdOutlineAdminPanelSettings,
-  MdSupervisedUserCircle,
   MdOutlineSettings,
 } from 'react-icons/md';
+import {TiMessages} from 'react-icons/ti';
+import {CiPillsBottle1} from 'react-icons/ci';
 
 const cookies = new Cookies();
 interface SideList {
@@ -29,7 +27,7 @@ interface SideList {
   className: string;
 }
 
-const linkClassName = 'py-2 cursor-pointer px-4 text-xl text-white';
+const linkClassName = 'py-2 cursor-pointer px-4 text-md text-white';
 const activeLinkClassName = `py-2 cursor-pointer px-4 text-black font-bold text-2xl bg-white px-4 rounded`;
 
 export default function SideMenu({ currentPath }: { currentPath: string }) {
@@ -46,33 +44,15 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
         className: linkClassName,
       },
       {
-        icon: <MdShoppingCart />,
-        content: 'Order',
-        href: '/order',
-        className: linkClassName,
-      },
-      {
-        icon: <GoGift />,
-        content: 'Product',
-        href: '/product',
-        className: linkClassName,
-      },
-      {
-        icon: <MdReviews />,
-        content: 'Review',
-        href: '/review',
-        className: linkClassName,
-      },
-      {
-        icon: <MdCategory />,
-        content: 'Category',
-        href: '/category',
+        icon: <CiPillsBottle1 />,
+        content: 'Disease prediction',
+        href: '/disease-prediction',
         className: linkClassName,
       },
       {
         icon: <MdOutlineContentPaste />,
-        content: 'Content',
-        href: '/content',
+        content: 'Patient history',
+        href: '/patient-history',
         className: linkClassName,
       },
       {
@@ -82,9 +62,9 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
         className: linkClassName,
       },
       {
-        icon: <MdSupervisedUserCircle />,
-        content: 'Customer management',
-        href: '/customer-management',
+        icon: <TiMessages />,
+        content: 'Support',
+        href: '/support',
         className: linkClassName,
       },
       {
@@ -110,13 +90,15 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
     );
   }, []);
 
+  console.log(list)
+
   return (
     <div
       className={`w-1/4 ${styles['side-menu']} flex flex-col justify-between `}
     >
       <div className={`p-4`}>
         <div className={`${styles.logo} ml-2 w-fit rounded`}>
-          <h1 className={`py-5 px-[50px] shadow-md`}>Logo Calobye</h1>
+          <h1 className={`py-5 px-[50px] font-bold shadow-xl`}>Bệnh Viện Thỏ 7 Màu</h1>
         </div>
         <div className="flex flex-col justify-between">
           <ul className="py-3 ml-2">
