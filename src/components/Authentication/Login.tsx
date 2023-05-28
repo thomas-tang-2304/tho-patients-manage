@@ -14,6 +14,7 @@ import Notify from './notifyPopup';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import hashPass from 'md5';
+import usersIns from '../../utils/users.json';
 
 const cookies = new Cookies();
 
@@ -53,47 +54,49 @@ export default function Login() {
   };
 
   const loginClick = async () => {
-    await axios
-      .post(
-        'https://dev-api.digiex.asia/calobye-be-dev/api/auth/login',
-        {
-          login_id: userName,
-          password_hash: passWord,
-          user_role: 'SYSTEM_ADMIN',
-          keep_login: true,
-        },
-        {
-          headers: {
-            accept: '*/*',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .then((res: any) => {
-        const result = res?.data?.status;
 
-        cookies.set('account_token', res.data.data.id, {
-          secure: process.env.NODE_ENV !== 'development',
-          maxAge: res.data.data.expiry_date,
-          sameSite: 'strict',
-          path: '/',
-        });
+    // await axios
+    //   .post(
+    //     'https://dev-api.digiex.asia/calobye-be-dev/api/auth/login',
+    //     {
+    //       login_id: userName,
+    //       password_hash: passWord,
+    //       user_role: 'SYSTEM_ADMIN',
+    //       keep_login: true,
+    //     },
+    //     {
+    //       headers: {
+    //         accept: '*/*',
+    //         'Content-Type': 'application/json',
+    //       },
+    //     },
+    //   )
+    //   .then((res: any) => {
+    //     const result = res?.data?.status;
 
+    //     cookies.set('account_token', res.data.data.id, {
+    //       secure: process.env.NODE_ENV !== 'development',
+    //       maxAge: res.data.data.expiry_date,
+    //       sameSite: 'strict',
+    //       path: '/',
+    //     });
+    const isValidAuth = usersIns.map((u) => u.username).includes(userName) && usersIns[usersIns.map((u) => u.username).indexOf(userName)].password == passWord;
+    console.log(isValidAuth);
         setNotifyModal(
-          result == 200 ? (
+          isValidAuth ? (
             <Notify title={'success'} state={'success'} />
           ) : (
             <Notify title={'Invalid user name and password'} state={'error'} />
           ),
         );
 
-        result == 200
+        isValidAuth
           ? setTimeout(() => {
               router.push('/');
             }, 2000)
           : null;
-      })
-      .catch((error: any) => error);
+      // })
+      // .catch((error: any) => error);
   };
 
   return (
