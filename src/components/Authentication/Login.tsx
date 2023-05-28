@@ -20,7 +20,7 @@ const cookies = new Cookies();
 
 export default function Login() {
   const [cookie, setCookie] = useState();
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useState<string>();
   const [passWord, setPassWord] = useState<string>();
   const [isDisabled, setIsDisabled] = useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
@@ -80,8 +80,8 @@ export default function Login() {
     //       sameSite: 'strict',
     //       path: '/',
     //     });
-    const isValidAuth = usersIns.map((u) => u.username).includes(userName) && usersIns[usersIns.map((u) => u.username).indexOf(userName)].password == passWord;
-    console.log(isValidAuth);
+      const isValidAuth = usersIns.map((u) => u.username).includes(userName) && usersIns[usersIns.map((u) => u.username).indexOf(userName)].password == passWord;
+    
         setNotifyModal(
           isValidAuth ? (
             <Notify title={'success'} state={'success'} />
@@ -92,8 +92,9 @@ export default function Login() {
 
         isValidAuth
           ? setTimeout(() => {
+              cookies.set('account_token', usersIns[usersIns.map((u) => u.username).indexOf(userName)]);
               router.push('/');
-            }, 2000)
+            }, 0)
           : null;
       // })
       // .catch((error: any) => error);

@@ -88,9 +88,12 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
           : li,
       ),
     );
+    return () => {
+      console.log("navigate");
+    }
   }, []);
 
-  console.log(list)
+  // console.log(list)
 
   return (
     <div
@@ -113,9 +116,9 @@ export default function SideMenu({ currentPath }: { currentPath: string }) {
               </li>
             ))}
             <li
-              onClick={() => {
+              onClick={async () => {
                 cookies.remove('account_token');
-                router.push('./login');
+                await router.push('/login');
               }}
               className={`${styles.logout} text-white text-xl`}
             >
