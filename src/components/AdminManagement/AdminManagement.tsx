@@ -43,27 +43,20 @@ export default function AdminManagement() {
     setCallApiPending(true);
 
     return await axios
-      .get(`https://dev-api.digiex.asia/calobye-be-dev/api/admin`, {
-        params: {
-          page_number: p,
-          size_number: offsets.size,
-          asc_sort: `false`,
-        },
-        headers: {
-          accept: `*/*`,
-          'Auth-Token': token,
-        },
-        cancelToken: source.token,
+      .get(`https://jsonplaceholder.typicode.com/comments`, {
+        
       })
       .then((data: any) => {
-        setPageNumber(p);
+        console.log(data?.data?.length)
+        console.log(p)
+        setPageNumber(Math.ceil(data?.data?.length / 10));
         setProductsLength(data?.data?.data?.total_elements);
         setInstance(
-          data?.data?.data?.content?.map((item: any) =>
+          data?.data?.slice((p-1)*10,(p-1)*10+10).map((item: any) =>
             createData(
               item.email,
-              `${item.first_name ?? ``} ${item.last_name ?? ``}`,
-              item.status,
+              `${item.name}`,
+              item.body,
             ),
           ),
         );

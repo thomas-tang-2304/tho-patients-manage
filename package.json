@@ -59,7 +59,6 @@
     "@typescript-eslint/parser": "5.47.0",
     "autoprefixer": "10.4.13",
     "cors": "^2.8.5",
-    "eslint": "8.30.0",
     "eslint-config-next": "13.1.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-import-resolver-typescript": "3.5.2",
