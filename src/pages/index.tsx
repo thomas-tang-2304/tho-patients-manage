@@ -16,8 +16,8 @@ export default function Home({ dataHook }: { dataHook: any }) {
   useEffect(() => {
     if (!cookies.get('account_token')) {
       router.push('/login');
-    }
-  }, []);
+    } 
+  }, [cookies.get('account_token')]);
   return (
     <div className={`container mx-auto`}>
       <Head>

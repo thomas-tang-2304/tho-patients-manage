@@ -20,8 +20,8 @@ const cookies = new Cookies();
 
 export default function Login() {
   const [cookie, setCookie] = useState();
-  const [userName, setUserName] = useState<string>();
-  const [passWord, setPassWord] = useState<string>();
+  const [userName, setUserName] = useState<string>('');
+  const [passWord, setPassWord] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
   const [notifyModal, setNotifyModal] = React.useState<any>(null);
@@ -105,7 +105,7 @@ export default function Login() {
       {notifyModal}
       <div className={`${styles.login} h-96 w-96 text-center text-black`}>
         <div className={`${styles.title} text-4xl h-14`}>CALOBYE</div>
-        <FormGroup className="grid justify-around">
+        <FormGroup className="flex justify-around content-center">
           <Input
             className="mb-5"
             type="text"
